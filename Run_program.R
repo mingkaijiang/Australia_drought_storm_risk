@@ -20,11 +20,7 @@ source("prepare.R")
 ###########################################################################################
 ### +++++++++++++++ Basic code to generate climate extreme index +++++++++++++++++++++ ####
 #### Structure:
-#### 1. prepare storage DF
-#### 2. loop through custom-defined year, 
-####    and perform monthly mean, sd and n calculation, based on 6-hourly data
-#### 3. prepare annual storage DF
-#### 4. prepare sea surface mask
+#### 1. 
 
 
 
