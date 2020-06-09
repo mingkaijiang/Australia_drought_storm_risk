@@ -1,7 +1,12 @@
 convert_from_spatial_to_temporal_DF <- function(sourceDir, destDir) {
     
+    #### Create output folder
+    if(!dir.exists(destDir)) {
+        dir.create(destDir, showWarnings = FALSE)
+    }
+    
     ### prepare year DFs
-    yr.list <- c(1900:2018)
+    yr.list <- c(1900:2017)
     n.yr <- length(yr.list)
     
     ### number of leap years
@@ -26,12 +31,12 @@ convert_from_spatial_to_temporal_DF <- function(sourceDir, destDir) {
     colnames(latlonDF) <- c("latID", "lonID", "lat", "lon")
     
     ### add group information to split the DF to make it smaller
-    latlonDF$Group <- c(rep(c(1:17), each = 886 * 40), 
-                        rep(18, each=886 * 11))
+    latlonDF$Group <- c(rep(c(1:23), each = 886 * 30), 
+                        rep(23, each=886 * 1))
     
     ### prepare all input file path
     dayDF <- data.frame(seq.Date(as.Date("1900/01/01"), 
-                                 as.Date("2018/12/31"), 
+                                 as.Date("2017/12/31"), 
                                  by="day"),
                         NA, NA, NA)
     colnames(dayDF) <- c("Date", "Year", "Lab", "Path")
@@ -60,7 +65,7 @@ convert_from_spatial_to_temporal_DF <- function(sourceDir, destDir) {
             
             for (k in lat.list.sub) {
                 ### get small k information
-                k2 <- k - 50 * (i - 1)
+                k2 <- k - 30 * (i - 1)
                 
                 ### save data
                 out[k2, , j] <- myDF$data[k,]

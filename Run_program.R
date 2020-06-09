@@ -32,7 +32,7 @@ source("prepare.R")
 #### Convert from per day to per grid
 #### Only need to run this code once
 convert_from_spatial_to_temporal_DF(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/rain/", 
-                                    destDir = "output")
+                                    destDir = "/Volumes/TOSHIBAEXT/AWAP/output")
 
 #### 2. Calculate drought index:
 #### For each grid, merge all daily data,
