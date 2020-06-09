@@ -26,8 +26,8 @@ convert_from_spatial_to_temporal_DF <- function(sourceDir, destDir) {
     colnames(latlonDF) <- c("latID", "lonID", "lat", "lon")
     
     ### add group information to split the DF to make it smaller
-    latlonDF$Group <- c(rep(c(1:13), each = 886 * 50), 
-                        rep(14, each=886 * 41))
+    latlonDF$Group <- c(rep(c(1:17), each = 886 * 40), 
+                        rep(18, each=886 * 11))
     
     ### prepare all input file path
     dayDF <- data.frame(seq.Date(as.Date("1900/01/01"), 
@@ -41,7 +41,7 @@ convert_from_spatial_to_temporal_DF <- function(sourceDir, destDir) {
                          dayDF$Lab, ".grid")
     
     #### To process the raw data into groupped output
-    for (i in c(1:14)) {
+    for (i in c(1:18)) {
         
         ### get subset lat information
         lat.sub <- subset(latlonDF, Group == i)

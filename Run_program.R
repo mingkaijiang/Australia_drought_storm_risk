@@ -29,6 +29,10 @@ source("prepare.R")
 ####    Only need to run this code once
 #unzip_all_z_files(s.yr = 1900, e.yr = 2018)
 
+#### Convert from per day to per grid
+#### Only need to run this code once
+convert_from_spatial_to_temporal_DF(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/rain/", 
+                                    destDir = "output")
 
 #### 2. Calculate drought index:
 #### For each grid, merge all daily data,
@@ -37,7 +41,6 @@ source("prepare.R")
 #### When counting number of drought days, output start and end date.
 compute_drought_index(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/rain/", 
                       destDir = "output")
-
 
 #### 3.1. Calculate storm index, based on daily data;
 #### For each grid, merge all daily data,
