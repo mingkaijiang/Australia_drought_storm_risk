@@ -1,4 +1,4 @@
-compute_storm_index <- function(sourceDir, destDir) {
+convert_from_spatial_to_temporal_DF <- function(sourceDir, destDir) {
     
     ### prepare year DFs
     yr.list <- c(1900:2018)
