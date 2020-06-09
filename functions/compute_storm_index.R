@@ -6,7 +6,7 @@ compute_storm_index <- function(sourceDir, destDir) {
     
     ### number of leap years
     lp.year <- 29
-    n.days <- 29 * 30 + n.yr * 365
+    n.days <- 29 + n.yr * 365
     
     ### grid information
     lat.id <- c(1:691)
@@ -26,8 +26,8 @@ compute_storm_index <- function(sourceDir, destDir) {
     colnames(latlonDF) <- c("latID", "lonID", "lat", "lon")
     
     ### add group information to split the DF to make it smaller
-    latlonDF$Group <- c(rep(c(1:100), each = 6122), 
-                        rep(101, each=26))
+    latlonDF$Group <- c(rep(c(1:69), each = 886 * 10), 
+                        rep(69, each=886))
     
     ### prepare all input file path
     dayDF <- data.frame(seq.Date(as.Date("1900/01/01"), 
@@ -40,51 +40,44 @@ compute_storm_index <- function(sourceDir, destDir) {
     dayDF$Path <- paste0(sourceDir, dayDF$Year, "/rain_", 
                          dayDF$Lab, ".grid")
     
-    ### Prepare all year output array
-    out <- c()
-    
-    #### To process the raw data into format easily readable
-    for (i in c(1:101)) {
+    #### To process the raw data into groupped output
+    for (i in c(1:69)) {
         
-        ### create storage matrix
-        group.length <- dim(latlonDF[latlonDF$Group==i,])[1]
-        out <- array(NA, c(691, 886, group.length))
+        ### get subset lat information
+        lat.sub <- subset(latlonDF, Group == i)
+        lat.list.sub <- unique(lat.sub$latID)
+        lat.length <- length(lat.list.sub)
+        
+        ### create out storage matrix
+        out <- array(NA, c(lat.length, 886, n.days))
         
         ### read in data
-        day.length <- dim(dayDF)[1]
-        for (j in day.length) {
+        for (j in 1:n.days) {
+            
+            ## read in data
             inName <- dayDF[j,"Path"]
             myDF <- read.ascii.grid(inName)
             
-            daily.tmp[, , j] <- myDF$data
-        }
+            for (k in lat.list.sub) {
+                ### get small k information
+                k2 <- k - 10 * (i - 1)
+                
+                ### save data
+                out[k2, , j] <- myDF$data[k,]
+            }  # k loop
+        }      # j loop
+        
+        
+        ### test result
+        
         
         
         ### save output
         saveRDS(out, file=paste0(destDir, "/Group_", i, ".rds"))
-    }
+    }         # i loop
     
     
     
-    for (i in lat.id) {
-        for (j in lon.id) {
-            
-           
-            ### Read in data
-            for (j in 1:length(DatFiles)) {
-                inName <- file.path(sDir, DatFiles[j], fsep = .Platform$file.sep)
-                myDF <- read.ascii.grid(inName)
-                
-                daily.tmp[, , j] <- myDF$data
-            }   
-            
-            
-            saveRDS(out, file=paste0(destDir, "/DF", i, ".rds"))
-            
-        } # j loop
-        
-        
-    }  # i loop
 }   # function loop
 
 
