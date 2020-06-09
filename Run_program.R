@@ -35,7 +35,7 @@ source("prepare.R")
 #### Then count number of days with no rainfall (or very limited rainfall),
 #### Then compute distribution to get the extreme drought threshold.
 #### When counting number of drought days, output start and end date.
-compute_drought_index(sourceDir = "/Volumes/Volumes/TOSHIBAEXT/AWAP/rain/", 
+compute_drought_index(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/rain/", 
                       destDir = "output")
 
 

@@ -14,7 +14,9 @@ pacman::p_load(raster,
                RColorBrewer,
                ggplot2,
                cowplot,
-               doBy)    
+               doBy,
+               chillR,
+               RSAGA)    
 
 
 #### Sourcing all R files in the modules subdirectory
