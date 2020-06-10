@@ -20,10 +20,13 @@ source("prepare.R")
 ###########################################################################################
 ### +++++++++++++++ Basic code to generate climate extreme index +++++++++++++++++++++ ####
 #### Structure:
+#### 0. Download data
 #### 1. Process raw data 
 #### 2. Calculate climate extremes with alternative ways
 ####    a. drought index - duration (count number of days with no or little rainfall)
 ####    b. storm index - rainfall intensity over one / three / five / ten days after drought
+### 0 . Download AWAP data from BOM website
+#download_AWAP_rainfall_data(destDir="/Volumes/TOSHIBAEXT/AWAP/rain/")
 
 #### 1. Unzip all .z files
 ####    Only need to run this code once
@@ -31,32 +34,28 @@ source("prepare.R")
 
 #### Convert from per day to per grid
 #### Only need to run this code once
-convert_from_spatial_to_temporal_DF(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/rain/", 
-                                    destDir = "/Volumes/TOSHIBAEXT/AWAP/output")
+#convert_from_spatial_to_temporal_DF(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/rain/", 
+#                                    destDir = "/Volumes/TOSHIBAEXT/AWAP/output")
 
-#### 2. Calculate drought index:
+#### 2. Calculate storm index, based on daily data;
+#### For each grid, merge all daily data,
+#### Then compute distribution of rainfall
+#### Then get the extreme rainfall threshold
+compute_storm_index(sourceDir = "input", 
+                    destDir = "output",
+                    duration = "1-day")
+
+
+
+#### 3. Calculate drought index:
 #### For each grid, merge all daily data,
 #### Then count number of days with no rainfall (or very limited rainfall),
 #### Then compute distribution to get the extreme drought threshold.
 #### When counting number of drought days, output start and end date.
-compute_drought_index(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/rain/", 
-                      destDir = "output")
+compute_drought_index(sourceDir = "input", 
+                      destDir = "output",
+                      duration = "1-year")
 
-#### 3.1. Calculate storm index, based on daily data;
-#### For each grid, merge all daily data,
-#### Then compute distribution of rainfall
-#### Then get the extreme rainfall threshold
-#### Also output start and end date for the extreme rainfall
-compute_storm_index_daily()
-
-
-#### 3.2. Same as 3.1, but based on 3-day total rainfall
-
-
-#### 3.3. Same as 3.1, but based on 5 day total rainfall
-
-
-#### 3.4. Same as 3.1, but based on 7 day total rainfall
 
 
 #### 4. For each extreme rainfall event, obtain number of droughted days before the rainfall event

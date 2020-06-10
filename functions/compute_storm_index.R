@@ -1,78 +1,168 @@
-compute_storm_index <- function(sourceDir, destDir) {
+compute_storm_index <- function(sourceDir, destDir, duration) {
     
-    ### prepare year DFs
-    yr.list <- c(1900:2018)
-    n.yr <- length(yr.list)
     
-    ### number of leap years
-    lp.year <- 29
-    n.days <- 29 + n.yr * 365
+    ### read in the R database
+    myData <- readRDS(paste0(sourceDir, "/Group_1.rds"))
     
-    ### grid information
-    lat.id <- c(1:691)
-    lat.lab <- paste0("lat", lat.id)
+    ### dimension information
+    dim1 <- dim(myData)[1]
+    dim2 <- dim(myData)[2]
+    dim3 <- dim(myData)[3]
     
-    lon.id <- c(1:886)
-    lon.lab <- paste0("lon", lon.id)
     
-    lon <- seq(111.975, 111.975 + (0.05 * 885), by=0.05)
-    lat <- seq(-44.525, -44.525 + (0.05 * 690), by=0.05)
+    ### prepare storage DF to store extreme rainfall percentile information
+    out_percentile <- array(NA, c(dim1, dim2, 9))
     
-    ### create lon lat DF for future plotting
-    latlonDF <- data.frame(rep(lat.id, each = max(lon.id)),
-                           rep(lon.id, max(lat.id)), 
-                           rep(lat, each = max(lon.id)),
-                           rep(lon, max(lat.id)))
-    colnames(latlonDF) <- c("latID", "lonID", "lat", "lon")
     
-    ### add group information to split the DF to make it smaller
-    latlonDF$Group <- c(rep(c(1:13), each = 886 * 50), 
-                        rep(14, each=886 * 41))
-    
-    ### prepare all input file path
-    dayDF <- data.frame(seq.Date(as.Date("1900/01/01"), 
-                                 as.Date("2018/12/31"), 
-                                 by="day"),
-                        NA, NA, NA)
-    colnames(dayDF) <- c("Date", "Year", "Lab", "Path")
-    dayDF$Year <- year(dayDF$Date)
-    dayDF$Lab <- gsub("-", "", dayDF$Date)
-    dayDF$Path <- paste0(sourceDir, dayDF$Year, "/rain_", 
-                         dayDF$Lab, ".grid")
-    
-    #### To process the raw data into groupped output
-    for (i in c(1:14)) {
-        
-        ### get subset lat information
-        lat.sub <- subset(latlonDF, Group == i)
-        lat.list.sub <- unique(lat.sub$latID)
-        lat.length <- length(lat.list.sub)
-        
-        ### create out storage matrix
-        out <- array(NA, c(lat.length, 886, n.days))
-        
-        ### read in data
-        for (j in 1:n.days) {
-            
-            ## read in data
-            inName <- dayDF[j,"Path"]
-            myDF <- read.ascii.grid(inName)
-            
-            for (k in lat.list.sub) {
-                ### get small k information
-                k2 <- k - 50 * (i - 1)
+    ### loop each grid
+    for (i in 1:dim1) {
+        for (j in 1:dim2) {
+            ### get the rainfall data for each grid
+            all <- myData[i,j,]
+
+            ### get precipitation percentile
+            if (duration == "1-day") {
                 
-                ### save data
-                out[k2, , j] <- myDF$data[k,]
-            }  # k loop
-        }      # j loop
-        
-        ### save output
-        saveRDS(out, file=paste0(destDir, "/Group_", i, ".rds"))
-    }   # i loop
+                ## remove zero precipitation
+                sub <- all[!all==0]
+                
+                ## percentile
+                P999 <- quantile(sub, 0.999, na.rm=T)
+                P99 <- quantile(sub, 0.99, na.rm=T)
+                P95 <- quantile(sub, 0.95, na.rm=T)
+                P90 <- quantile(sub, 0.90, na.rm=T)
+                P80 <- quantile(sub, 0.80, na.rm=T)
+                P70 <- quantile(sub, 0.70, na.rm=T)
+                P60 <- quantile(sub, 0.60, na.rm=T)
+                P50 <- quantile(sub, 0.50, na.rm=T)
+                P40 <- quantile(sub, 0.40, na.rm=T)
+                
+                
+            } else if (duration == "2-day") {
+                
+                ### assign NA to first day
+                DF2 <- c()
+                DF2[1] <- NA
+                
+                ## calculate 2-day running total
+                for (k in 2:dim3) {
+                    DF2[k] <- sum(all[(k-1):k])
+                    k <- k+1
+                }
+                
+                sub <- DF2[DF2>0.0]
+                
+                ## percentile
+                P999 <- quantile(sub, 0.999, na.rm=T)
+                P99 <- quantile(sub, 0.99, na.rm=T)
+                P95 <- quantile(sub, 0.95, na.rm=T)
+                P90 <- quantile(sub, 0.90, na.rm=T)
+                P80 <- quantile(sub, 0.80, na.rm=T)
+                P70 <- quantile(sub, 0.70, na.rm=T)
+                P60 <- quantile(sub, 0.60, na.rm=T)
+                P50 <- quantile(sub, 0.50, na.rm=T)
+                P40 <- quantile(sub, 0.40, na.rm=T)
+                
+            } else if (duration == "3-day") {
+                
+                ### assign NA to first two days
+                DF2 <- c()
+                DF2[1] <- NA
+                DF2[2] <- NA
+                
+                ## calculate 3-day running total
+                for (k in 3:dim3) {
+                    DF2[k] <- sum(all[(k-2):k])
+                    k <- k+1
+                }
+                
+                sub <- DF2[DF2>0.0]
+                
+                ## percentile
+                P999 <- quantile(sub, 0.999, na.rm=T)
+                P99 <- quantile(sub, 0.99, na.rm=T)
+                P95 <- quantile(sub, 0.95, na.rm=T)
+                P90 <- quantile(sub, 0.90, na.rm=T)
+                P80 <- quantile(sub, 0.80, na.rm=T)
+                P70 <- quantile(sub, 0.70, na.rm=T)
+                P60 <- quantile(sub, 0.60, na.rm=T)
+                P50 <- quantile(sub, 0.50, na.rm=T)
+                P40 <- quantile(sub, 0.40, na.rm=T)
+                
+            } else if (duration == "4-day") {
+                
+                ### assign NA to first three days
+                DF2 <- c()
+                DF2[1] <- NA
+                DF2[2] <- NA
+                DF2[3] <- NA
+                
+                ## calculate 4-day running total
+                for (k in 4:dim3) {
+                    DF2[k] <- sum(all[(k-3):k])
+                    k <- k+1
+                }
+                
+                sub <- DF2[DF2>0.0]
+                
+                ## percentile
+                P999 <- quantile(sub, 0.999, na.rm=T)
+                P99 <- quantile(sub, 0.99, na.rm=T)
+                P95 <- quantile(sub, 0.95, na.rm=T)
+                P90 <- quantile(sub, 0.90, na.rm=T)
+                P80 <- quantile(sub, 0.80, na.rm=T)
+                P70 <- quantile(sub, 0.70, na.rm=T)
+                P60 <- quantile(sub, 0.60, na.rm=T)
+                P50 <- quantile(sub, 0.50, na.rm=T)
+                P40 <- quantile(sub, 0.40, na.rm=T)
+                
+            } else if (duration == "5-day") {
+                
+                ### assign NA to first four days
+                DF2 <- c()
+                DF2[1] <- NA
+                DF2[2] <- NA
+                DF2[3] <- NA
+                DF2[4] <- NA
+                
+                ## calculate 5-day running total
+                for (k in 5:dim3) {
+                    DF2[k] <- sum(all[(k-4):k])
+                    k <- k+1
+                }
+                
+                sub <- DF2[DF2>0.0]
+                
+                ## percentile
+                P999 <- quantile(sub, 0.999, na.rm=T)
+                P99 <- quantile(sub, 0.99, na.rm=T)
+                P95 <- quantile(sub, 0.95, na.rm=T)
+                P90 <- quantile(sub, 0.90, na.rm=T)
+                P80 <- quantile(sub, 0.80, na.rm=T)
+                P70 <- quantile(sub, 0.70, na.rm=T)
+                P60 <- quantile(sub, 0.60, na.rm=T)
+                P50 <- quantile(sub, 0.50, na.rm=T)
+                P40 <- quantile(sub, 0.40, na.rm=T)
+                
+            } else {
+                print("no calculation option")
+            }
+            
+            ### assign value
+            out_percentile[i,j, 1] <- P999
+            out_percentile[i,j, 2] <- P99
+            out_percentile[i,j, 3] <- P95
+            out_percentile[i,j, 4] <- P90
+            out_percentile[i,j, 5] <- P80
+            out_percentile[i,j, 6] <- P70
+            out_percentile[i,j, 7] <- P60
+            out_percentile[i,j, 8] <- P50
+            out_percentile[i,j, 9] <- P40
+            
+        } # j loop
+    } # i loop
     
+    saveRDS(out_percentile, file=paste0(destDir, "/Group_1_", duration,
+                                        "_storm_extreme_percentile.rds"))
     
-    
-}   # function loop
-
-
+}  
