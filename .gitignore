@@ -44,4 +44,8 @@ vignettes/*.pdf
 *.pdf
 *.asc
 *.rds
+<<<<<<< HEAD
 *.z
+=======
+.Rproj.user
+>>>>>>> ea0acbf2409e340338cd578993bee595cc02d463
