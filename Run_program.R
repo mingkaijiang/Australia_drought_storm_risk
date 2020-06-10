@@ -49,9 +49,7 @@ compute_storm_index(sourceDir = "input",
 
 #### 3. Calculate drought index:
 #### For each grid, merge all daily data,
-#### Then count number of days with no rainfall (or very limited rainfall),
-#### Then compute distribution to get the extreme drought threshold.
-#### When counting number of drought days, output start and end date.
+#### Then count number of days with no rainfall (or very limited rainfall)
 compute_drought_index(sourceDir = "input", 
                       destDir = "output",
                       duration = "1-year")
