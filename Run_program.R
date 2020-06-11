@@ -37,6 +37,8 @@ source("prepare.R")
 #convert_from_spatial_to_temporal_DF(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/rain/", 
 #                                    destDir = "/Volumes/TOSHIBAEXT/AWAP/output")
 
+
+
 #### 2. Calculate storm index, based on daily data;
 #### For each grid, merge all daily data,
 #### Then compute distribution of rainfall
@@ -57,7 +59,10 @@ compute_drought_index(sourceDir = "input",
 
 
 #### 4. For each extreme rainfall event, obtain number of droughted days before the rainfall event
-compute_drought_before_storm_event()
+compute_drought_and_storm_event_severity(sourceDir = "input", 
+                                         destDir = "output",
+                                         storm.duration = "1-day",
+                                         drought.duration = "1-year")
 
 
 #### 5. Investigate how extreme the drought is before the storm event
