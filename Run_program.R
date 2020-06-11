@@ -30,7 +30,7 @@ source("prepare.R")
 
 #### 2. Unzip all .z files
 ####    Only need to run this code once
-#unzip_all_z_files(s.yr = 1900, e.yr = 2018)
+#unzip_all_z_files(s.yr = 2018, e.yr = 2020)
 
 #### 3. Convert from per day to per grid
 #### Only need to run this code once
@@ -38,8 +38,8 @@ source("prepare.R")
 #                                    destDir = "/Volumes/TOSHIBAEXT/AWAP/output")
 
 #### only for the Sydney regions for the AusGrid project
-#convert_from_spatial_to_temporal_DF_for_Sydney_regions(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/rain/", 
-#                                                       destDir = "/Volumes/TOSHIBAEXT/AWAP/output")
+convert_from_spatial_to_temporal_DF_for_Sydney_regions(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/rain/", 
+                                                       destDir = "/Volumes/TOSHIBAEXT/AWAP/output")
 
 
 ###########################################################################################
