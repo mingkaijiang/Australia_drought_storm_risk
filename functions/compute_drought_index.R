@@ -1,7 +1,7 @@
-compute_drought_index <- function(sourceDir, destDir, duration) {
+compute_drought_index <- function(sourceDir, destDir, inFile, duration) {
     
     ### read in the R database
-    myData <- readRDS(paste0(sourceDir, "/Group_1.rds"))
+    myData <- readRDS(paste0(sourceDir, "/", inFile))
     
     ### dimension information
     dim1 <- dim(myData)[1]

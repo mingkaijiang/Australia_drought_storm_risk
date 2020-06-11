@@ -37,6 +37,8 @@ source("prepare.R")
 #convert_from_spatial_to_temporal_DF(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/rain/", 
 #                                    destDir = "/Volumes/TOSHIBAEXT/AWAP/output")
 
+#convert_from_spatial_to_temporal_DF_for_Sydney_regions(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/rain/", 
+#                                                       destDir = "/Volumes/TOSHIBAEXT/AWAP/output")
 
 
 #### 2. Calculate storm index, based on daily data;
@@ -45,6 +47,7 @@ source("prepare.R")
 #### Then get the extreme rainfall threshold
 compute_storm_index(sourceDir = "input", 
                     destDir = "output",
+                    inFile = "Sydney_regions.rds",
                     duration = "1-day")
 
 
@@ -54,6 +57,7 @@ compute_storm_index(sourceDir = "input",
 #### Then count number of days with no rainfall (or very limited rainfall)
 compute_drought_index(sourceDir = "input", 
                       destDir = "output",
+                      inFile = "Sydney_regions.rds",
                       duration = "1-year")
 
 
@@ -61,6 +65,7 @@ compute_drought_index(sourceDir = "input",
 #### 4. For each extreme rainfall event, obtain number of droughted days before the rainfall event
 compute_drought_and_storm_event_severity(sourceDir = "input", 
                                          destDir = "output",
+                                         inFile = "Sydney_regions.rds",
                                          storm.duration = "1-day",
                                          drought.duration = "1-year")
 

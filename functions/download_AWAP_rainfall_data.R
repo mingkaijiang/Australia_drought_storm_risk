@@ -5,8 +5,8 @@ download_AWAP_rainfall_data <- function(destDir) {
     url1 <- "http://www.bom.gov.au/web03/ncc/www/awap/rainfall/totals/daily/grid/0.05/history/nat/"
     
     ### file names
-    day.list <- seq.Date(as.Date("2018/01/01"), 
-                         as.Date("2019/12/31"), 
+    day.list <- seq.Date(as.Date("2020/01/01"), 
+                         as.Date("2020/03/31"), 
                          by="day")
     
     day.list <- gsub("-", "", day.list)

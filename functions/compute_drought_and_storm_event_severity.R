@@ -1,11 +1,12 @@
 compute_drought_and_storm_event_severity <- function(sourceDir, 
                                                      destDir, 
+                                                     inFile,
                                                      storm.duration,
                                                      drought.duration) {
     
     
     ### read in the R database
-    myData <- readRDS(paste0(sourceDir, "/Group_1.rds"))
+    myData <- readRDS(paste0(sourceDir, "/", inFile))
     
     ### dimension information
     dim1 <- dim(myData)[1]
@@ -172,7 +173,9 @@ compute_drought_and_storm_event_severity <- function(sourceDir,
         } # j loop
     } # i loop
     
-    saveRDS(out_percentile, file=paste0(destDir, "/Group_1_", duration,
+    saveRDS(out_percentile, file=paste0(destDir, 
+                                        "/Sydney_regions_", storm.duration, "_",
+                                        drought.duration,
                                         "_storm_extreme_percentile.rds"))
     
 }  
