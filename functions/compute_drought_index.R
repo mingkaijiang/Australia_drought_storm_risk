@@ -63,7 +63,7 @@ compute_drought_index <- function(sourceDir, destDir, inFile, duration) {
                 DF2[1:365] <- NA
 
                 ## calculate 1-year running total
-                for (k in 366:dim3) {
+                for (k in c(366:dim3)) {
                     DF2[k] <- sum(all[(k-365):k], na.rm=T)
                     k <- k+1
                 }
@@ -98,7 +98,7 @@ compute_drought_index <- function(sourceDir, destDir, inFile, duration) {
                 DF2[1:730] <- NA
                 
                 ## calculate 1-year running total
-                for (k in 731:dim3) {
+                for (k in c(731:dim3)) {
                     DF2[k] <- sum(all[(k-730):k], na.rm=T)
                     k <- k+1
                 }

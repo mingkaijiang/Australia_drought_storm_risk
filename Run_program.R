@@ -77,6 +77,7 @@ compute_drought_index(sourceDir = "input",
 compute_drought_and_storm_event_severity(sourceDir = "input", 
                                          destDir = "output",
                                          inFile = "Sydney_regions.rds",
+                                         date.of.interest = "20171126",
                                          storm.duration = "1-day",
                                          drought.duration = "1-year")
 
