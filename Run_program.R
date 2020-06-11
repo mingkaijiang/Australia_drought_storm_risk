@@ -18,33 +18,42 @@ source("prepare.R")
 
 
 ###########################################################################################
-### +++++++++++++++ Basic code to generate climate extreme index +++++++++++++++++++++ ####
+### +++++++++++++++++++++ Basic code to process the raw data +++++++++++++++++++++++++ ####
 #### Structure:
-#### 0. Download data
-#### 1. Process raw data 
-#### 2. Calculate climate extremes with alternative ways
-####    a. drought index - duration (count number of days with no or little rainfall)
-####    b. storm index - rainfall intensity over one / three / five / ten days after drought
-### 0 . Download AWAP data from BOM website
+#### 1. Download data
+#### 2. Unzip files
+#### 3. Process raw data 
+
+#### 1 . Download AWAP data from BOM website
+####     Only need to run this code once.
 #download_AWAP_rainfall_data(destDir="/Volumes/TOSHIBAEXT/AWAP/rain/")
 
-#### 1. Unzip all .z files
+#### 2. Unzip all .z files
 ####    Only need to run this code once
 #unzip_all_z_files(s.yr = 1900, e.yr = 2018)
 
-#### Convert from per day to per grid
+#### 3. Convert from per day to per grid
 #### Only need to run this code once
 #convert_from_spatial_to_temporal_DF(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/rain/", 
 #                                    destDir = "/Volumes/TOSHIBAEXT/AWAP/output")
 
+#### only for the Sydney regions for the AusGrid project
 #convert_from_spatial_to_temporal_DF_for_Sydney_regions(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/rain/", 
 #                                                       destDir = "/Volumes/TOSHIBAEXT/AWAP/output")
 
 
-#### 2. Calculate storm index, based on daily data;
-#### For each grid, merge all daily data,
-#### Then compute distribution of rainfall
-#### Then get the extreme rainfall threshold
+###########################################################################################
+### +++++++++++++++ Basic code to generate climate extreme index +++++++++++++++++++++ ####
+#### Structure:
+#### 1. Calculate storm index
+#### 2. Calculate drought index
+#### 3. Calculate drought and storm severity index
+
+
+#### 1. Calculate storm index, based on Sydney region daily data;
+####     Storm index has duration options of 1 - 5 days
+####     Output a 3 dimension matrix with lat lon and 9 layers of storm index
+####     Each layer is the 99.9th, 99th, 95th, 90th, 80th, 70th, 60th, 50th, 40th percentile
 compute_storm_index(sourceDir = "input", 
                     destDir = "output",
                     inFile = "Sydney_regions.rds",
@@ -52,9 +61,11 @@ compute_storm_index(sourceDir = "input",
 
 
 
-#### 3. Calculate drought index:
-#### For each grid, merge all daily data,
-#### Then count number of days with no rainfall (or very limited rainfall)
+#### 2. Calculate drought index:
+####     Drought index has duration options of consecutive no rain days, 1-year, 2-year,
+####     Output a 3 dimension matrix with lat lon and 9 layers of storm index
+####     Each layer is the number of no rain days, 
+####     0.1th, 1th, 5th, 10th, 20th, 30th, 40th, 50th percentile of the rainfall distribution
 compute_drought_index(sourceDir = "input", 
                       destDir = "output",
                       inFile = "Sydney_regions.rds",
@@ -62,7 +73,7 @@ compute_drought_index(sourceDir = "input",
 
 
 
-#### 4. For each extreme rainfall event, obtain number of droughted days before the rainfall event
+#### 3. For each extreme rainfall event, obtain the drought severity information
 compute_drought_and_storm_event_severity(sourceDir = "input", 
                                          destDir = "output",
                                          inFile = "Sydney_regions.rds",
@@ -70,15 +81,15 @@ compute_drought_and_storm_event_severity(sourceDir = "input",
                                          drought.duration = "1-year")
 
 
-#### 5. Investigate how extreme the drought is before the storm event
+#### 4. Investigate how extreme the drought is before the storm event
 check_drought_extremeness_before_storm_event()
 
 
-#### 6. Make spatial plots
+#### 5. Make spatial plots
 
 
 
-#### 7. Make statistics
+#### 6. Make statistics
 
 ### +++++++++++++++ End basic code to generate climate extreme index ++++++++++++++++++ ####
 ############################################################################################
