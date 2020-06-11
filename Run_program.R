@@ -74,6 +74,16 @@ compute_drought_index(sourceDir = "input",
 
 
 #### 3. For each extreme rainfall event, obtain the drought severity information
+####    User can specify a particular date.of.interest,
+####    the script will calculate the short storm and aggregated rainfall data 
+####    based on user-defined storm and drought duration,
+####    then compare against the all-time extreme
+####    to indicate the severity of the storm and drought event.
+####    User-defined storm.duration can be: 1 - 5 days
+####    User-defined drought.duration can be: 1 and 2 years
+####    The script will run over the region defined in the inFile file.
+####    Output includes: table of short-term rainfall and long-term rainfall intensity
+####                     table of storm and drought severity
 compute_drought_and_storm_event_severity(sourceDir = "input", 
                                          destDir = "output",
                                          inFile = "Sydney_regions.rds",

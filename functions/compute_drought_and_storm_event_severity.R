@@ -37,6 +37,9 @@ compute_drought_and_storm_event_severity <- function(sourceDir,
     drought.on.date.of.interest <- array(NA, c(dim1, dim2))
     storm.on.date.of.interest <- array(NA, c(dim1, dim2))
     
+    drought.severity.on.date.of.interest <- array(NA, c(dim1, dim2))
+    storm.severity.on.date.of.interest <- array(NA, c(dim1, dim2))
+    
     ### calculate storm on date of interest, based on pre-defined duration threshold
     ### loop each grid
     for (i in 1:dim1) {
@@ -146,13 +149,131 @@ compute_drought_and_storm_event_severity <- function(sourceDir,
     
     ### we now have the short-term rainfall intensity and long-term rainfall total information,
     ### we can compare it against the index data.
+    for (i in 1:dim1) {
+        for (j in 1:dim2) {
+            ### get storm extreme index information
+            storm.P999 <- stormData[i,j,1]
+            storm.P99 <- stormData[i,j,2]
+            storm.P95 <- stormData[i,j,3]
+            storm.P90 <- stormData[i,j,4]
+            storm.P80 <- stormData[i,j,5]
+            storm.P70 <- stormData[i,j,6]
+            storm.P60 <- stormData[i,j,7]
+            storm.P50 <- stormData[i,j,8]
+            storm.P40 <- stormData[i,j,9]
+            
+            ### get drought extreme information
+            drought.P001 <- droughtData[i,j,1]
+            drought.P01 <- droughtData[i,j,2]
+            drought.P05 <- droughtData[i,j,3]
+            drought.P10 <- droughtData[i,j,4]
+            drought.P20 <- droughtData[i,j,5]
+            drought.P30 <- droughtData[i,j,6]
+            drought.P40 <- droughtData[i,j,7]
+            drought.P50 <- droughtData[i,j,8]
+            drought.P60 <- droughtData[i,j,9]
+            
+            ### checking drought severity
+            if (drought.on.date.of.interest[i,j]<=drought.P001) {
+                
+                drought.severity.on.date.of.interest[i,j] <- 0.1
+                
+            } else if (drought.on.date.of.interest[i,j]<=drought.P01 & drought.on.date.of.interest[i,j]>drought.P001) {
+                
+                drought.severity.on.date.of.interest[i,j] <- 1.0
+                
+            } else if (drought.on.date.of.interest[i,j]<=drought.P05 & drought.on.date.of.interest[i,j]>drought.P01) {
+                
+                drought.severity.on.date.of.interest[i,j] <- 5.0
+                
+            } else if (drought.on.date.of.interest[i,j]<=drought.P10 & drought.on.date.of.interest[i,j]>drought.P05) {
+                
+                drought.severity.on.date.of.interest[i,j] <- 10.0
+                
+            } else if (drought.on.date.of.interest[i,j]<=drought.P20 & drought.on.date.of.interest[i,j]>drought.P10) {
+                
+                drought.severity.on.date.of.interest[i,j] <- 20.0
+                
+            } else if (drought.on.date.of.interest[i,j]<=drought.P30 & drought.on.date.of.interest[i,j]>drought.P20) {
+                
+                drought.severity.on.date.of.interest[i,j] <- 30.0
+                
+            } else if (drought.on.date.of.interest[i,j]<=drought.P40 & drought.on.date.of.interest[i,j]>drought.P30) {
+                
+                drought.severity.on.date.of.interest[i,j] <- 40.0
+                
+            } else if (drought.on.date.of.interest[i,j]<=drought.P50 & drought.on.date.of.interest[i,j]>drought.P40) {
+                
+                drought.severity.on.date.of.interest[i,j] <- 50.0
+                
+            } else {
+                drought.severity.on.date.of.interest[i,j] <- 60.0
+            }
+            
+            
+            ### check storm severity
+            if (storm.on.date.of.interest[i,j]>=storm.P999) {
+                
+                storm.severity.on.date.of.interest[i,j] <- 99.9
+                
+            } else if (storm.on.date.of.interest[i,j]>=storm.P99 & storm.on.date.of.interest[i,j]<storm.P999) {
+                
+                storm.severity.on.date.of.interest[i,j] <- 99.0
+                
+            } else if (storm.on.date.of.interest[i,j]>=storm.P95 & storm.on.date.of.interest[i,j]<storm.P99) {
+                
+                storm.severity.on.date.of.interest[i,j] <- 95.0
+                
+            } else if (storm.on.date.of.interest[i,j]>=storm.P90 & storm.on.date.of.interest[i,j]<storm.P95) {
+                
+                storm.severity.on.date.of.interest[i,j] <- 90.0
+                
+            } else if (storm.on.date.of.interest[i,j]>=storm.P80 & storm.on.date.of.interest[i,j]<storm.P90) {
+                
+                storm.severity.on.date.of.interest[i,j] <- 80.0
+                
+            } else if (storm.on.date.of.interest[i,j]>=storm.P70 & storm.on.date.of.interest[i,j]<storm.P80) {
+                
+                storm.severity.on.date.of.interest[i,j] <- 70.0
+                
+            } else if (storm.on.date.of.interest[i,j]>=storm.P60 & storm.on.date.of.interest[i,j]<storm.P70) {
+                
+                storm.severity.on.date.of.interest[i,j] <- 60.0
+                
+            } else if (storm.on.date.of.interest[i,j]>=storm.P50 & storm.on.date.of.interest[i,j]<storm.P60) {
+                
+                storm.severity.on.date.of.interest[i,j] <- 50.0
+                
+            } else {
+                storm.severity.on.date.of.interest[i,j] <- 40.0
+                
+            }
+            
+            
+        } # j
+    } # i
     
     
     
     ### save output
-    saveRDS(out_percentile, file=paste0(destDir, 
-                                        "/Sydney_regions_", storm.duration, "_",
-                                        drought.duration,
-                                        "_storm_extreme_percentile.rds"))
+    saveRDS(storm.severity.on.date.of.interest, 
+            file=paste0(destDir, "/storm_severity_", date.of.interest, "_",
+                        storm.duration, "_",
+                        inFile))
+    
+    saveRDS(drought.severity.on.date.of.interest, 
+            file=paste0(destDir, "/drought_severity_", date.of.interest, "_",
+                        drought.duration, "_",
+                        inFile))
+    
+    saveRDS(storm.on.date.of.interest, 
+            file=paste0(destDir, "/storm_intensity_", date.of.interest, "_",
+                        storm.duration, "_",
+                        inFile))
+    
+    saveRDS(drought.on.date.of.interest, 
+            file=paste0(destDir, "/drought_intensity_", date.of.interest, "_",
+                        drought.duration, "_",
+                        inFile))
     
 } 
