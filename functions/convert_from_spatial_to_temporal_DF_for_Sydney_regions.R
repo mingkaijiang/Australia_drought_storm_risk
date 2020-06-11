@@ -47,9 +47,11 @@ convert_from_spatial_to_temporal_DF_for_Sydney_regions <- function(sourceDir, de
     ### get subset lat information
     lat.list.sub <- unique(latlonDF.sub$latID)
     lat.length <- length(lat.list.sub)
+    lat.id <- 1:lat.length
     
     lon.list.sub <- unique(latlonDF.sub$lonID)
     lon.length <- length(lon.list.sub)
+    lon.id <- 1:lon.length
     
     ### create out storage matrix
     out <- array(NA, c(lat.length, lon.length, n.days))
@@ -64,7 +66,7 @@ convert_from_spatial_to_temporal_DF_for_Sydney_regions <- function(sourceDir, de
         for (j in lat.list.sub) {
             for (k in lon.list.sub) {
                 ### save data
-                out[j, k, i] <- myDF$data[j,k]
+                out[lat.id, lon.id, i] <- myDF$data[j,k]
             } # k loop
         } # j loop
     } # i loop
