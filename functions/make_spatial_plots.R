@@ -54,19 +54,20 @@ make_spatial_plots <- function(sourceDir, destDir,
     colnames(latlonDF) <- c("latID", "lonID", "lat", "lon")
     
     ### add group information to split the DF to make it smaller
-    latlonDF.sub <- latlonDF[latlonDF$lat<=-35 & latlonDF$lat >= -45 & latlonDF$lon <= 155 & latlonDF$lon>=150,]
+    latlonDF.sub <- latlonDF[latlonDF$lat<=-28 & latlonDF$lat >= -36 & latlonDF$lon <= 155 & latlonDF$lon>=150,]
     
     ### get subset lat information
     lat.list.sub <- unique(latlonDF.sub$latID)
     lat.length <- length(lat.list.sub)
     lat.id <- 1:lat.length
     lat <- unique(latlonDF$lat)
+    latlonDF.sub$latID <- latlonDF.sub$latID - (min(latlonDF.sub$latID) - 1)
     
     lon.list.sub <- unique(latlonDF.sub$lonID)
     lon.length <- length(lon.list.sub)
     lon.id <- 1:lon.length
     lon <- unique(latlonDF$lon)
-    latlonDF.sub$lonID <- latlonDF.sub$lonID - 761
+    latlonDF.sub$lonID <- latlonDF.sub$lonID - (min(latlonDF.sub$lonID) - 1)
     
     ### Make spatial plot DFs
     drought.severity.long <- melt(drought.severity)

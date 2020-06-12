@@ -31,7 +31,7 @@ convert_from_spatial_to_temporal_DF_for_Sydney_regions <- function(sourceDir, de
     colnames(latlonDF) <- c("latID", "lonID", "lat", "lon")
     
     ### add group information to split the DF to make it smaller
-    latlonDF.sub <- latlonDF[latlonDF$lat<=-35 & latlonDF$lat >= -45 & latlonDF$lon <= 155 & latlonDF$lon>=150,]
+    latlonDF.sub <- latlonDF[latlonDF$lat<=-28 & latlonDF$lat >= -36 & latlonDF$lon <= 155 & latlonDF$lon>=150,]
     
     ### prepare all input file path
     dayDF <- data.frame(seq.Date(as.Date("1900/01/01"), 

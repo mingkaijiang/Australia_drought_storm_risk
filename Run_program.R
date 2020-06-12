@@ -38,8 +38,8 @@ source("prepare.R")
 #                                    destDir = "/Volumes/TOSHIBAEXT/AWAP/output")
 
 #### only for the Sydney regions for the AusGrid project
-#convert_from_spatial_to_temporal_DF_for_Sydney_regions(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/rain/", 
-#                                                       destDir = "/Volumes/TOSHIBAEXT/AWAP/output")
+convert_from_spatial_to_temporal_DF_for_Sydney_regions(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/rain/", 
+                                                       destDir = "/Volumes/TOSHIBAEXT/AWAP/output")
 
 
 ###########################################################################################
@@ -54,7 +54,7 @@ source("prepare.R")
 ####     Storm index has duration options of 1 - 5 days
 ####     Output a 3 dimension matrix with lat lon and 9 layers of storm index
 ####     Each layer is the 99.9th, 99th, 95th, 90th, 80th, 70th, 60th, 50th, 40th percentile
-compute_storm_index(sourceDir = "input", 
+compute_storm_index(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/output", 
                     destDir = "output",
                     inFile = "Sydney_regions.rds",
                     duration = "1-day")
@@ -66,7 +66,7 @@ compute_storm_index(sourceDir = "input",
 ####     Output a 3 dimension matrix with lat lon and 9 layers of storm index
 ####     Each layer is the number of no rain days, 
 ####     0.1th, 1th, 5th, 10th, 20th, 30th, 40th, 50th percentile of the rainfall distribution
-compute_drought_index(sourceDir = "input", 
+compute_drought_index(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/output", 
                       destDir = "output",
                       inFile = "Sydney_regions.rds",
                       duration = "1-year")
@@ -84,7 +84,7 @@ compute_drought_index(sourceDir = "input",
 ####    The script will run over the region defined in the inFile file.
 ####    Output includes: table of short-term rainfall and long-term rainfall intensity
 ####                     table of storm and drought severity
-compute_drought_and_storm_event_severity(sourceDir = "input", 
+compute_drought_and_storm_event_severity(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/output", 
                                          destDir = "output",
                                          inFile = "Sydney_regions.rds",
                                          date.of.interest = "20191126",

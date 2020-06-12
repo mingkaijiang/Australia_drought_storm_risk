@@ -6,12 +6,12 @@ convert_from_spatial_to_temporal_DF <- function(sourceDir, destDir) {
     }
     
     ### prepare year DFs
-    yr.list <- c(1900:2017)
+    yr.list <- c(1900:2019)
     n.yr <- length(yr.list)
     
     ### number of leap years
     lp.year <- 29
-    n.days <- 29 + n.yr * 365
+    n.days <- 29 + n.yr * 365 + 31 + 29 + 31
     
     ### grid information
     lat.id <- c(1:691)
@@ -36,7 +36,7 @@ convert_from_spatial_to_temporal_DF <- function(sourceDir, destDir) {
     
     ### prepare all input file path
     dayDF <- data.frame(seq.Date(as.Date("1900/01/01"), 
-                                 as.Date("2017/12/31"), 
+                                 as.Date("2020/03/31"), 
                                  by="day"),
                         NA, NA, NA)
     colnames(dayDF) <- c("Date", "Year", "Lab", "Path")
@@ -46,7 +46,7 @@ convert_from_spatial_to_temporal_DF <- function(sourceDir, destDir) {
                          dayDF$Lab, ".grid")
     
     #### To process the raw data into groupped output
-    for (i in c(1:18)) {
+    for (i in c(1:23)) {
         
         ### get subset lat information
         lat.sub <- subset(latlonDF, Group == i)
