@@ -134,8 +134,8 @@ compute_drought_index <- function(sourceDir, destDir, inFile, duration) {
         } # j loop
     } # i loop
     
-    saveRDS(out_percentile, file=paste0(destDir, "/Group_1_", duration,
-                                        "_drought_extreme_percentile.rds"))
+    saveRDS(out_percentile, file=paste0(destDir, "/Drought_extreme_percentile_", duration,
+                                        "_", inFile))
     
     
 }  

@@ -162,7 +162,7 @@ compute_storm_index <- function(sourceDir, destDir, inFile, duration) {
         } # j loop
     } # i loop
     
-    saveRDS(out_percentile, file=paste0(destDir, "/Group_1_", duration,
-                                        "_storm_extreme_percentile.rds"))
+    saveRDS(out_percentile, file=paste0(destDir, "/Storm_extreme_percentile_", duration,
+                                        "_", inFile))
     
 }  

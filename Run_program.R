@@ -38,8 +38,8 @@ source("prepare.R")
 #                                    destDir = "/Volumes/TOSHIBAEXT/AWAP/output")
 
 #### only for the Sydney regions for the AusGrid project
-convert_from_spatial_to_temporal_DF_for_Sydney_regions(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/rain/", 
-                                                       destDir = "/Volumes/TOSHIBAEXT/AWAP/output")
+#convert_from_spatial_to_temporal_DF_for_Sydney_regions(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/rain/", 
+#                                                       destDir = "/Volumes/TOSHIBAEXT/AWAP/output")
 
 
 ###########################################################################################
