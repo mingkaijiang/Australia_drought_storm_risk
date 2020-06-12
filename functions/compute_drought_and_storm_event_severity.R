@@ -151,15 +151,15 @@ compute_drought_and_storm_event_severity <- function(sourceDir,
     for (i in 1:dim1) {
         for (j in 1:dim2) {
             ### get storm extreme index information
-            storm.P999 <- stormData[i,j,1]
-            storm.P99 <- stormData[i,j,2]
-            storm.P95 <- stormData[i,j,3]
-            storm.P90 <- stormData[i,j,4]
-            storm.P80 <- stormData[i,j,5]
-            storm.P70 <- stormData[i,j,6]
-            storm.P60 <- stormData[i,j,7]
-            storm.P50 <- stormData[i,j,8]
-            storm.P40 <- stormData[i,j,9]
+            storm.P999 <- ifelse(is.na(stormData[i,j,1]), 0, stormData[i,j,1])
+            storm.P99 <- ifelse(is.na(stormData[i,j,2]), 0, stormData[i,j,2])
+            storm.P95 <- ifelse(is.na(stormData[i,j,3]), 0, stormData[i,j,3])
+            storm.P90 <- ifelse(is.na(stormData[i,j,4]), 0, stormData[i,j,4])
+            storm.P80 <- ifelse(is.na(stormData[i,j,5]), 0, stormData[i,j,5])
+            storm.P70 <- ifelse(is.na(stormData[i,j,6]), 0, stormData[i,j,6])
+            storm.P60 <- ifelse(is.na(stormData[i,j,7]), 0, stormData[i,j,7])
+            storm.P50 <- ifelse(is.na(stormData[i,j,8]), 0, stormData[i,j,8])
+            storm.P40 <- ifelse(is.na(stormData[i,j,9]), 0, stormData[i,j,9])
             
             ### get drought extreme information
             drought.P001 <- droughtData[i,j,1]

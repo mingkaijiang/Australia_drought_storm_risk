@@ -17,7 +17,7 @@ make_spatial_plots <- function(sourceDir, destDir,
                                       inFile))
     
     drought.intensity <- readRDS(paste0(sourceDir, 
-                                      "/droguht_intensity_", 
+                                      "/drought_intensity_", 
                                       date.of.interest, "_",
                                       drought.duration, "_",
                                       inFile))
@@ -66,6 +66,7 @@ make_spatial_plots <- function(sourceDir, destDir,
     lon.id <- 1:lon.length
     
     ### Make spatial plots
-    
+    plot(raster(drought.severity))
+    plot(raster(storm.severity))
     
 }
