@@ -111,7 +111,6 @@ make_spatial_plots(sourceDir = "output",
                    drought.duration = "1-year")
 
 
-#### 6. Make statistics
 
 ### +++++++++++++++ End basic code to generate climate extreme index ++++++++++++++++++ ####
 ############################################################################################
