@@ -177,6 +177,8 @@ make_spatial_plots <- function(sourceDir, destDir,
               legend.box = 'vertical',
               legend.box.just = 'left')
     
+    
+    
     plot(p4)
     
 }

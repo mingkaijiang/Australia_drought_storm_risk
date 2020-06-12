@@ -38,9 +38,19 @@ source("prepare.R")
 #                                    destDir = "/Volumes/TOSHIBAEXT/AWAP/output")
 
 #### only for the Sydney regions for the AusGrid project
-convert_from_spatial_to_temporal_DF_for_Sydney_regions(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/rain/", 
-                                                       destDir = "/Volumes/TOSHIBAEXT/AWAP/output")
+#convert_from_spatial_to_temporal_DF_for_Sydney_regions(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/rain/", 
+#                                                       destDir = "/Volumes/TOSHIBAEXT/AWAP/output")
 
+#### make user specified selection of spatial range
+#### Note that, region has to be small (i.e. ~ 10 by 10 degree) to not exceed memory limit
+#### User also need to specify region name.
+convert_from_spatial_to_temporal_DF_for_user_defined_regions(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/rain/", 
+                                                             destDir = "/Volumes/TOSHIBAEXT/AWAP/output",
+                                                             user.lat.max = -28,
+                                                             user.lat.min = -36,
+                                                             user.lon.max = 155,
+                                                             user.lon.min = 145,
+                                                             user.region.name = "Larger_Sydney")
 
 ###########################################################################################
 ### +++++++++++++++ Basic code to generate climate extreme index +++++++++++++++++++++ ####

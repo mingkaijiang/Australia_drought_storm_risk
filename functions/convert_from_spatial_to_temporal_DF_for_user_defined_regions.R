@@ -1,4 +1,9 @@
-convert_from_spatial_to_temporal_DF_for_Sydney_regions <- function(sourceDir, destDir) {
+convert_from_spatial_to_temporal_DF_for_user_defined_regions <- function(sourceDir, destDir,
+                                                                         user.lat.min,
+                                                                         user.lat.max,
+                                                                         user.lon.min,
+                                                                         user.lon.max,
+                                                                         user.region.name) {
     
     #### Create output folder
     if(!dir.exists(destDir)) {
@@ -31,8 +36,8 @@ convert_from_spatial_to_temporal_DF_for_Sydney_regions <- function(sourceDir, de
     colnames(latlonDF) <- c("latID", "lonID", "lat", "lon")
     
     ### add group information to split the DF to make it smaller
-    latlonDF.sub <- latlonDF[latlonDF$lat<=-28 & latlonDF$lat >= -36 & 
-                                 latlonDF$lon <= 155 & latlonDF$lon>=150,]
+    latlonDF.sub <- latlonDF[latlonDF$lat<=-user.lat.max & latlonDF$lat >= -user.lat.min & 
+                                 latlonDF$lon <= user.lon.max & latlonDF$lon>=user.lon.min,]
     
     ### prepare all input file path
     dayDF <- data.frame(seq.Date(as.Date("1900/01/01"), 
@@ -75,7 +80,7 @@ convert_from_spatial_to_temporal_DF_for_Sydney_regions <- function(sourceDir, de
     } # i loop
     
     ### save output
-    saveRDS(out, file=paste0(destDir, "/Sydney_regions.rds"))
+    saveRDS(out, file=paste0(destDir, "/", user.region.name, "_regions.rds"))
     
 }   # function loop
 
