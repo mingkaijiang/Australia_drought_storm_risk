@@ -60,13 +60,122 @@ make_spatial_plots <- function(sourceDir, destDir,
     lat.list.sub <- unique(latlonDF.sub$latID)
     lat.length <- length(lat.list.sub)
     lat.id <- 1:lat.length
+    lat <- unique(latlonDF$lat)
     
     lon.list.sub <- unique(latlonDF.sub$lonID)
     lon.length <- length(lon.list.sub)
     lon.id <- 1:lon.length
+    lon <- unique(latlonDF$lon)
+    latlonDF.sub$lonID <- latlonDF.sub$lonID - 761
     
-    ### Make spatial plots
-    plot(raster(drought.severity))
-    plot(raster(storm.severity))
+    ### Make spatial plot DFs
+    drought.severity.long <- melt(drought.severity)
+    colnames(drought.severity.long) <- c("latID", "lonID", "value")
+    drought.severity.long <- merge(drought.severity.long, latlonDF.sub,
+                                   by=c("latID", "lonID"))
+    
+    storm.severity.long <- melt(storm.severity)
+    colnames(storm.severity.long) <- c("latID", "lonID", "value")
+    storm.severity.long <- merge(storm.severity.long, latlonDF.sub,
+                                   by=c("latID", "lonID"))
+    
+    drought.intensity.long <- melt(drought.intensity)
+    colnames(drought.intensity.long) <- c("latID", "lonID", "value")
+    drought.intensity.long <- merge(drought.intensity.long, latlonDF.sub,
+                                   by=c("latID", "lonID"))
+    
+    storm.intensity.long <- melt(storm.intensity)
+    colnames(storm.intensity.long) <- c("latID", "lonID", "value")
+    storm.intensity.long <- merge(storm.intensity.long, latlonDF.sub,
+                                    by=c("latID", "lonID"))
+    
+    
+    ### prepare color palette
+    heat.color <- rev(brewer.pal(n = 9, name = "YlOrRd"))
+    rain.color <- rev(brewer.pal(n = 9, name = "Blues"))
+    
+    
+    #### ploting storm severity
+    p1 <- ggplot(storm.severity.long, aes(lon, lat)) +
+        geom_raster(aes(fill=as.character(value)))+
+        geom_point(aes(x=151.2093, y=-33.8688), col="red")+  # sydney
+        geom_point(aes(x=149.13, y=-35.2809), col="red")+    # canberra
+        theme_linedraw() +
+        theme(panel.grid.minor=element_blank(),
+              axis.text.x=element_text(size=12),
+              axis.title.x=element_text(size=14),
+              axis.text.y=element_text(size=12),
+              axis.title.y=element_text(size=14),
+              legend.text=element_text(size=12),
+              legend.title=element_text(size=14),
+              panel.grid.major=element_blank(),
+              legend.position="right",
+              legend.box = 'vertical',
+              legend.box.just = 'left')+
+        scale_fill_manual(name="Storm severity percentile",
+                          limits=c("99.9", "99", "95", "90", "80", "70", "60", "50", "40"),
+                          values=rain.color,
+                          labels=c("99.9", "99", "95", "90", "80", "70", "60", "50", "40"))
+    
+    ### plot storm intensity
+    p2 <- ggplot(storm.intensity.long, aes(lon, lat)) +
+        geom_raster(aes(fill=value))+
+        geom_point(aes(x=151.2093, y=-33.8688), col="red")+  # sydney
+        geom_point(aes(x=149.13, y=-35.2809), col="red")+    # canberra
+        theme_linedraw() +
+        theme(panel.grid.minor=element_blank(),
+              axis.text.x=element_text(size=12),
+              axis.title.x=element_text(size=14),
+              axis.text.y=element_text(size=12),
+              axis.title.y=element_text(size=14),
+              legend.text=element_text(size=12),
+              legend.title=element_text(size=14),
+              panel.grid.major=element_blank(),
+              legend.position="right",
+              legend.box = 'vertical',
+              legend.box.just = 'left')
+    
+    #### ploting drought severity
+    p3 <- ggplot(drought.severity.long, aes(lon, lat)) +
+        geom_raster(aes(fill=as.character(value)))+
+        geom_point(aes(x=151.2093, y=-33.8688), col="red")+  # sydney
+        geom_point(aes(x=149.13, y=-35.2809), col="red")+    # canberra
+        theme_linedraw() +
+        theme(panel.grid.minor=element_blank(),
+              axis.text.x=element_text(size=12),
+              axis.title.x=element_text(size=14),
+              axis.text.y=element_text(size=12),
+              axis.title.y=element_text(size=14),
+              legend.text=element_text(size=12),
+              legend.title=element_text(size=14),
+              panel.grid.major=element_blank(),
+              legend.position="right",
+              legend.box = 'vertical',
+              legend.box.just = 'left')+
+        scale_fill_manual(name="Drought severity percentile",
+                          limits=c("0.1", "1", "5", "10", "20", "30", "40", "50", "60"),
+                          values=heat.color,
+                          labels=c("0.1", "1", "5", "10", "20", "30", "40", "50", "60"))
+    
+    
+    ### plot drought intensity
+    p4 <- ggplot(drought.intensity.long, aes(lon, lat)) +
+        geom_raster(aes(fill=value))+
+        geom_point(aes(x=151.2093, y=-33.8688), col="red")+  # sydney
+        geom_point(aes(x=149.13, y=-35.2809), col="red")+    # canberra
+        theme_linedraw() +
+        theme(panel.grid.minor=element_blank(),
+              axis.text.x=element_text(size=12),
+              axis.title.x=element_text(size=14),
+              axis.text.y=element_text(size=12),
+              axis.title.y=element_text(size=14),
+              legend.text=element_text(size=12),
+              legend.title=element_text(size=14),
+              panel.grid.major=element_blank(),
+              legend.position="right",
+              legend.box = 'vertical',
+              legend.box.just = 'left')
+    
+    plot(p4)
     
 }

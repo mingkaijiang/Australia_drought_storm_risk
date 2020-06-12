@@ -17,7 +17,8 @@ pacman::p_load(raster,
                doBy,
                chillR,
                RSAGA,
-               lubridate)    
+               lubridate,
+               reshape2)    
 
 
 #### Sourcing all R files in the modules subdirectory
