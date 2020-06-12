@@ -63,10 +63,12 @@ convert_from_spatial_to_temporal_DF_for_Sydney_regions <- function(sourceDir, de
         inName <- dayDF[i,"Path"]
         myDF <- read.ascii.grid(inName)
         
-        for (j in lat.list.sub) {
-            for (k in lon.list.sub) {
+        for (j in lat.id) {
+            for (k in lon.id) {
+                j2 <- lat.list.sub[j]
+                k2 <- lon.list.sub[k]
                 ### save data
-                out[lat.id, lon.id, i] <- myDF$data[j,k]
+                out[j, k, i] <- myDF$data[j2,k2]
             } # k loop
         } # j loop
     } # i loop
