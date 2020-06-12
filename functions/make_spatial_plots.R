@@ -1,5 +1,5 @@
 make_spatial_plots <- function(sourceDir, destDir,
-                               inFile,
+                               user.region.name,
                                date.of.interest,
                                storm.duration,
                                drought.duration) {
@@ -14,25 +14,25 @@ make_spatial_plots <- function(sourceDir, destDir,
                                       "/storm_intensity_", 
                                       date.of.interest, "_",
                                       storm.duration, "_",
-                                      inFile))
+                                      user.region.name, "_regions.rds"))
     
     drought.intensity <- readRDS(paste0(sourceDir, 
                                       "/drought_intensity_", 
                                       date.of.interest, "_",
                                       drought.duration, "_",
-                                      inFile))
+                                      user.region.name, "_regions.rds"))
     
     storm.severity <- readRDS(paste0(sourceDir, 
                                       "/storm_severity_", 
                                       date.of.interest, "_",
                                       storm.duration, "_",
-                                      inFile))
+                                     user.region.name, "_regions.rds"))
     
     drought.severity <- readRDS(paste0(sourceDir, 
                                      "/drought_severity_", 
                                      date.of.interest, "_",
                                      drought.duration, "_",
-                                     inFile))
+                                     user.region.name, "_regions.rds"))
     
     
     ### prepare lat and lon real information
@@ -119,7 +119,7 @@ make_spatial_plots <- function(sourceDir, destDir,
                           limits=c("99.9", "99", "95", "90", "80", "70", "60", "50", "40"),
                           values=rain.color,
                           labels=c("99.9", "99", "95", "90", "80", "70", "60", "50", "40"))+
-        ggtitle("Storm severity percentile")
+        ggtitle(paste0("Storm ", storm.duration, " severity percentile"))
     
     ### plot storm intensity
     p2 <- ggplot(storm.intensity.long, aes(lon, lat)) +
@@ -165,7 +165,7 @@ make_spatial_plots <- function(sourceDir, destDir,
                           limits=c("0.1", "1", "5", "10", "20", "30", "40", "50", "60"),
                           values=heat.color,
                           labels=c("0.1", "1", "5", "10", "20", "30", "40", "50", "60"))+
-        ggtitle("Drought severity percentile")
+        ggtitle(paste0("Antecedent ", drought.duration, " rainfall severity percentile"))
     
     
     ### plot drought intensity
@@ -190,7 +190,8 @@ make_spatial_plots <- function(sourceDir, destDir,
         ggtitle(paste0("Antecedent ", drought.duration, " rainfall"))
     
     
-    pdf(paste0(destDir, "/", inFile, ".pdf"), width = 8, height=8)
+    pdf(paste0(destDir, "/", user.region.name, "storm_", storm.duration,
+               "_drought_", drought.duration, ".pdf"), width = 8, height=8)
     plot(p1)
     plot(p2)
     plot(p3)

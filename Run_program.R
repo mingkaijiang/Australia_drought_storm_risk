@@ -66,7 +66,7 @@ convert_from_spatial_to_temporal_DF_for_user_defined_regions(sourceDir = "/Volum
 ####     Each layer is the 99.9th, 99th, 95th, 90th, 80th, 70th, 60th, 50th, 40th percentile
 compute_storm_index(sourceDir = "input", 
                     destDir = "output",
-                    inFile = "Sydney_regions.rds",
+                    user.region.name = "Larger_Sydney",
                     duration = "1-day")
 
 
@@ -78,7 +78,7 @@ compute_storm_index(sourceDir = "input",
 ####     0.1th, 1th, 5th, 10th, 20th, 30th, 40th, 50th percentile of the rainfall distribution
 compute_drought_index(sourceDir = "input", 
                       destDir = "output",
-                      inFile = "Sydney_regions.rds",
+                      user.region.name = "Larger_Sydney",
                       duration = "1-year")
 
 
@@ -96,7 +96,7 @@ compute_drought_index(sourceDir = "input",
 ####                     table of storm and drought severity
 compute_drought_and_storm_event_severity(sourceDir = "input", 
                                          destDir = "output",
-                                         inFile = "Sydney_regions.rds",
+                                         user.region.name = "Larger_Sydney",
                                          date.of.interest = "20191126",
                                          storm.duration = "1-day",
                                          drought.duration = "1-year")
@@ -105,7 +105,7 @@ compute_drought_and_storm_event_severity(sourceDir = "input",
 #### 4. Make spatial plots
 make_spatial_plots(sourceDir = "output",
                    destDir = "output/plots",
-                   inFile = "Sydney_regions.rds",
+                   user.region.name = "Larger_Sydney",
                    date.of.interest = "20191126",
                    storm.duration = "1-day",
                    drought.duration = "1-year")

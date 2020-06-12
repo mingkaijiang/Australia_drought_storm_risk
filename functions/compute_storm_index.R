@@ -1,8 +1,8 @@
-compute_storm_index <- function(sourceDir, destDir, inFile, duration) {
+compute_storm_index <- function(sourceDir, destDir, user.region.name, duration) {
     
     
     ### read in the R database
-    myData <- readRDS(paste0(sourceDir, "/", inFile))
+    myData <- readRDS(paste0(sourceDir, "/", user.region.name, "_regions.rds"))
     
     ### dimension information
     dim1 <- dim(myData)[1]
@@ -163,6 +163,6 @@ compute_storm_index <- function(sourceDir, destDir, inFile, duration) {
     } # i loop
     
     saveRDS(out_percentile, file=paste0(destDir, "/Storm_extreme_percentile_", duration,
-                                        "_", inFile))
+                                        "_", user.region.name, "_regions.rds"))
     
 }  
