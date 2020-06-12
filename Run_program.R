@@ -54,7 +54,7 @@ convert_from_spatial_to_temporal_DF_for_Sydney_regions(sourceDir = "/Volumes/TOS
 ####     Storm index has duration options of 1 - 5 days
 ####     Output a 3 dimension matrix with lat lon and 9 layers of storm index
 ####     Each layer is the 99.9th, 99th, 95th, 90th, 80th, 70th, 60th, 50th, 40th percentile
-compute_storm_index(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/output", 
+compute_storm_index(sourceDir = "input", 
                     destDir = "output",
                     inFile = "Sydney_regions.rds",
                     duration = "1-day")
@@ -66,7 +66,7 @@ compute_storm_index(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/output",
 ####     Output a 3 dimension matrix with lat lon and 9 layers of storm index
 ####     Each layer is the number of no rain days, 
 ####     0.1th, 1th, 5th, 10th, 20th, 30th, 40th, 50th percentile of the rainfall distribution
-compute_drought_index(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/output", 
+compute_drought_index(sourceDir = "input", 
                       destDir = "output",
                       inFile = "Sydney_regions.rds",
                       duration = "1-year")
@@ -84,7 +84,7 @@ compute_drought_index(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/output",
 ####    The script will run over the region defined in the inFile file.
 ####    Output includes: table of short-term rainfall and long-term rainfall intensity
 ####                     table of storm and drought severity
-compute_drought_and_storm_event_severity(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/output", 
+compute_drought_and_storm_event_severity(sourceDir = "input", 
                                          destDir = "output",
                                          inFile = "Sydney_regions.rds",
                                          date.of.interest = "20191126",
@@ -106,3 +106,13 @@ make_spatial_plots(sourceDir = "output",
 ### +++++++++++++++ End basic code to generate climate extreme index ++++++++++++++++++ ####
 ############################################################################################
 
+
+### to do list:
+### 1. delete grids with mean annual precipitation == 0 
+### 2. create a polygon to offset these regions
+### 3. Possibly create extreme index for the entire Australia 
+###    shouldn't be big, because lon x lat x extreme percentile, based on one particular duration threshold
+###    hence we will have several files for each extreme index, defined by duration, 
+###    then in each file we will have 3d matrix with the last dimension splitting into different extreme percentile.
+### 4. With Australia extreme index created, we can run a subregion, 
+###    to check the severity of a particular storm x drought event for a particular period.
