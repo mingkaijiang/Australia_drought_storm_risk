@@ -92,12 +92,13 @@ compute_drought_and_storm_event_severity(sourceDir = "input",
                                          drought.duration = "1-year")
 
 
-#### 4. Investigate how extreme the drought is before the storm event
-check_drought_extremeness_before_storm_event()
-
-
-#### 5. Make spatial plots
-
+#### 4. Make spatial plots
+make_spatial_plots(sourceDir = "output",
+                   destDir = "output/plots",
+                   inFile = "Sydney_regions.rds",
+                   date.of.interest = "20171126",
+                   storm.duration = "1-day",
+                   drought.duration = "1-year")
 
 
 #### 6. Make statistics
