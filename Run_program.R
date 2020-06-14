@@ -34,12 +34,12 @@ source("prepare.R")
 
 #### 3. Convert from per day to per grid
 #### Only need to run this code once
-#convert_from_spatial_to_temporal_DF(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/rain/", 
-#                                    destDir = "/Volumes/TOSHIBAEXT/AWAP/output")
+convert_from_spatial_to_temporal_DF(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/rain/", 
+                                    destDir = "/Volumes/TOSHIBAEXT/AWAP/output")
 
 #### only for the Sydney regions for the AusGrid project
-convert_from_spatial_to_temporal_DF_for_Sydney_regions(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/rain/", 
-                                                       destDir = "/Volumes/TOSHIBAEXT/AWAP/output")
+#convert_from_spatial_to_temporal_DF_for_Sydney_regions(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/rain/", 
+#                                                       destDir = "/Volumes/TOSHIBAEXT/AWAP/output")
 
 
 ###########################################################################################
