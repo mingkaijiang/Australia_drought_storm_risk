@@ -1,6 +1,6 @@
 compute_drought_and_storm_event_severity <- function(sourceDir, 
                                                      destDir, 
-                                                     inFile,
+                                                     user.region.name,
                                                      date.of.interest,
                                                      storm.duration,
                                                      drought.duration) {
@@ -23,9 +23,11 @@ compute_drought_and_storm_event_severity <- function(sourceDir,
     
 
     ### read in the R database
-    myData <- readRDS(paste0(sourceDir, "/", inFile))
-    stormData <- readRDS(paste0(destDir, "/Storm_extreme_percentile_1-day_Sydney_regions.rds"))
-    droughtData <- readRDS(paste0(destDir, "/Drought_extreme_percentile_1-year_Sydney_regions.rds"))
+    myData <- readRDS(paste0(sourceDir, "/", user.region.name, "_regions.rds"))
+    stormData <- readRDS(paste0(destDir, "/Storm_extreme_percentile_", storm.duration, "_",
+                                user.region.name, "_regions.rds"))
+    droughtData <- readRDS(paste0(destDir, "/Drought_extreme_percentile_", drought.duration, 
+                                  user.region.name, "_regions.rds"))
     
     ### dimension information
     dim1 <- dim(myData)[1]
@@ -258,21 +260,21 @@ compute_drought_and_storm_event_severity <- function(sourceDir,
     saveRDS(storm.severity.on.date.of.interest, 
             file=paste0(destDir, "/storm_severity_", date.of.interest, "_",
                         storm.duration, "_",
-                        inFile))
+                        user.region.name, "_regions.rds"))
     
     saveRDS(drought.severity.on.date.of.interest, 
             file=paste0(destDir, "/drought_severity_", date.of.interest, "_",
                         drought.duration, "_",
-                        inFile))
+                        user.region.name, "_regions.rds"))
     
     saveRDS(storm.on.date.of.interest, 
             file=paste0(destDir, "/storm_intensity_", date.of.interest, "_",
                         storm.duration, "_",
-                        inFile))
+                        user.region.name, "_regions.rds"))
     
     saveRDS(drought.on.date.of.interest, 
             file=paste0(destDir, "/drought_intensity_", date.of.interest, "_",
                         drought.duration, "_",
-                        inFile))
+                        user.region.name, "_regions.rds"))
     
 } 
