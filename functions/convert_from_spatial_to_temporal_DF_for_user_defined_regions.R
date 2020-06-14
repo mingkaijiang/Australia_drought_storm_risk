@@ -36,7 +36,7 @@ convert_from_spatial_to_temporal_DF_for_user_defined_regions <- function(sourceD
     colnames(latlonDF) <- c("latID", "lonID", "lat", "lon")
     
     ### add group information to split the DF to make it smaller
-    latlonDF.sub <- latlonDF[latlonDF$lat<=-user.lat.max & latlonDF$lat >= -user.lat.min & 
+    latlonDF.sub <- latlonDF[latlonDF$lat<=user.lat.max & latlonDF$lat >= user.lat.min & 
                                  latlonDF$lon <= user.lon.max & latlonDF$lon>=user.lon.min,]
     
     ### prepare all input file path
