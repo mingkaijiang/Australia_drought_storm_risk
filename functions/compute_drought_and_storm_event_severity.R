@@ -26,7 +26,7 @@ compute_drought_and_storm_event_severity <- function(sourceDir,
     myData <- readRDS(paste0(sourceDir, "/", user.region.name, "_regions.rds"))
     stormData <- readRDS(paste0(destDir, "/Storm_extreme_percentile_", storm.duration, "_",
                                 user.region.name, "_regions.rds"))
-    droughtData <- readRDS(paste0(destDir, "/Drought_extreme_percentile_", drought.duration, 
+    droughtData <- readRDS(paste0(destDir, "/Drought_extreme_percentile_", drought.duration, "_",
                                   user.region.name, "_regions.rds"))
     
     ### dimension information
