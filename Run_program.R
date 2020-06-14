@@ -104,10 +104,25 @@ compute_drought_and_storm_event_severity(sourceDir = "input",
 
 
 #### 4. Make spatial plots
+sourceDir = "output"
+destDir = "output/plots"
+user.region.name = "Larger_Sydney"
+date.of.interest = "20191126"
+storm.duration = "1-day"
+drought.duration = "1-year"
+user.lat.max = -28
+user.lat.min = -36
+user.lon.max = 155
+user.lon.min = 145
+
 make_spatial_plots(sourceDir = "output",
                    destDir = "output/plots",
                    user.region.name = "Larger_Sydney",
                    date.of.interest = "20191126",
+                   user.lat.max = -28,
+                   user.lat.min = -36,
+                   user.lon.max = 155,
+                   user.lon.min = 145,
                    storm.duration = "1-day",
                    drought.duration = "1-year")
 
@@ -118,8 +133,8 @@ make_spatial_plots(sourceDir = "output",
 
 
 ### to do list:
-### 1. delete grids with mean annual precipitation == 0 
-### 2. create a polygon to offset these regions
+### 1. delete grids with mean annual precipitation == 0; create a polygon to offset these regions;
+### 2. Check of values make sense for greater Sydney region (high precipitation), better color scheme to distinguish the bins;
 ### 3. Possibly create extreme index for the entire Australia 
 ###    shouldn't be big, because lon x lat x extreme percentile, based on one particular duration threshold
 ###    hence we will have several files for each extreme index, defined by duration, 

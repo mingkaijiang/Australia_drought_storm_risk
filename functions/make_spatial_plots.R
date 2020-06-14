@@ -54,7 +54,8 @@ make_spatial_plots <- function(sourceDir, destDir,
     colnames(latlonDF) <- c("latID", "lonID", "lat", "lon")
     
     ### add group information to split the DF to make it smaller
-    latlonDF.sub <- latlonDF[latlonDF$lat<=-28 & latlonDF$lat >= -36 & latlonDF$lon <= 155 & latlonDF$lon>=150,]
+    latlonDF.sub <- latlonDF[latlonDF$lat<=user.lat.max & latlonDF$lat >= user.lat.min & 
+                                 latlonDF$lon <= user.lon.max & latlonDF$lon>=user.lon.min,]
     
     ### get subset lat information
     lat.list.sub <- unique(latlonDF.sub$latID)
@@ -190,7 +191,7 @@ make_spatial_plots <- function(sourceDir, destDir,
         ggtitle(paste0("Antecedent ", drought.duration, " rainfall"))
     
     
-    pdf(paste0(destDir, "/", user.region.name, "storm_", storm.duration,
+    pdf(paste0(destDir, "/", user.region.name, "_storm_", storm.duration,
                "_drought_", drought.duration, ".pdf"), width = 8, height=8)
     plot(p1)
     plot(p2)
