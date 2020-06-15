@@ -1,4 +1,4 @@
-convert_from_spatial_to_temporal_DF <- function(sourceDir, destDir) {
+convert_from_spatial_to_temporal_DF_whole_Australia <- function(sourceDir, destDir) {
     
     #### Create output folder
     if(!dir.exists(destDir)) {

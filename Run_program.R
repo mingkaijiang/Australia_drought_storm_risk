@@ -41,8 +41,8 @@ source("prepare.R")
 #### 4. Convert from per day to per grid
 #### Only need to run this code once
 #### For whole Australia
-#convert_from_spatial_to_temporal_DF(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/rain/", 
-#                                    destDir = "/Volumes/TOSHIBAEXT/AWAP/output")
+#convert_from_spatial_to_temporal_DF_whole_Australia(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/rain/", 
+#                                                    destDir = "/Volumes/TOSHIBAEXT/AWAP/output")
 
 #### make user specified selection of spatial range
 #### Note that, region has to be small (i.e. ~ 10 by 10 degree) to not exceed memory limit
@@ -89,10 +89,10 @@ compute_storm_index(sourceDir = "input",
                     duration = "1-day")
 
 
-#compute_storm_index(sourceDir = "input", 
-#                    destDir = "output",
-#                    user.region.name = "Larger_Sydney",
-#                    duration = "5-day")
+compute_storm_index(sourceDir = "input", 
+                    destDir = "output",
+                    user.region.name = "Larger_Sydney",
+                    duration = "5-day")
 
 #### 2. Calculate drought index:
 ####     Drought index has duration options of consecutive no rain days, 1-year, 2-year,
@@ -105,10 +105,10 @@ compute_drought_index(sourceDir = "input",
                       duration = "1-year")
 
 
-#compute_drought_index(sourceDir = "input", 
-#                      destDir = "output",
-#                      user.region.name = "Larger_Sydney",
-#                      duration = "2-year")
+compute_drought_index(sourceDir = "input", 
+                      destDir = "output",
+                      user.region.name = "Larger_Sydney",
+                      duration = "2-year")
 
 #### 3. For each extreme rainfall event, obtain the drought severity information
 ####    User can specify a particular date.of.interest,
@@ -130,20 +130,20 @@ compute_drought_and_storm_event_severity(sourceDir = "input",
                                          drought.duration = "1-year")
 
 
-#compute_drought_and_storm_event_severity(sourceDir = "input", 
-#                                         destDir = "output",
-#                                         user.region.name = "Larger_Sydney",
-#                                         date.of.interest = "20191126",
-#                                         storm.duration = "5-day",
-#                                         drought.duration = "1-year")
-#
-#
-#compute_drought_and_storm_event_severity(sourceDir = "input", 
-#                                         destDir = "output",
-#                                         user.region.name = "Larger_Sydney",
-#                                         date.of.interest = "20191126",
-#                                         storm.duration = "5-day",
-#                                         drought.duration = "2-year")
+compute_drought_and_storm_event_severity(sourceDir = "input", 
+                                         destDir = "output",
+                                         user.region.name = "Larger_Sydney",
+                                         date.of.interest = "20191126",
+                                         storm.duration = "5-day",
+                                         drought.duration = "1-year")
+
+
+compute_drought_and_storm_event_severity(sourceDir = "input", 
+                                         destDir = "output",
+                                         user.region.name = "Larger_Sydney",
+                                         date.of.interest = "20191126",
+                                         storm.duration = "5-day",
+                                         drought.duration = "2-year")
 
 #### 4. Make spatial plots
 sourceDir = "output"
