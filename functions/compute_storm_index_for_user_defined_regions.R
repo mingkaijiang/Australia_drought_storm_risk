@@ -1,4 +1,5 @@
-compute_storm_index <- function(sourceDir, destDir, user.region.name, duration) {
+compute_storm_index_for_user_defined_regions <- function(sourceDir, destDir, 
+                                                         user.region.name, duration) {
     
     
     ### read in the R database

@@ -1,4 +1,5 @@
-compute_drought_index <- function(sourceDir, destDir, user.region.name, duration) {
+compute_drought_index_for_user_defined_regions <- function(sourceDir, destDir, 
+                                                           user.region.name, duration) {
     
     ### read in the R database
     myData <- readRDS(paste0(sourceDir, "/", user.region.name, "_regions.rds"))

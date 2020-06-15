@@ -1,12 +1,12 @@
-make_spatial_plots <- function(sourceDir, destDir,
-                               user.region.name,
-                               date.of.interest,
-                               user.lat.max,
-                               user.lat.min,
-                               user.lon.max,
-                               user.lon.min,
-                               storm.duration,
-                               drought.duration) {
+make_spatial_plots_for_user_defined_regions <- function(sourceDir, destDir,
+                                                        user.region.name,
+                                                        date.of.interest,
+                                                        user.lat.max,
+                                                        user.lat.min,
+                                                        user.lon.max,
+                                                        user.lon.min,
+                                                        storm.duration,
+                                                        drought.duration) {
     
     #### Create output folder
     if(!dir.exists(destDir)) {
