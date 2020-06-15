@@ -239,16 +239,12 @@ make_spatial_plots <- function(sourceDir, destDir,
         guides(color = guide_legend(nrow=5, byrow = T))
     
     
-    pdf(paste0(destDir, "/", user.region.name, "_", date.of.interest,
+    jpeg(paste0(destDir, "/", user.region.name, "_", date.of.interest,
                "_storm_", storm.duration,
-               "_drought_", drought.duration, ".pdf"), width = 16, height=16)
+               "_drought_", drought.duration, ".jpg"), units="in", res=150,width = 16, height=16)
     
     
     grid.arrange(p1, p2, p3, p4, nrow = 2)
-    #plot(p1)
-    #plot(p2)
-    #plot(p3)
-    #plot(p4)
     
     dev.off()
     
