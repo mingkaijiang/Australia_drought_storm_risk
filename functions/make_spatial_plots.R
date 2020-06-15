@@ -49,7 +49,7 @@ make_spatial_plots <- function(sourceDir, destDir,
     
     lon <- seq(111.975, 111.975 + (0.05 * 885), by=0.05)
     lat <- seq(-44.525, -44.525 + (0.05 * 690), by=0.05)
-    
+
     ### create lon lat DF for future plotting
     latlonDF <- data.frame(rep(lat.id, each = max(lon.id)),
                            rep(lon.id, max(lat.id)), 

@@ -22,7 +22,8 @@ source("prepare.R")
 #### Structure:
 #### 1. Download data
 #### 2. Unzip files
-#### 3. Process raw data 
+#### 3. Plot year 2019 and check with observation
+#### 4. Convert data fraom per day to per grid
 
 #### 1 . Download AWAP data from BOM website
 ####     Only need to run this code once.
@@ -32,8 +33,14 @@ source("prepare.R")
 ####    Only need to run this code once
 #unzip_all_z_files(s.yr = 2018, e.yr = 2020)
 
-#### 3. Convert from per day to per grid
+#### 3. Plot one-year total rainfall to check rmatches with BOM observations
+#plot_total_rainfall_for_a_year(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/rain/", 
+#                               destDir = "output",
+#                               user.defined.year = 2019)
+
+#### 4. Convert from per day to per grid
 #### Only need to run this code once
+#### For whole Australia
 #convert_from_spatial_to_temporal_DF(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/rain/", 
 #                                    destDir = "/Volumes/TOSHIBAEXT/AWAP/output")
 
@@ -160,8 +167,7 @@ make_spatial_plots(sourceDir = "output",
 
 
 ### to do list:
-### 1. bin continuous varaibles into 9 bins;
-### 2. Check of values make sense for greater Sydney region (high precipitation);
+### 2. Check why Canberra has such high rainfall over past 1-yr;
 
 
 ### 3. Possibly create extreme index for the entire Australia 

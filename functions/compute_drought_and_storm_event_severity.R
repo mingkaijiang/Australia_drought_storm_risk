@@ -41,11 +41,11 @@ compute_drought_and_storm_event_severity <- function(sourceDir,
     drought.severity.on.date.of.interest <- array(NA, c(dim1, dim2))
     storm.severity.on.date.of.interest <- array(NA, c(dim1, dim2))
     
-    ### calculate storm on date of interest, based on pre-defined duration threshold
     ### loop each grid
-    for (i in 1:dim1) {
-        for (j in 1:dim2) {
+    for (i in c(1:dim1)) {
+        for (j in c(1:dim2)) {
 
+            ### calculate storm on date of interest, based on pre-defined duration threshold
             ### get storm intensity based on duration threshold
             if (storm.duration == "1-day") {
                 
@@ -88,15 +88,8 @@ compute_drought_and_storm_event_severity <- function(sourceDir,
             
             storm.on.date.of.interest[i,j] <- rainfall.on.date.of.interest
             
-        } # j loop
-    } # i loop
-    
-    
-    ### calculate drought index based on pre-defined date of interest
-    ### loop each grid
-    for (i in 1:dim1) {
-        for (j in 1:dim2) {
             
+            ### calculate drought index based on pre-defined date of interest
             ### get precipitation percentile
             if (drought.duration == "no.rain.period") {
                 
@@ -114,11 +107,10 @@ compute_drought_and_storm_event_severity <- function(sourceDir,
                 ## calculate 1-year running total
                 for (k in c(366:dim3)) {
                     DF2[k] <- sum(all[(k-365):k], na.rm=T)
-                    k <- k+1
                 }
                 
                 ## obtain 1-year rainfall before the date of interest
-               total.rainfall <- DF2[nday]
+                total.rainfall <- DF2[nday]
                 
             } else if (drought.duration == "2-year") {
                 
@@ -132,7 +124,6 @@ compute_drought_and_storm_event_severity <- function(sourceDir,
                 ## calculate 1-year running total
                 for (k in c(731:dim3)) {
                     DF2[k] <- sum(all[(k-730):k], na.rm=T)
-                    k <- k+1
                 }
                 
                 ## obtain 1-year rainfall before the date of interest
@@ -145,13 +136,9 @@ compute_drought_and_storm_event_severity <- function(sourceDir,
             ### assign value
             drought.on.date.of.interest[i,j] <- total.rainfall
             
-        } # j loop
-    } # i loop
-    
-    ### we now have the short-term rainfall intensity and long-term rainfall total information,
-    ### we can compare it against the index data.
-    for (i in 1:dim1) {
-        for (j in 1:dim2) {
+            ### we now have the short-term rainfall intensity and long-term rainfall total information,
+            ### we can compare it against the index data.
+            
             ### get storm extreme index information
             storm.P999 <- ifelse(is.na(stormData[i,j,1]), 0, stormData[i,j,1])
             storm.P99 <- ifelse(is.na(stormData[i,j,2]), 0, stormData[i,j,2])
@@ -250,10 +237,8 @@ compute_drought_and_storm_event_severity <- function(sourceDir,
                 
             }
             
-            
-        } # j
-    } # i
-    
+        } # j loop
+    } # i loop
     
     
     ### save output
