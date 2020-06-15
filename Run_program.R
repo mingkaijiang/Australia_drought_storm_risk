@@ -171,6 +171,29 @@ make_spatial_plots_for_user_defined_regions(sourceDir = "output",
 
 
 
+make_spatial_plots_for_user_defined_regions(sourceDir = "output",
+                                            destDir = "output/plots",
+                                            user.region.name = "Larger_Sydney",
+                                            date.of.interest = "20191126",
+                                            user.lat.max = -28,
+                                            user.lat.min = -36,
+                                            user.lon.max = 155,
+                                            user.lon.min = 145,
+                                            storm.duration = "5-day",
+                                            drought.duration = "1-year")
+
+
+make_spatial_plots_for_user_defined_regions(sourceDir = "output",
+                                            destDir = "output/plots",
+                                            user.region.name = "Larger_Sydney",
+                                            date.of.interest = "20191126",
+                                            user.lat.max = -28,
+                                            user.lat.min = -36,
+                                            user.lon.max = 155,
+                                            user.lon.min = 145,
+                                            storm.duration = "5-day",
+                                            drought.duration = "2-year")
+
 ### +++++++++++++++ End basic code to generate climate extreme index ++++++++++++++++++ ####
 ############################################################################################
 
