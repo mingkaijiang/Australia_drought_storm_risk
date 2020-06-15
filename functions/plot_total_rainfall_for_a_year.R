@@ -142,8 +142,4 @@ plot_total_rainfall_for_a_year <- function(sourceDir, destDir,
     plot(p1)
     dev.off()
     
-    ### it seems that ssf layer is problematic.
-    ### next to figure out how to extract seas from the dataframe
-    ### also, the reverse sign of latitude to make the plot - need to update throughout all figures
-
 }

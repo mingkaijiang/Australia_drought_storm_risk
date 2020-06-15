@@ -15,6 +15,7 @@ compute_storm_index <- function(sourceDir, destDir, user.region.name, duration) 
     
     
     ### loop each grid
+    system.time(
     for (i in 1:dim1) {
         for (j in 1:dim2) {
             ### get the rainfall data for each grid
@@ -45,9 +46,8 @@ compute_storm_index <- function(sourceDir, destDir, user.region.name, duration) 
                 DF2[1] <- NA
                 
                 ## calculate 2-day running total
-                for (k in 2:dim3) {
+                for (k in c(2:dim3)) {
                     DF2[k] <- sum(all[(k-1):k])
-                    k <- k+1
                 }
                 
                 sub <- DF2[DF2>0.0]
@@ -71,9 +71,8 @@ compute_storm_index <- function(sourceDir, destDir, user.region.name, duration) 
                 DF2[2] <- NA
                 
                 ## calculate 3-day running total
-                for (k in 3:dim3) {
+                for (k in c(3:dim3)) {
                     DF2[k] <- sum(all[(k-2):k])
-                    k <- k+1
                 }
                 
                 sub <- DF2[DF2>0.0]
@@ -98,9 +97,8 @@ compute_storm_index <- function(sourceDir, destDir, user.region.name, duration) 
                 DF2[3] <- NA
                 
                 ## calculate 4-day running total
-                for (k in 4:dim3) {
+                for (k in c(4:dim3)) {
                     DF2[k] <- sum(all[(k-3):k])
-                    k <- k+1
                 }
                 
                 sub <- DF2[DF2>0.0]
@@ -126,9 +124,8 @@ compute_storm_index <- function(sourceDir, destDir, user.region.name, duration) 
                 DF2[4] <- NA
                 
                 ## calculate 5-day running total
-                for (k in 5:dim3) {
+                for (k in c(5:dim3)) {
                     DF2[k] <- sum(all[(k-4):k])
-                    k <- k+1
                 }
                 
                 sub <- DF2[DF2>0.0]
@@ -161,7 +158,10 @@ compute_storm_index <- function(sourceDir, destDir, user.region.name, duration) 
             
         } # j loop
     } # i loop
+    )
     
+
+    ### write output    
     saveRDS(out_percentile, file=paste0(destDir, "/Storm_extreme_percentile_", duration,
                                         "_", user.region.name, "_regions.rds"))
     
