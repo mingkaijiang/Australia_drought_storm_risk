@@ -41,6 +41,7 @@ source("prepare.R")
 #### 4. Convert from per day to per grid
 #### Only need to run this code once
 #### For whole Australia
+#### whenever possible, rerun this!!!!!!!
 #convert_from_spatial_to_temporal_DF_whole_Australia(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/rain/", 
 #                                                    destDir = "/Volumes/TOSHIBAEXT/AWAP/output")
 
