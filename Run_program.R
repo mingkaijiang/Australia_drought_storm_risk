@@ -42,8 +42,8 @@ source("prepare.R")
 #### Only need to run this code once
 #### For whole Australia
 #### whenever possible, rerun this!!!!!!!
-#convert_from_spatial_to_temporal_DF_whole_Australia(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/rain/", 
-#                                                    destDir = "/Volumes/TOSHIBAEXT/AWAP/output")
+convert_from_spatial_to_temporal_DF_whole_Australia(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/rain/", 
+                                                    destDir = "/Volumes/TOSHIBAEXT/AWAP/output")
 
 #### make user specified selection of spatial range
 #### Note that, region has to be small (i.e. ~ 10 by 10 degree) to not exceed memory limit
