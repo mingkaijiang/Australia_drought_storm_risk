@@ -92,6 +92,24 @@ make_spatial_plots <- function(sourceDir, destDir,
                                     by=c("latID", "lonID"))
     
     
+    ### read in sea surface mask
+    ssf.raster <- read_sea_surface_mask()
+    DF1 <- latlonDF.sub[,c("lon", "lat")]
+    ssfDF <- cbind(DF1, extract(ssf.raster, DF1, df=T))
+    
+    ### merge ssf and input DF and then remove sea surface
+    drought.severity.long <- merge(drought.severity.long, ssfDF, by=c("lon", "lat"), all=T)
+    drought.severity.long <- subset(drought.severity.long, ssf == 1)
+    
+    storm.severity.long <- merge(storm.severity.long, ssfDF, by=c("lon", "lat"), all=T)
+    storm.severity.long <- subset(storm.severity.long, ssf == 1)
+    
+    drought.intensity.long <- merge(drought.intensity.long, ssfDF, by=c("lon", "lat"), all=T)
+    drought.intensity.long <- subset(drought.intensity.long, ssf == 1)
+    
+    storm.intensity.long <- merge(storm.intensity.long, ssfDF, by=c("lon", "lat"), all=T)
+    storm.intensity.long <- subset(storm.intensity.long, ssf == 1)
+    
     ### prepare color palette
     heat.color <- rev(brewer.pal(n = 9, name = "YlOrRd"))
     rain.color <- rev(brewer.pal(n = 9, name = "Blues"))
@@ -191,7 +209,8 @@ make_spatial_plots <- function(sourceDir, destDir,
         ggtitle(paste0("Antecedent ", drought.duration, " rainfall"))
     
     
-    pdf(paste0(destDir, "/", user.region.name, "_storm_", storm.duration,
+    pdf(paste0(destDir, "/", user.region.name, "_", date.of.interest,
+               "_storm_", storm.duration,
                "_drought_", drought.duration, ".pdf"), width = 8, height=8)
     plot(p1)
     plot(p2)
