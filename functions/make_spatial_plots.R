@@ -111,8 +111,24 @@ make_spatial_plots <- function(sourceDir, destDir,
     storm.intensity.long <- subset(storm.intensity.long, ssf == 1)
     
     ### prepare color palette
-    heat.color <- rev(brewer.pal(n = 9, name = "YlOrRd"))
-    rain.color <- rev(brewer.pal(n = 9, name = "Blues"))
+    n.discrete.colors <- 9
+    heat.color <- rev(brewer.pal(n = n.discrete.colors, name = "YlOrRd"))
+    rain.color <- rev(brewer.pal(n = n.discrete.colors, name = "Blues"))
+    
+    ### make categorical bins for the rainfall intensity datasets
+    List1 <- convert_continuous_to_discrete_bins(inDF=storm.intensity.long, 
+                                                 n.discrete.colors=n.discrete.colors)
+    storm.intensity.long <- List1$outDF
+    storm.intensity.long.lab <- List1$lab
+    n.discrete.colors.storm.intensity <- length(storm.intensity.long.lab)
+    rain.color.storm <- rev(brewer.pal(n = n.discrete.colors.storm.intensity, name = "Blues"))
+    
+    List2 <- convert_continuous_to_discrete_bins(inDF=drought.intensity.long, 
+                                                 n.discrete.colors=n.discrete.colors)
+    drought.intensity.long <- List2$outDF
+    drought.intensity.long.lab <- List2$lab
+    n.discrete.colors.drought.intensity <- length(drought.intensity.long.lab)
+    rain.color.drought <- rev(brewer.pal(n = n.discrete.colors.drought.intensity, name = "Blues"))
     
     
     #### ploting storm severity
@@ -131,18 +147,19 @@ make_spatial_plots <- function(sourceDir, destDir,
               legend.text=element_text(size=12),
               legend.title=element_text(size=14),
               panel.grid.major=element_blank(),
-              legend.position="right",
+              legend.position="bottom",
               legend.box = 'vertical',
               legend.box.just = 'left')+
         scale_fill_manual(name="value",
                           limits=c("99.9", "99", "95", "90", "80", "70", "60", "50", "40"),
                           values=rain.color,
                           labels=c("99.9", "99", "95", "90", "80", "70", "60", "50", "40"))+
-        ggtitle(paste0("Storm ", storm.duration, " severity percentile"))
+        ggtitle(paste0("Storm ", storm.duration, " severity percentile"))+
+        guides(color = guide_legend(nrow=5, byrow = T))
     
     ### plot storm intensity
     p2 <- ggplot(storm.intensity.long, aes(lon, lat)) +
-        geom_raster(aes(fill=value))+
+        geom_raster(aes(fill=value_cat))+
         geom_point(aes(x=151.2093, y=-33.8688), col="red")+  # sydney
         annotate("text", x=151.2093, y=-34.2, label = "Sydney")+
         geom_point(aes(x=149.13, y=-35.2809), col="red")+    # canberra
@@ -156,10 +173,14 @@ make_spatial_plots <- function(sourceDir, destDir,
               legend.text=element_text(size=12),
               legend.title=element_text(size=14),
               panel.grid.major=element_blank(),
-              legend.position="right",
+              legend.position="bottom",
               legend.box = 'vertical',
               legend.box.just = 'left')+
-        ggtitle(paste0("Storm ", storm.duration, " intensity"))
+        ggtitle(paste0("Storm ", storm.duration, " intensity"))+
+        scale_fill_manual(name="value",
+                          values=rev(rain.color.storm),
+                          labels=storm.intensity.long.lab)+
+        guides(color = guide_legend(nrow=5, byrow = T))
     
     #### ploting drought severity
     p3 <- ggplot(drought.severity.long, aes(lon, lat)) +
@@ -177,19 +198,20 @@ make_spatial_plots <- function(sourceDir, destDir,
               legend.text=element_text(size=12),
               legend.title=element_text(size=14),
               panel.grid.major=element_blank(),
-              legend.position="right",
+              legend.position="bottom",
               legend.box = 'vertical',
               legend.box.just = 'left')+
         scale_fill_manual(name="value",
                           limits=c("0.1", "1", "5", "10", "20", "30", "40", "50", "60"),
                           values=heat.color,
                           labels=c("0.1", "1", "5", "10", "20", "30", "40", "50", "60"))+
-        ggtitle(paste0("Antecedent ", drought.duration, " rainfall severity percentile"))
+        ggtitle(paste0("Antecedent ", drought.duration, " rainfall severity percentile"))+
+        guides(color = guide_legend(nrow=5, byrow = T))
     
     
     ### plot drought intensity
     p4 <- ggplot(drought.intensity.long, aes(lon, lat)) +
-        geom_raster(aes(fill=value))+
+        geom_raster(aes(fill=value_cat))+
         geom_point(aes(x=151.2093, y=-33.8688), col="red")+  # sydney
         annotate("text", x=151.2093, y=-34.2, label = "Sydney")+
         geom_point(aes(x=149.13, y=-35.2809), col="red")+    # canberra
@@ -203,10 +225,14 @@ make_spatial_plots <- function(sourceDir, destDir,
               legend.text=element_text(size=12),
               legend.title=element_text(size=14),
               panel.grid.major=element_blank(),
-              legend.position="right",
+              legend.position="bottom",
               legend.box = 'vertical',
               legend.box.just = 'left')+
-        ggtitle(paste0("Antecedent ", drought.duration, " rainfall"))
+        scale_fill_manual(name="value",
+                          values=rev(rain.color.drought),
+                          labels=drought.intensity.long.lab)+
+        ggtitle(paste0("Antecedent ", drought.duration, " rainfall"))+
+        guides(color = guide_legend(nrow=5, byrow = T))
     
     
     pdf(paste0(destDir, "/", user.region.name, "_", date.of.interest,

@@ -160,8 +160,10 @@ make_spatial_plots(sourceDir = "output",
 
 
 ### to do list:
-### 1. delete grids with mean annual precipitation == 0; create a polygon to offset these regions;
-### 2. Check of values make sense for greater Sydney region (high precipitation), better color scheme to distinguish the bins;
+### 1. bin continuous varaibles into 9 bins;
+### 2. Check of values make sense for greater Sydney region (high precipitation);
+
+
 ### 3. Possibly create extreme index for the entire Australia 
 ###    shouldn't be big, because lon x lat x extreme percentile, based on one particular duration threshold
 ###    hence we will have several files for each extreme index, defined by duration, 
