@@ -9,7 +9,8 @@ plot_total_rainfall_for_a_year <- function(sourceDir, destDir,
     lon.lab <- paste0("lon", lon.id)
     
     lon <- seq(111.975, 111.975 + (0.05 * 885), by=0.05)
-    lat <- seq(-44.525, -44.525 + (0.05 * 690), by=0.05)
+    #lat <- seq(-44.525, -44.525 + (0.05 * 690), by=0.05)
+    lat <- seq(-10.025, -10.025 + (-0.05 * 690), by=-0.05)
     
     ### create lon lat DF for future plotting
     latlonDF <- data.frame(rep(lat.id, each = max(lon.id)),
@@ -60,12 +61,9 @@ plot_total_rainfall_for_a_year <- function(sourceDir, destDir,
     
     outDF <- outDF[order(outDF$lonID, outDF$latID),]
 
-    #p1 <- ggplot(outDF, aes(lonID, rev(latID))) +
-    #    geom_raster(aes(fill=value))
-    #
-    #p1 <- ggplot(outDF, aes(lon, rev(lat))) +
-    #    geom_raster(aes(fill=value))
-    #plot(p1)
+    ### prepare ssf grids
+    subDF <- subset(outDF, value == 0)
+    subDF <- subDF[order(subDF$lon, subDF$lat),]
     
     
     ### read in sea surface mask
@@ -78,11 +76,44 @@ plot_total_rainfall_for_a_year <- function(sourceDir, destDir,
     outDF.test <- subset(outDF.test, ssf == 1)
     outDF.test <- outDF.test[order(outDF.test$lon, outDF.test$lat),]
     
-    ### make plot
-
+    ### prepare discrete plotting scheme
+    ### get the value breaks
+    value_brks <- round(quantile(outDF$value, 
+                                 probs = seq(0, 1, 100/11/100)), 2)
+    
+    value_brks <- unique(value_brks)
+    
+    #### create categorical plotting labels for each plotting variables
+    outDF.test$value_cat <- cut(outDF.test$value, 
+                          breaks = value_brks)
+    
+    ### remove NAs
+    outDF.test <- outDF.test[!is.na(outDF.test$value_cat),]
+    
+    ### brk labels
+    value_lab <- as.character(rev(unique(outDF.test$value_cat)))
+    value_lab <- gsub(",", " to ", value_lab)
+    value_lab <- gsub("]", "", value_lab)
+    value_lab <- sub('.', '', value_lab)
+    
+    ### ordering
+    test1 <- gsub( " .*$", "", value_lab)
+    test2 <- sub(".+? ", "", value_lab)
+    test3 <- gsub("to ", "", test2)
+    tmp <- data.frame(cbind(test1, value_lab, test3))
+    tmp$test1 <- as.numeric(as.character(tmp$test1))
+    tmp$test3 <- as.numeric(as.character(tmp$test3))
+    
+    tmp <- tmp[order(tmp$test1),]
+    tmp$value_lab <- paste0(tmp$test1, " to ", tmp$test3)
+    
+    value_lab <- tmp$value_lab
+    n.discrete.colors <- length(value_lab)
+    rain.color <- rev(brewer.pal(n = n.discrete.colors, name = "Blues"))
+    
     ### plot 1-year rainfall total
-    p1 <- ggplot(outDF.test, aes(lon, rev(lat))) +
-        geom_raster(aes(fill=value))+
+    p1 <- ggplot(outDF.test, aes(lon, lat)) +
+        geom_tile(aes(fill=value_cat))+
         geom_point(aes(x=151.2093, y=-33.8688), col="red")+  # sydney
         annotate("text", x=151.2093, y=-34.2, label = "Sydney")+
         geom_point(aes(x=149.13, y=-35.2809), col="red")+    # canberra
@@ -96,12 +127,14 @@ plot_total_rainfall_for_a_year <- function(sourceDir, destDir,
               legend.text=element_text(size=12),
               legend.title=element_text(size=14),
               panel.grid.major=element_blank(),
-              legend.position="bottom",
-              legend.box = 'horizontal',
+              legend.position="right",
+              legend.box = 'vertical',
               legend.box.just = 'left')+
+        scale_fill_manual(name="value",
+                          values=rev(rain.color),
+                          labels=value_lab)+
+        guides(color = guide_legend(nrow=5, byrow = T))+
         ggtitle(paste0("Year ", user.defined.year, " total rainfall"))
-    
-    
     
     ### save image
     jpeg(paste0(destDir, "/Australia_Year_", user.defined.year,
