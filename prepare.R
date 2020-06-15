@@ -18,7 +18,9 @@ pacman::p_load(raster,
                chillR,
                RSAGA,
                lubridate,
-               reshape2)    
+               reshape2,
+               grid,
+               gridExtra)    
 
 
 #### Sourcing all R files in the modules subdirectory

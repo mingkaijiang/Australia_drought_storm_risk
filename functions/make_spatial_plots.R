@@ -1,6 +1,10 @@
 make_spatial_plots <- function(sourceDir, destDir,
                                user.region.name,
                                date.of.interest,
+                               user.lat.max,
+                               user.lat.min,
+                               user.lon.max,
+                               user.lon.min,
                                storm.duration,
                                drought.duration) {
     
@@ -237,11 +241,14 @@ make_spatial_plots <- function(sourceDir, destDir,
     
     pdf(paste0(destDir, "/", user.region.name, "_", date.of.interest,
                "_storm_", storm.duration,
-               "_drought_", drought.duration, ".pdf"), width = 8, height=8)
-    plot(p1)
-    plot(p2)
-    plot(p3)
-    plot(p4)
+               "_drought_", drought.duration, ".pdf"), width = 16, height=16)
+    
+    
+    grid.arrange(p1, p2, p3, p4, nrow = 2)
+    #plot(p1)
+    #plot(p2)
+    #plot(p3)
+    #plot(p4)
     
     dev.off()
     
