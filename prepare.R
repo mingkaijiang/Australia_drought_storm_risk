@@ -20,7 +20,10 @@ pacman::p_load(raster,
                lubridate,
                reshape2,
                grid,
-               gridExtra)    
+               gridExtra,
+               rgeos,
+               rnaturalearthdata,
+               rnaturalearth)    
 
 
 #### Sourcing all R files in the modules subdirectory

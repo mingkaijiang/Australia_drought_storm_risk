@@ -1,4 +1,4 @@
-make_spatial_plots_for_user_defined_regions <- function(sourceDir, destDir,
+make_spatial_plots_for_user_defined_regions_test <- function(sourceDir, destDir,
                                                         user.region.name,
                                                         date.of.interest,
                                                         user.lat.max,
@@ -7,7 +7,8 @@ make_spatial_plots_for_user_defined_regions <- function(sourceDir, destDir,
                                                         user.lon.min,
                                                         storm.duration,
                                                         drought.duration) {
-    
+
+        
     #### Create output folder
     if(!dir.exists(destDir)) {
         dir.create(destDir, showWarnings = FALSE)
@@ -96,64 +97,23 @@ make_spatial_plots_for_user_defined_regions <- function(sourceDir, destDir,
     storm.intensity.long <- merge(storm.intensity.long, latlonDF.sub,
                                     by=c("latID", "lonID"))
     
+    ### read in Australia
+    aus <- read_Australia_polygon()
+    DF1 <- latlonDF[,c("lon", "lat")]
+    ausDF <- cbind(DF1, extract(aus, DF1, df=T))
     
-    ### testing
-    plot(raster(storm.intensity))
-    add(world=T)
+    ### merge australia raster and input DF and then remove sea surface
+    drought.severity.long <- merge(drought.severity.long, ausDF, by=c("lon", "lat"), all=T)
+    drought.severity.long <- subset(drought.severity.long, layer == 1)
     
-    library("rnaturalearth")
-    library("rnaturalearthdata")
-    library("rgeos")
+    storm.severity.long <- merge(storm.severity.long, ausDF, by=c("lon", "lat"), all=T)
+    storm.severity.long <- subset(storm.severity.long, layer == 1)
     
-    world <- ne_countries(scale = "medium", returnclass = "sf")
-        
-    p1 <- ggplot(data=world) +
-        geom_sf() +
-        coord_sf(xlim = c(user.lon.min, user.lon.max), 
-                 ylim = c(user.lat.min, user.lat.max), expand = FALSE)+
-        geom_raster(storm.severity.long, mapping=aes(lon, lat, fill=as.character(value)))+
-        geom_point(aes(x=151.2093, y=-33.8688), col="red")+  # sydney
-        annotate("text", x=151.2093, y=-34.2, label = "Sydney")+
-        geom_point(aes(x=149.13, y=-35.2809), col="red")+    # canberra
-        annotate("text", x=149.13, y=-35.5, label = "Canberra")+
-        theme_linedraw() +
-        theme(panel.grid.minor=element_blank(),
-              axis.text.x=element_text(size=12),
-              axis.title.x=element_text(size=14),
-              axis.text.y=element_text(size=12),
-              axis.title.y=element_text(size=14),
-              legend.text=element_text(size=12),
-              legend.title=element_text(size=14),
-              panel.grid.major=element_blank(),
-              legend.position="bottom",
-              legend.box = 'vertical',
-              legend.box.just = 'left')+
-        scale_fill_manual(name="value",
-                          limits=c("99.9", "99", "95", "90", "80", "70", "60", "50", "40"),
-                          values=rain.color,
-                          labels=c("99.9", "99", "95", "90", "80", "70", "60", "50", "40"))+
-        ggtitle(paste0("Storm ", storm.duration, " severity percentile"))+
-        guides(color = guide_legend(nrow=5, byrow = T))
+    drought.intensity.long <- merge(drought.intensity.long, ausDF, by=c("lon", "lat"), all=T)
+    drought.intensity.long <- subset(drought.intensity.long, layer == 1)
     
-    plot(p1)
-    
-    ### read in sea surface mask
-    ssf.raster <- read_sea_surface_mask()
-    DF1 <- latlonDF.sub[,c("lon", "lat")]
-    ssfDF <- cbind(DF1, extract(ssf.raster, DF1, df=T))
-    
-    ### merge ssf and input DF and then remove sea surface
-    drought.severity.long <- merge(drought.severity.long, ssfDF, by=c("lon", "lat"), all=T)
-    drought.severity.long <- subset(drought.severity.long, ssf == 1)
-    
-    storm.severity.long <- merge(storm.severity.long, ssfDF, by=c("lon", "lat"), all=T)
-    storm.severity.long <- subset(storm.severity.long, ssf == 1)
-    
-    drought.intensity.long <- merge(drought.intensity.long, ssfDF, by=c("lon", "lat"), all=T)
-    drought.intensity.long <- subset(drought.intensity.long, ssf == 1)
-    
-    storm.intensity.long <- merge(storm.intensity.long, ssfDF, by=c("lon", "lat"), all=T)
-    storm.intensity.long <- subset(storm.intensity.long, ssf == 1)
+    storm.intensity.long <- merge(storm.intensity.long, ausDF, by=c("lon", "lat"), all=T)
+    storm.intensity.long <- subset(storm.intensity.long, layer == 1)
     
     ### prepare color palette
     n.discrete.colors <- 9

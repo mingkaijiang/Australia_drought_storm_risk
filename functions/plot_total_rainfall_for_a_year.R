@@ -53,6 +53,10 @@ plot_total_rainfall_for_a_year <- function(sourceDir, destDir,
     saveRDS(out, file=paste0(destDir, "/Australia_total_rainfall_year_",
                              user.defined.year, ".rds"))
     
+    ### read in data
+    #out <- readRDS(paste0(destDir, "/Australia_total_rainfall_year_",
+    #                      user.defined.year, ".rds"))
+    
     ### convert into long format
     outDF <- melt(out)
     colnames(outDF) <- c("latID", "lonID", "value")
@@ -61,19 +65,15 @@ plot_total_rainfall_for_a_year <- function(sourceDir, destDir,
     
     outDF <- outDF[order(outDF$lonID, outDF$latID),]
 
-    ### prepare ssf grids
-    subDF <- subset(outDF, value == 0)
-    subDF <- subDF[order(subDF$lon, subDF$lat),]
     
-    
-    ### read in sea surface mask
-    ssf.raster <- read_sea_surface_mask()
+    ### read in Australia raster
+    aus <- read_Australia_polygon()
     DF1 <- latlonDF[,c("lon", "lat")]
-    ssfDF <- cbind(DF1, extract(ssf.raster, DF1, df=T))
+    ausDF <- cbind(DF1, extract(aus, DF1, df=T))
     
     ### merge ssf and input DF and then remove sea surface
-    outDF.test <- merge(outDF, ssfDF, by=c("lon", "lat"), all=T)
-    outDF.test <- subset(outDF.test, ssf == 1)
+    outDF.test <- merge(outDF, ausDF, by=c("lon", "lat"), all=T)
+    outDF.test <- subset(outDF.test, layer == 1)
     outDF.test <- outDF.test[order(outDF.test$lon, outDF.test$lat),]
     
     ### prepare discrete plotting scheme
