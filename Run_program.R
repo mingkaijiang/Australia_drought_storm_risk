@@ -72,7 +72,8 @@ convert_from_spatial_to_temporal_DF_for_user_defined_regions(sourceDir = "/Volum
 #### Structure:
 #### 1. Calculate storm index
 #### 2. Calculate drought index
-#### 3. Calculate drought and storm severity index
+#### 3. Calculate wind index
+#### 4. Calculate drought and storm severity index
 
 
 #### 1. Calculate storm index, based on Sydney region daily data;
@@ -112,7 +113,11 @@ compute_drought_index_for_user_defined_regions(sourceDir = "input",
                                                duration = "2-year")
 
 
-process_GSOD_station_data(sourceDir = "input", 
+#### 3. Process wind data to calculate wind index
+####    Just one-day max wind and gust speed.
+####    This is GSOD station based dataset,
+####    so we have data gaps and spatial representative issues
+process_GSOD_station_data(sourceDir = "/Volumes/TOSHIBAEXT/gsod/", 
                           destDir = "output",
                           user.region.name = "Larger_Sydney",
                           user.lat.max = -28,
@@ -121,7 +126,7 @@ process_GSOD_station_data(sourceDir = "input",
                           user.lon.min = 145,
                           plot.option = T)
 
-#### 3. For each extreme rainfall event, obtain the drought severity information
+#### 4. For each extreme rainfall event, obtain the drought severity information
 ####    User can specify a particular date.of.interest,
 ####    the script will calculate the short storm and aggregated rainfall data 
 ####    based on user-defined storm and drought duration,
@@ -156,7 +161,15 @@ compute_drought_and_storm_event_severity_for_user_defined_regions(sourceDir = "i
                                                                   storm.duration = "5-day",
                                                                   drought.duration = "2-year")
 
-#### 4. Make spatial plots
+
+### +++++++++++++++ End basic code to generate climate extreme index ++++++++++++++++++ ####
+############################################################################################
+
+
+############################################################################################
+### ++++++++++++++++++++++++++++++++++ Start plotting +++++++++++++++++++++++++++++++++ ####
+
+#### 1. Make spatial plots
 sourceDir = "output"
 destDir = "output/plots"
 user.region.name = "Larger_Sydney"
@@ -204,9 +217,9 @@ make_spatial_plots_for_user_defined_regions(sourceDir = "output",
                                             storm.duration = "5-day",
                                             drought.duration = "2-year")
 
-### +++++++++++++++ End basic code to generate climate extreme index ++++++++++++++++++ ####
-############################################################################################
 
+### ++++++++++++++++++++++++++++++++++++ End plotting +++++++++++++++++++++++++++++++++ ####
+############################################################################################
 
 ### to do list:
 ### 1. Create extreme index for the entire Australia 
