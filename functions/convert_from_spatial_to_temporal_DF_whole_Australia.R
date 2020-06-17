@@ -47,7 +47,7 @@ convert_from_spatial_to_temporal_DF_whole_Australia <- function(sourceDir, destD
                          dayDF$Lab, ".grid")
     
     #### To process the raw data into groupped output
-    for (i in c(1:5)) {
+    for (i in c(1:23)) {
         
         ### get subset lat information
         lat.sub <- subset(latlonDF, Group == i)
