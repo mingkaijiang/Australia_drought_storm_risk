@@ -115,4 +115,13 @@ process_GSOD_station_data <- function(sourceDir, destDir,
     write.csv(gsodDF, paste0(destDir, "/GSOD_Wind_Extreme_", user.region.name, "_regions.csv"),
               row.names=F)
     
+    ### to do next:
+    ### 1. add % of data so that we know how many data point there is
+    ### 2. plot maps to see patterns to make sure the code processing is trustworthy
+    ### 3. develop code to extract date of interest wind speed, then we can compare against extreme index
+    ### 4. add plots to the gridded plots
+    ### 5. clean/redevelop code to speed up
+    ### 6. gridded wind data is needed
+    
+    
 }
