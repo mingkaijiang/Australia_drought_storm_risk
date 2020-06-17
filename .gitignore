@@ -36,5 +36,9 @@ vignettes/*.pdf
 *.nc
 *.jpg
 *.DS_Store
+*.tar
+*.txt
+*.gz
+*.op
 =======
 .Rproj.user
