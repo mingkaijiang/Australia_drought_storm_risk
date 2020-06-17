@@ -93,6 +93,18 @@ select_station_from_GSOD_global_dataset <- function(destDir,
     outDF$gust50 <- NA
     outDF$gust40 <- NA
     
+    ### remove un-useful columns
+    outDF$STATE <- NULL
+    outDF$ICAO <- NULL
+    outDF$CTRY <- NULL
+    
+    ### data format
+    outDF$s.year <- as.numeric(as.character(outDF$s.year))
+    outDF$e.year <- as.numeric(as.character(outDF$e.year))
+    
+    outDF$USAF <- as.numeric(as.character(outDF$USAF))
+    outDF$WBAN <- as.numeric(as.character(outDF$WBAN))
+    
     ### return
     return(outDF)
 }
