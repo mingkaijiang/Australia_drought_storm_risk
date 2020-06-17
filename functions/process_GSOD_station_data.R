@@ -16,6 +16,10 @@ process_GSOD_station_data <- function(sourceDir, destDir,
                                                       user.lon.min=user.lon.min,
                                                       plot.option=plot.option)
     
+
+    ### loop through the folders to find stations based on the user defined station list
+    
+    
     ### create data path
     gsodDF.path <- create_data_path_for_GSOD_dataset(inDF=gsodDF)
     

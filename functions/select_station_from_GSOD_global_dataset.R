@@ -61,5 +61,38 @@ select_station_from_GSOD_global_dataset <- function(destDir,
     subDF <- subset(ausDF, LON <= user.lon.max & LON >= user.lon.min &
                         LAT >= user.lat.min & LAT <= user.lat.max)
     
-    return(subDF)
+    
+    ### year information
+    subDF$s.year <- substr(subDF$BEGIN, start=1, stop=4)
+    subDF$e.year <- substr(subDF$END, start=1, stop=4)
+    
+    
+    ### filter out data with too little data year
+    outDF <- subset(subDF, e.year == "2020")
+    
+    ### add column for wind speed and gust speed
+    outDF$max.wind <- NA
+    outDF$wind999 <- NA
+    outDF$wind99 <- NA
+    outDF$wind95 <- NA
+    outDF$wind90 <- NA
+    outDF$wind80 <- NA
+    outDF$wind70 <- NA
+    outDF$wind60 <- NA
+    outDF$wind50 <- NA
+    outDF$wind40 <- NA
+    
+    outDF$max.gust <- NA
+    outDF$gust999 <- NA
+    outDF$gust99 <- NA
+    outDF$gust95 <- NA
+    outDF$gust90 <- NA
+    outDF$gust80 <- NA
+    outDF$gust70 <- NA
+    outDF$gust60 <- NA
+    outDF$gust50 <- NA
+    outDF$gust40 <- NA
+    
+    ### return
+    return(outDF)
 }
