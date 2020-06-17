@@ -58,7 +58,6 @@ process_GSOD_station_data <- function(sourceDir, destDir,
                 print("file found")
                 
                 ## read in data
-                myData <- read.table(pathDF$filepath[j])
                 gz <- gzfile(pathDF$filepath[j])
                 
                 #gz <- gzfile("input/gsod/gsod_2001/010010-99999-2001.op.gz")
@@ -82,6 +81,10 @@ process_GSOD_station_data <- function(sourceDir, destDir,
             }
             
         } # j
+        
+        ### replace 999.9 with NA
+        tmp1 <- as.numeric(gsub(999.9, "", tmp1))
+        tmp2 <- as.numeric(gsub(999.9, "", tmp2))
         
         ### assign value
         gsodDF$max.wind[i] <- ifelse(length(tmp1) == 0, NA, max(tmp1))
@@ -108,6 +111,8 @@ process_GSOD_station_data <- function(sourceDir, destDir,
         
     } # i
 
-    
+    ### save output
+    write.csv(gsodDF, paste0(destDir, "/GSOD_Wind_Extreme_", user.region.name, "_regions.csv"),
+              row.names=F)
     
 }
