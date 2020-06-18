@@ -170,6 +170,8 @@ merge_and_compute_Australia_storm_index <- function(sourceDir, destDir,
 
     ### now that we've created extreme for individual files, 
     ### we can merge them to create an Australia DF
-    merge_Australia_storm_extreme_DF(sourceDir, destDir, duration)
+    merge_Australia_storm_extreme_DF(sourceDir=sourceDir, 
+                                     destDir=destDir, 
+                                     duration=duration)
     
 }  
