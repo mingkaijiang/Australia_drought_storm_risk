@@ -1,5 +1,29 @@
-merge_Australia_storm_extreme_DF <- function() {
+merge_Australia_storm_extreme_DF <- function(sourceDir, destDir, 
+                                             duration) {
     
+    
+    ### prepare storage DF
+    stDF <- array(NA, c(691, 886, 5))
+    
+    ### allocate splitted data to the whole dataset
+    for (i in 1:23) {
+        
+        ### read in the data
+        myData <- readRDS(paste0(sourceDir, "/Group_", i, 
+                                 "_Storm_extreme_percentile_", duration,
+                                 "_Australia.rds"))
+        
+        dim <- dim(myData)[1]
+        
+        ### location index
+        loc1 <- (i-1)*30 + 1
+        loc2 <- loc1 + dim - 1
+        
+        ### assign values
+        stDF[loc1:loc2,,] <- myData
+    }
+    
+    ########################### prepare grid information DF ############################
     ### grid information
     lat.id <- c(1:691)
     lat.lab <- paste0("lat", lat.id)
@@ -20,5 +44,7 @@ merge_Australia_storm_extreme_DF <- function() {
     ### add group information to split the DF to make it smaller
     latlonDF$Group <- c(rep(c(1:23), each = 886 * 30), 
                         rep(23, each=886 * 1))
+    
+    ########################### end grid information DF ############################
     
 }
