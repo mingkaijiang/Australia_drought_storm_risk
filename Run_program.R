@@ -131,6 +131,14 @@ process_GSOD_station_data(sourceDir = "/Volumes/TOSHIBAEXT/gsod/",
                           user.lon.min = 145,
                           plot.option = T)
 
+plot_GSOD_station_wind_data_for_user_selected_regions(sourceDir = "output",
+                                                      destDir = "output/plots",
+                                                      user.region.name = "Larger_Sydney",
+                                                      user.lat.max = -28,
+                                                      user.lat.min = -36,
+                                                      user.lon.max = 155,
+                                                      user.lon.min = 145)
+
 #### 4. For each extreme rainfall event, obtain the drought severity information
 ####    User can specify a particular date.of.interest,
 ####    the script will calculate the short storm and aggregated rainfall data 

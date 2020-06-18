@@ -7,7 +7,8 @@ make_spatial_plots_for_user_defined_regions <- function(sourceDir, destDir,
                                                         user.lon.min,
                                                         storm.duration,
                                                         drought.duration) {
-    
+
+        
     #### Create output folder
     if(!dir.exists(destDir)) {
         dir.create(destDir, showWarnings = FALSE)
@@ -96,64 +97,27 @@ make_spatial_plots_for_user_defined_regions <- function(sourceDir, destDir,
     storm.intensity.long <- merge(storm.intensity.long, latlonDF.sub,
                                     by=c("latID", "lonID"))
     
+    ### read in Australia
+    aus <- read_Australia_polygon()
+    DF1 <- latlonDF[,c("lon", "lat")]
+    ausDF <- cbind(DF1, extract(aus, DF1, df=T))
     
-    ### testing
-    plot(raster(storm.intensity))
-    add(world=T)
+    ### merge australia raster and input DF and then remove sea surface
+    drought.severity.long <- merge(drought.severity.long, ausDF, by=c("lon", "lat"), all=T)
+    drought.severity.long <- subset(drought.severity.long, layer == 1)
+    drought.severity.long <- subset(drought.severity.long, value != "NA")
     
-    library("rnaturalearth")
-    library("rnaturalearthdata")
-    library("rgeos")
+    storm.severity.long <- merge(storm.severity.long, ausDF, by=c("lon", "lat"), all=T)
+    storm.severity.long <- subset(storm.severity.long, layer == 1)
+    storm.severity.long <- subset(storm.severity.long, value != "NA")
     
-    world <- ne_countries(scale = "medium", returnclass = "sf")
-        
-    p1 <- ggplot(data=world) +
-        geom_sf() +
-        coord_sf(xlim = c(user.lon.min, user.lon.max), 
-                 ylim = c(user.lat.min, user.lat.max), expand = FALSE)+
-        geom_raster(storm.severity.long, mapping=aes(lon, lat, fill=as.character(value)))+
-        geom_point(aes(x=151.2093, y=-33.8688), col="red")+  # sydney
-        annotate("text", x=151.2093, y=-34.2, label = "Sydney")+
-        geom_point(aes(x=149.13, y=-35.2809), col="red")+    # canberra
-        annotate("text", x=149.13, y=-35.5, label = "Canberra")+
-        theme_linedraw() +
-        theme(panel.grid.minor=element_blank(),
-              axis.text.x=element_text(size=12),
-              axis.title.x=element_text(size=14),
-              axis.text.y=element_text(size=12),
-              axis.title.y=element_text(size=14),
-              legend.text=element_text(size=12),
-              legend.title=element_text(size=14),
-              panel.grid.major=element_blank(),
-              legend.position="bottom",
-              legend.box = 'vertical',
-              legend.box.just = 'left')+
-        scale_fill_manual(name="value",
-                          limits=c("99.9", "99", "95", "90", "80", "70", "60", "50", "40"),
-                          values=rain.color,
-                          labels=c("99.9", "99", "95", "90", "80", "70", "60", "50", "40"))+
-        ggtitle(paste0("Storm ", storm.duration, " severity percentile"))+
-        guides(color = guide_legend(nrow=5, byrow = T))
+    drought.intensity.long <- merge(drought.intensity.long, ausDF, by=c("lon", "lat"), all=T)
+    drought.intensity.long <- subset(drought.intensity.long, layer == 1)
+    drought.intensity.long <- subset(drought.intensity.long, value != "NA")
     
-    plot(p1)
-    
-    ### read in sea surface mask
-    ssf.raster <- read_sea_surface_mask()
-    DF1 <- latlonDF.sub[,c("lon", "lat")]
-    ssfDF <- cbind(DF1, extract(ssf.raster, DF1, df=T))
-    
-    ### merge ssf and input DF and then remove sea surface
-    drought.severity.long <- merge(drought.severity.long, ssfDF, by=c("lon", "lat"), all=T)
-    drought.severity.long <- subset(drought.severity.long, ssf == 1)
-    
-    storm.severity.long <- merge(storm.severity.long, ssfDF, by=c("lon", "lat"), all=T)
-    storm.severity.long <- subset(storm.severity.long, ssf == 1)
-    
-    drought.intensity.long <- merge(drought.intensity.long, ssfDF, by=c("lon", "lat"), all=T)
-    drought.intensity.long <- subset(drought.intensity.long, ssf == 1)
-    
-    storm.intensity.long <- merge(storm.intensity.long, ssfDF, by=c("lon", "lat"), all=T)
-    storm.intensity.long <- subset(storm.intensity.long, ssf == 1)
+    storm.intensity.long <- merge(storm.intensity.long, ausDF, by=c("lon", "lat"), all=T)
+    storm.intensity.long <- subset(storm.intensity.long, layer == 1)
+    storm.intensity.long <- subset(storm.intensity.long, value != "NA")
     
     ### prepare color palette
     n.discrete.colors <- 9
@@ -175,14 +139,34 @@ make_spatial_plots_for_user_defined_regions <- function(sourceDir, destDir,
     n.discrete.colors.drought.intensity <- length(drought.intensity.long.lab)
     rain.color.drought <- rev(brewer.pal(n = n.discrete.colors.drought.intensity, name = "Blues"))
     
+    ### australia polygon
+    aus.poly <- ne_countries(scale = "medium", country = "Australia", returnclass = "sf")
+    
     
     #### ploting storm severity
-    p1 <- ggplot(storm.severity.long, aes(lon, lat)) +
-        geom_raster(aes(fill=as.character(value)))+
+    p1 <- ggplot(aus.poly) +
+        geom_tile(storm.severity.long, mapping=aes(lon, lat, fill=as.character(value)))+
+        geom_sf(fill=NA) +
         geom_point(aes(x=151.2093, y=-33.8688), col="red")+  # sydney
         annotate("text", x=151.2093, y=-34.2, label = "Sydney")+
         geom_point(aes(x=149.13, y=-35.2809), col="red")+    # canberra
         annotate("text", x=149.13, y=-35.5, label = "Canberra")+
+        geom_point(aes(x=151.7817, y=-32.9283), col="red")+    # new castle
+        annotate("text", x=151.7817, y=-33.1, label = "Newcastle")+
+        geom_point(aes(x=149.5775, y=-33.4193), col="red")+    # Bathurst
+        annotate("text", x=149.5775, y=-33.8, label = "Bathurst")+
+        geom_point(aes(x=147.3598, y=-35.1082), col="red")+    # Wagga Wagga
+        annotate("text", x=147.3598, y=-35.5, label = "Wagga Wagga")+
+        geom_point(aes(x=149.7812, y=-30.3324), col="red")+    # Narrabri
+        annotate("text", x=149.7812, y=-30.8, label = "Narrabri")+
+        geom_point(aes(x=152.9, y=-31.4333), col="red")+    # Port Macquarie
+        annotate("text", x=152.9, y=-31.9, label = "Port Macquarie")+
+        geom_point(aes(x=145.9378, y=-30.0888), col="red")+    # Bourke
+        annotate("text", x=145.9378, y=-30.5, label = "Bourke")+
+        geom_point(aes(x=153.4, y=-28.0167), col="red")+    # Gold Coast
+        annotate("text", x=153.4, y=-28.5, label = "Gold Coast")+
+        geom_point(aes(x=146.0455, y=-34.2801), col="red")+    # Griffith
+        annotate("text", x=146.0455, y=-34.6, label = "Griffith")+
         theme_linedraw() +
         theme(panel.grid.minor=element_blank(),
               axis.text.x=element_text(size=12),
@@ -200,15 +184,34 @@ make_spatial_plots_for_user_defined_regions <- function(sourceDir, destDir,
                           values=rain.color,
                           labels=c("99.9", "99", "95", "90", "80", "70", "60", "50", "40"))+
         ggtitle(paste0("Storm ", storm.duration, " severity percentile"))+
-        guides(color = guide_legend(nrow=5, byrow = T))
+        guides(color = guide_legend(nrow=5, byrow = T))+
+        xlim(user.lon.min, user.lon.max)+
+        ylim(user.lat.min, user.lat.max)
     
     ### plot storm intensity
-    p2 <- ggplot(storm.intensity.long, aes(lon, lat)) +
-        geom_raster(aes(fill=value_cat))+
+    p2 <- ggplot(aus.poly) +
+        geom_tile(storm.intensity.long, mapping=aes(lon, lat, fill=value_cat))+
+        geom_sf(fill=NA) +
         geom_point(aes(x=151.2093, y=-33.8688), col="red")+  # sydney
         annotate("text", x=151.2093, y=-34.2, label = "Sydney")+
         geom_point(aes(x=149.13, y=-35.2809), col="red")+    # canberra
         annotate("text", x=149.13, y=-35.5, label = "Canberra")+
+        geom_point(aes(x=151.7817, y=-32.9283), col="red")+    # new castle
+        annotate("text", x=151.7817, y=-33.1, label = "Newcastle")+
+        geom_point(aes(x=149.5775, y=-33.4193), col="red")+    # Bathurst
+        annotate("text", x=149.5775, y=-33.8, label = "Bathurst")+
+        geom_point(aes(x=147.3598, y=-35.1082), col="red")+    # Wagga Wagga
+        annotate("text", x=147.3598, y=-35.5, label = "Wagga Wagga")+
+        geom_point(aes(x=149.7812, y=-30.3324), col="red")+    # Narrabri
+        annotate("text", x=149.7812, y=-30.8, label = "Narrabri")+
+        geom_point(aes(x=152.9, y=-31.4333), col="red")+    # Port Macquarie
+        annotate("text", x=152.9, y=-31.9, label = "Port Macquarie")+
+        geom_point(aes(x=145.9378, y=-30.0888), col="red")+    # Bourke
+        annotate("text", x=145.9378, y=-30.5, label = "Bourke")+
+        geom_point(aes(x=153.4, y=-28.0167), col="red")+    # Gold Coast
+        annotate("text", x=153.4, y=-28.5, label = "Gold Coast")+
+        geom_point(aes(x=146.0455, y=-34.2801), col="red")+    # Griffith
+        annotate("text", x=146.0455, y=-34.6, label = "Griffith")+
         theme_linedraw() +
         theme(panel.grid.minor=element_blank(),
               axis.text.x=element_text(size=12),
@@ -225,15 +228,34 @@ make_spatial_plots_for_user_defined_regions <- function(sourceDir, destDir,
         scale_fill_manual(name="value",
                           values=rev(rain.color.storm),
                           labels=storm.intensity.long.lab)+
-        guides(color = guide_legend(nrow=5, byrow = T))
+        guides(color = guide_legend(nrow=5, byrow = T))+
+        xlim(user.lon.min, user.lon.max)+
+        ylim(user.lat.min, user.lat.max)
     
     #### ploting drought severity
-    p3 <- ggplot(drought.severity.long, aes(lon, lat)) +
-        geom_raster(aes(fill=as.character(value)))+
+    p3 <- ggplot(aus.poly) +
+        geom_tile(drought.severity.long, mapping=aes(lon, lat, fill=as.character(value)))+
+        geom_sf(fill=NA) +
         geom_point(aes(x=151.2093, y=-33.8688), col="red")+  # sydney
         annotate("text", x=151.2093, y=-34.2, label = "Sydney")+
         geom_point(aes(x=149.13, y=-35.2809), col="red")+    # canberra
         annotate("text", x=149.13, y=-35.5, label = "Canberra")+
+        geom_point(aes(x=151.7817, y=-32.9283), col="red")+    # new castle
+        annotate("text", x=151.7817, y=-33.1, label = "Newcastle")+
+        geom_point(aes(x=149.5775, y=-33.4193), col="red")+    # Bathurst
+        annotate("text", x=149.5775, y=-33.8, label = "Bathurst")+
+        geom_point(aes(x=147.3598, y=-35.1082), col="red")+    # Wagga Wagga
+        annotate("text", x=147.3598, y=-35.5, label = "Wagga Wagga")+
+        geom_point(aes(x=149.7812, y=-30.3324), col="red")+    # Narrabri
+        annotate("text", x=149.7812, y=-30.8, label = "Narrabri")+
+        geom_point(aes(x=152.9, y=-31.4333), col="red")+    # Port Macquarie
+        annotate("text", x=152.9, y=-31.9, label = "Port Macquarie")+
+        geom_point(aes(x=145.9378, y=-30.0888), col="red")+    # Bourke
+        annotate("text", x=145.9378, y=-30.5, label = "Bourke")+
+        geom_point(aes(x=153.4, y=-28.0167), col="red")+    # Gold Coast
+        annotate("text", x=153.4, y=-28.5, label = "Gold Coast")+
+        geom_point(aes(x=146.0455, y=-34.2801), col="red")+    # Griffith
+        annotate("text", x=146.0455, y=-34.6, label = "Griffith")+
         theme_linedraw() +
         theme(panel.grid.minor=element_blank(),
               axis.text.x=element_text(size=12),
@@ -251,16 +273,35 @@ make_spatial_plots_for_user_defined_regions <- function(sourceDir, destDir,
                           values=heat.color,
                           labels=c("0.1", "1", "5", "10", "20", "30", "40", "50", "60"))+
         ggtitle(paste0("Antecedent ", drought.duration, " rainfall severity percentile"))+
-        guides(color = guide_legend(nrow=5, byrow = T))
+        guides(color = guide_legend(nrow=5, byrow = T))+
+        xlim(user.lon.min, user.lon.max)+
+        ylim(user.lat.min, user.lat.max)
     
     
     ### plot drought intensity
-    p4 <- ggplot(drought.intensity.long, aes(lon, lat)) +
-        geom_raster(aes(fill=value_cat))+
+    p4 <- ggplot(aus.poly) +
+        geom_tile(drought.intensity.long, mapping=aes(lon, lat, fill=value_cat))+
+        geom_sf(fill=NA) +
         geom_point(aes(x=151.2093, y=-33.8688), col="red")+  # sydney
         annotate("text", x=151.2093, y=-34.2, label = "Sydney")+
         geom_point(aes(x=149.13, y=-35.2809), col="red")+    # canberra
         annotate("text", x=149.13, y=-35.5, label = "Canberra")+
+        geom_point(aes(x=151.7817, y=-32.9283), col="red")+    # new castle
+        annotate("text", x=151.7817, y=-33.1, label = "Newcastle")+
+        geom_point(aes(x=149.5775, y=-33.4193), col="red")+    # Bathurst
+        annotate("text", x=149.5775, y=-33.8, label = "Bathurst")+
+        geom_point(aes(x=147.3598, y=-35.1082), col="red")+    # Wagga Wagga
+        annotate("text", x=147.3598, y=-35.5, label = "Wagga Wagga")+
+        geom_point(aes(x=149.7812, y=-30.3324), col="red")+    # Narrabri
+        annotate("text", x=149.7812, y=-30.8, label = "Narrabri")+
+        geom_point(aes(x=152.9, y=-31.4333), col="red")+    # Port Macquarie
+        annotate("text", x=152.9, y=-31.9, label = "Port Macquarie")+
+        geom_point(aes(x=145.9378, y=-30.0888), col="red")+    # Bourke
+        annotate("text", x=145.9378, y=-30.5, label = "Bourke")+
+        geom_point(aes(x=153.4, y=-28.0167), col="red")+    # Gold Coast
+        annotate("text", x=153.4, y=-28.5, label = "Gold Coast")+
+        geom_point(aes(x=146.0455, y=-34.2801), col="red")+    # Griffith
+        annotate("text", x=146.0455, y=-34.6, label = "Griffith")+
         theme_linedraw() +
         theme(panel.grid.minor=element_blank(),
               axis.text.x=element_text(size=12),
@@ -277,7 +318,9 @@ make_spatial_plots_for_user_defined_regions <- function(sourceDir, destDir,
                           values=rev(rain.color.drought),
                           labels=drought.intensity.long.lab)+
         ggtitle(paste0("Antecedent ", drought.duration, " rainfall"))+
-        guides(color = guide_legend(nrow=5, byrow = T))
+        guides(color = guide_legend(nrow=5, byrow = T))+
+        xlim(user.lon.min, user.lon.max)+
+        ylim(user.lat.min, user.lat.max)
     
     
     jpeg(paste0(destDir, "/", user.region.name, "_", date.of.interest,
