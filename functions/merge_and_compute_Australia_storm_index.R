@@ -138,7 +138,7 @@ merge_and_compute_Australia_storm_index <- function(sourceDir, destDir,
         } # i loop
         
         ### write output    
-        saveRDS(out_percentile, file=paste0(sourceDir, "/Group_", file.id, 
+        saveRDS(out_percentile, file=paste0(destDir, "/Group_", file.id, 
                                             "_Storm_extreme_percentile_", duration,
                                             "_Australia.rds"))
         
@@ -150,11 +150,4 @@ merge_and_compute_Australia_storm_index <- function(sourceDir, destDir,
     } # file.id
     
 
-    ### now that we've created extreme for individual files, 
-    ### we can merge them to create an Australia DF
-    ### also plot the figure
-    merge_Australia_storm_extreme_DF(sourceDir=sourceDir, 
-                                     destDir=destDir, 
-                                     duration=duration)
-    
 }  
