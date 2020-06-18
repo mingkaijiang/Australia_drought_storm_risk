@@ -14,7 +14,7 @@ merge_and_compute_Australia_storm_index <- function(sourceDir, destDir,
         dim3 <- dim(myData)[3]
         
         ### prepare storage DF to store extreme rainfall percentile information
-        out_percentile <- array(NA, c(dim1, dim2, 9))
+        out_percentile <- array(NA, c(dim1, dim2,5))
         
         
         ### loop each grid
@@ -35,10 +35,6 @@ merge_and_compute_Australia_storm_index <- function(sourceDir, destDir,
                     P95 <- quantile(sub, 0.95, na.rm=T)
                     P90 <- quantile(sub, 0.90, na.rm=T)
                     P80 <- quantile(sub, 0.80, na.rm=T)
-                    P70 <- quantile(sub, 0.70, na.rm=T)
-                    P60 <- quantile(sub, 0.60, na.rm=T)
-                    P50 <- quantile(sub, 0.50, na.rm=T)
-                    P40 <- quantile(sub, 0.40, na.rm=T)
                     
                     
                 } else if (duration == "2-day") {
@@ -60,10 +56,6 @@ merge_and_compute_Australia_storm_index <- function(sourceDir, destDir,
                     P95 <- quantile(sub, 0.95, na.rm=T)
                     P90 <- quantile(sub, 0.90, na.rm=T)
                     P80 <- quantile(sub, 0.80, na.rm=T)
-                    P70 <- quantile(sub, 0.70, na.rm=T)
-                    P60 <- quantile(sub, 0.60, na.rm=T)
-                    P50 <- quantile(sub, 0.50, na.rm=T)
-                    P40 <- quantile(sub, 0.40, na.rm=T)
                     
                 } else if (duration == "3-day") {
                     
@@ -85,10 +77,6 @@ merge_and_compute_Australia_storm_index <- function(sourceDir, destDir,
                     P95 <- quantile(sub, 0.95, na.rm=T)
                     P90 <- quantile(sub, 0.90, na.rm=T)
                     P80 <- quantile(sub, 0.80, na.rm=T)
-                    P70 <- quantile(sub, 0.70, na.rm=T)
-                    P60 <- quantile(sub, 0.60, na.rm=T)
-                    P50 <- quantile(sub, 0.50, na.rm=T)
-                    P40 <- quantile(sub, 0.40, na.rm=T)
                     
                 } else if (duration == "4-day") {
                     
@@ -111,10 +99,6 @@ merge_and_compute_Australia_storm_index <- function(sourceDir, destDir,
                     P95 <- quantile(sub, 0.95, na.rm=T)
                     P90 <- quantile(sub, 0.90, na.rm=T)
                     P80 <- quantile(sub, 0.80, na.rm=T)
-                    P70 <- quantile(sub, 0.70, na.rm=T)
-                    P60 <- quantile(sub, 0.60, na.rm=T)
-                    P50 <- quantile(sub, 0.50, na.rm=T)
-                    P40 <- quantile(sub, 0.40, na.rm=T)
                     
                 } else if (duration == "5-day") {
                     
@@ -138,10 +122,6 @@ merge_and_compute_Australia_storm_index <- function(sourceDir, destDir,
                     P95 <- quantile(sub, 0.95, na.rm=T)
                     P90 <- quantile(sub, 0.90, na.rm=T)
                     P80 <- quantile(sub, 0.80, na.rm=T)
-                    P70 <- quantile(sub, 0.70, na.rm=T)
-                    P60 <- quantile(sub, 0.60, na.rm=T)
-                    P50 <- quantile(sub, 0.50, na.rm=T)
-                    P40 <- quantile(sub, 0.40, na.rm=T)
                     
                 } else {
                     print("no calculation option")
@@ -153,10 +133,6 @@ merge_and_compute_Australia_storm_index <- function(sourceDir, destDir,
                 out_percentile[i,j, 3] <- P95
                 out_percentile[i,j, 4] <- P90
                 out_percentile[i,j, 5] <- P80
-                out_percentile[i,j, 6] <- P70
-                out_percentile[i,j, 7] <- P60
-                out_percentile[i,j, 8] <- P50
-                out_percentile[i,j, 9] <- P40
                 
             } # j loop
         } # i loop
