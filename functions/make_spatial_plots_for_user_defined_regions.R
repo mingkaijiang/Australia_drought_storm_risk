@@ -182,7 +182,7 @@ make_spatial_plots_for_user_defined_regions <- function(sourceDir, destDir,
               legend.position="bottom",
               legend.box = 'vertical',
               legend.box.just = 'left')+
-        scale_fill_manual(name="value",
+        scale_fill_manual(name="percentile",
                           limits=c("99.9", "99", "95", "90", "80", "70", "60", "50", "40"),
                           values=rain.color,
                           labels=c("99.9", "99", "95", "90", "80", "70", "60", "50", "40"))+
@@ -271,7 +271,7 @@ make_spatial_plots_for_user_defined_regions <- function(sourceDir, destDir,
               legend.position="bottom",
               legend.box = 'vertical',
               legend.box.just = 'left')+
-        scale_fill_manual(name="value",
+        scale_fill_manual(name="percentile",
                           limits=c("0.1", "1", "5", "10", "20", "30", "40", "50", "60"),
                           values=heat.color,
                           labels=c("0.1", "1", "5", "10", "20", "30", "40", "50", "60"))+
@@ -364,8 +364,7 @@ make_spatial_plots_for_user_defined_regions <- function(sourceDir, destDir,
               legend.position="bottom",
               legend.box = 'vertical',
               legend.box.just = 'left')+
-        #scale_fill_viridis_b(name="value")+
-        scale_fill_manual(name="value",
+        scale_fill_manual(name="percentile",
                           limits=c("99.9", "99", "95", "90", "80", "70", "60", "50", "40"),
                           values=rain.color,
                           labels=c("99.9", "99", "95", "90", "80", "70", "60", "50", "40"))+
