@@ -257,13 +257,14 @@ make_spatial_plots_for_user_defined_regions(sourceDir = "output",
 ############################################################################################
 
 ### to do list:
-### 1. Merge extreme index for the entire Australia 
-### 2. With Australia extreme index created, we can make plots to show the drought and storm extreme pattern
+### 1. Check extreme storm percentile code and plots
+### 2. Add drought percentile code and plots
 ### 3. Revise code to speed up the process
-### 4. Add wind data (station-based)
+### 4. Make nicer plots with county and state boundaries, smaller plots with focus to regions
 ### 5. Combine wind, rainfall and drought index to create a cumulative extreme index
-### 6. Make nicer plots
-### 7. All needed dates and extreme combination
-
+### 6. More visualization optimization
+### 7. Code cleaning
+### 8. Prepare codes to generate results on all needed dates 
+### 9. Write result interpretation
 
 
