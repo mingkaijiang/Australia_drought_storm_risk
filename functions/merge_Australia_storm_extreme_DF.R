@@ -60,7 +60,7 @@ merge_Australia_storm_extreme_DF <- function(sourceDir, destDir,
     plotDF1 <- merge(plotDF1, latlonDF, by=c("latID", "lonID"))
     
     ## P99
-    subDF2 <- stDF[,,12] 
+    subDF2 <- stDF[,,2] 
     plotDF2 <- melt(subDF2)
     colnames(plotDF2) <- c("latID", "lonID", "value")
     plotDF2 <- merge(plotDF2, latlonDF, by=c("latID", "lonID"))
@@ -130,7 +130,7 @@ merge_Australia_storm_extreme_DF <- function(sourceDir, destDir,
               legend.box = 'vertical',
               legend.box.just = 'left')+
         scale_fill_viridis_b(name="value")+
-        ggtitle(paste0("Storm ", storm.duration, " severity P99.9"))+
+        ggtitle(paste0("Storm ", duration, " severity P99.9"))+
         guides(color = guide_legend(nrow=5, byrow = T))
     
     p2 <- ggplot(aus.poly) +
@@ -153,7 +153,7 @@ merge_Australia_storm_extreme_DF <- function(sourceDir, destDir,
               legend.box = 'vertical',
               legend.box.just = 'left')+
         scale_fill_viridis_b(name="value")+
-        ggtitle(paste0("Storm ", storm.duration, " severity P99"))+
+        ggtitle(paste0("Storm ", duration, " severity P99"))+
         guides(color = guide_legend(nrow=5, byrow = T))
     
     p3 <- ggplot(aus.poly) +
@@ -176,7 +176,7 @@ merge_Australia_storm_extreme_DF <- function(sourceDir, destDir,
               legend.box = 'vertical',
               legend.box.just = 'left')+
         scale_fill_viridis_b(name="value")+
-        ggtitle(paste0("Storm ", storm.duration, " severity P95"))+
+        ggtitle(paste0("Storm ", duration, " severity P95"))+
         guides(color = guide_legend(nrow=5, byrow = T))
     
     p4 <- ggplot(aus.poly) +
@@ -199,13 +199,12 @@ merge_Australia_storm_extreme_DF <- function(sourceDir, destDir,
               legend.box = 'vertical',
               legend.box.just = 'left')+
         scale_fill_viridis_b(name="value")+
-        ggtitle(paste0("Storm ", storm.duration, " severity P90"))+
+        ggtitle(paste0("Storm ", duration, " severity P90"))+
         guides(color = guide_legend(nrow=5, byrow = T))
     
     
     ### save plot
-    jpeg(paste0(destDir, "/Australia_", date.of.interest,
-                "_storm_", storm.duration,
+    jpeg(paste0(destDir, "/Australia_storm_", duration,
                 "_percentile.jpg"), units="in", res=150,width = 16, height=16)
     
     grid.arrange(p1, p2, p3, p4, nrow = 2)
