@@ -257,14 +257,13 @@ make_spatial_plots_for_user_defined_regions(sourceDir = "output",
 ############################################################################################
 
 ### to do list:
-### 1. Check extreme storm percentile code and plots
-### 2. Add drought percentile code and plots
-### 3. Revise code to speed up the process
-### 4. Make nicer plots with county and state boundaries, smaller plots with focus to regions
-### 5. Combine wind, rainfall and drought index to create a cumulative extreme index
-### 6. More visualization optimization
-### 7. Code cleaning
-### 8. Prepare codes to generate results on all needed dates 
-### 9. Write result interpretation
+### 1. discrete plotting scheme
+### 2. Add major cities
+### 3. drought index for Australia
+### 4. Revise code to speed up the process 
+### 5. The combined index with wind, storm and drought (spider chart)
+### 6. Code cleaning
+### 7. Prepare codes to generate results on all needed dates 
+### 8. Write result interpretation
 
 

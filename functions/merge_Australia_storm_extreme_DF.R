@@ -105,13 +105,47 @@ merge_Australia_storm_extreme_DF <- function(sourceDir, destDir,
     heat.color <- rev(brewer.pal(n = n.discrete.colors, name = "YlOrRd"))
     rain.color <- rev(brewer.pal(n = n.discrete.colors, name = "Blues"))
     
+    ### prepare DF with discrete labelling
+    ## plotDF1
+    value_brks <- unique(round(quantile(plotDF1$value, 
+                                probs = seq(0, 1, 100/9/100)), 2))
+    plotDF1$value_cat <- cut(plotDF1$value, 
+                                breaks = value_brks)
+    plotDF1 <- plotDF1[!is.na(plotDF1$value_cat),]
+    value_lab1 <- prepare_and_order_discrete_value_label(plotDF1)
+    
+    ## plotDF2
+    value_brks <- unique(round(quantile(plotDF2$value, 
+                                        probs = seq(0, 1, 100/9/100)), 2))
+    plotDF2$value_cat <- cut(plotDF2$value, 
+                             breaks = value_brks)
+    plotDF2 <- plotDF2[!is.na(plotDF2$value_cat),]
+    value_lab2 <- prepare_and_order_discrete_value_label(plotDF2)
+    
+    ## plotDF3
+    value_brks <- unique(round(quantile(plotDF3$value, 
+                                        probs = seq(0, 1, 100/9/100)), 2))
+    plotDF3$value_cat <- cut(plotDF3$value, 
+                             breaks = value_brks)
+    plotDF3 <- plotDF3[!is.na(plotDF3$value_cat),]
+    value_lab3 <- prepare_and_order_discrete_value_label(plotDF3)
+    
+    ## plotDF4
+    value_brks <- unique(round(quantile(plotDF4$value, 
+                                        probs = seq(0, 1, 100/9/100)), 2))
+    plotDF4$value_cat <- cut(plotDF4$value, 
+                             breaks = value_brks)
+    plotDF4 <- plotDF4[!is.na(plotDF4$value_cat),]
+    value_lab4 <- prepare_and_order_discrete_value_label(plotDF4)
+    
+    
+    
     ### australia polygon
     aus.poly <- ne_countries(scale = "medium", country = "Australia", returnclass = "sf")
     
-    
     #### ploting storm severity
     p1 <- ggplot(aus.poly) +
-        geom_tile(plotDF1, mapping=aes(lon, lat, fill=value))+
+        geom_tile(plotDF1, mapping=aes(lon, lat, fill=value_cat))+
         geom_sf(fill=NA) +
         geom_point(aes(x=151.2093, y=-33.8688), col="red")+  # sydney
         annotate("text", x=151.2093, y=-34.2, label = "Sydney")+
@@ -129,12 +163,14 @@ merge_Australia_storm_extreme_DF <- function(sourceDir, destDir,
               legend.position="bottom",
               legend.box = 'vertical',
               legend.box.just = 'left')+
-        scale_fill_viridis_b(name="value")+
+        scale_fill_manual(name="value",
+                          values=rev(rain.color),
+                          labels=value_lab1)+
         ggtitle(paste0("Storm ", duration, " severity P99.9"))+
         guides(color = guide_legend(nrow=5, byrow = T))
     
     p2 <- ggplot(aus.poly) +
-        geom_tile(plotDF2, mapping=aes(lon, lat, fill=value))+
+        geom_tile(plotDF2, mapping=aes(lon, lat, fill=value_cat))+
         geom_sf(fill=NA) +
         geom_point(aes(x=151.2093, y=-33.8688), col="red")+  # sydney
         annotate("text", x=151.2093, y=-34.2, label = "Sydney")+
@@ -152,12 +188,14 @@ merge_Australia_storm_extreme_DF <- function(sourceDir, destDir,
               legend.position="bottom",
               legend.box = 'vertical',
               legend.box.just = 'left')+
-        scale_fill_viridis_b(name="value")+
+        scale_fill_manual(name="value",
+                          values=rev(rain.color),
+                          labels=value_lab2)+
         ggtitle(paste0("Storm ", duration, " severity P99"))+
         guides(color = guide_legend(nrow=5, byrow = T))
     
     p3 <- ggplot(aus.poly) +
-        geom_tile(plotDF3, mapping=aes(lon, lat, fill=value))+
+        geom_tile(plotDF3, mapping=aes(lon, lat, fill=value_cat))+
         geom_sf(fill=NA) +
         geom_point(aes(x=151.2093, y=-33.8688), col="red")+  # sydney
         annotate("text", x=151.2093, y=-34.2, label = "Sydney")+
@@ -175,12 +213,14 @@ merge_Australia_storm_extreme_DF <- function(sourceDir, destDir,
               legend.position="bottom",
               legend.box = 'vertical',
               legend.box.just = 'left')+
-        scale_fill_viridis_b(name="value")+
+        scale_fill_manual(name="value",
+                          values=rev(rain.color),
+                          labels=value_lab3)+
         ggtitle(paste0("Storm ", duration, " severity P95"))+
         guides(color = guide_legend(nrow=5, byrow = T))
     
     p4 <- ggplot(aus.poly) +
-        geom_tile(plotDF4, mapping=aes(lon, lat, fill=value))+
+        geom_tile(plotDF4, mapping=aes(lon, lat, fill=value_cat))+
         geom_sf(fill=NA) +
         geom_point(aes(x=151.2093, y=-33.8688), col="red")+  # sydney
         annotate("text", x=151.2093, y=-34.2, label = "Sydney")+
@@ -198,7 +238,9 @@ merge_Australia_storm_extreme_DF <- function(sourceDir, destDir,
               legend.position="bottom",
               legend.box = 'vertical',
               legend.box.just = 'left')+
-        scale_fill_viridis_b(name="value")+
+        scale_fill_manual(name="value",
+                          values=rev(rain.color),
+                          labels=value_lab4)+
         ggtitle(paste0("Storm ", duration, " severity P90"))+
         guides(color = guide_legend(nrow=5, byrow = T))
     
@@ -210,6 +252,5 @@ merge_Australia_storm_extreme_DF <- function(sourceDir, destDir,
     grid.arrange(p1, p2, p3, p4, nrow = 2)
     
     dev.off()
-    
     
 }
