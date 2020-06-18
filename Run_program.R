@@ -41,7 +41,6 @@ source("prepare.R")
 #### 4. Convert from per day to per grid
 #### Only need to run this code once
 #### For whole Australia
-#### whenever possible, rerun this!!!!!!!
 convert_from_spatial_to_temporal_DF_whole_Australia(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/rain/", 
                                                     destDir = "/Volumes/TOSHIBAEXT/AWAP/output")
 
@@ -58,15 +57,6 @@ convert_from_spatial_to_temporal_DF_for_user_defined_regions(sourceDir = "/Volum
                                                              user.region.name = "Larger_Sydney")
 
 
-### Brisbane
-#convert_from_spatial_to_temporal_DF_for_user_defined_regions(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/rain/", 
-#                                                             destDir = "/Volumes/TOSHIBAEXT/AWAP/output",
-#                                                             user.lat.max = -20,
-#                                                             user.lat.min = -28,
-#                                                             user.lon.max = 155,
-#                                                             user.lon.min = 145,
-#                                                             user.region.name = "Larger_Brisbane")
-
 ###########################################################################################
 ### +++++++++++++++ Basic code to generate climate extreme index +++++++++++++++++++++ ####
 #### Structure:
@@ -80,11 +70,14 @@ convert_from_spatial_to_temporal_DF_for_user_defined_regions(sourceDir = "/Volum
 ####     Storm index has duration options of 1 - 5 days
 ####     Output a 3 dimension matrix with lat lon and 9 layers of storm index
 ####     Each layer is the 99.9th, 99th, 95th, 90th, 80th, 70th, 60th, 50th, 40th percentile
+
+#### placeholder for computing storm index for whole Australia (merging 23 rds)
+
+
 #sourceDir = "input"
 #destDir = "output"
 #user.region.name = "Larger_Sydney"
 #duration = "1-day"
-
 compute_storm_index_for_user_defined_regions(sourceDir = "input", 
                                              destDir = "output",
                                              user.region.name = "Larger_Sydney",
@@ -101,6 +94,10 @@ compute_storm_index_for_user_defined_regions(sourceDir = "input",
 ####     Output a 3 dimension matrix with lat lon and 9 layers of storm index
 ####     Each layer is the number of no rain days, 
 ####     0.1th, 1th, 5th, 10th, 20th, 30th, 40th, 50th percentile of the rainfall distribution
+
+#### placeholder for computing storm index for whole Australia (merging 23 rds)
+
+
 compute_drought_index_for_user_defined_regions(sourceDir = "input", 
                                                destDir = "output",
                                                user.region.name = "Larger_Sydney",
@@ -117,6 +114,14 @@ compute_drought_index_for_user_defined_regions(sourceDir = "input",
 ####    Just one-day max wind and gust speed.
 ####    This is GSOD station based dataset,
 ####    so we have data gaps and spatial representative issues
+sourceDir = "/Volumes/TOSHIBAEXT/gsod/"
+destDir = "output"
+user.region.name = "Larger_Sydney"
+user.lat.max = -28
+user.lat.min = -36
+user.lon.max = 155
+user.lon.min = 145
+plot.option = T
 process_GSOD_station_data(sourceDir = "/Volumes/TOSHIBAEXT/gsod/", 
                           destDir = "output",
                           user.region.name = "Larger_Sydney",
@@ -168,8 +173,19 @@ compute_drought_and_storm_event_severity_for_user_defined_regions(sourceDir = "i
 
 ############################################################################################
 ### ++++++++++++++++++++++++++++++++++ Start plotting +++++++++++++++++++++++++++++++++ ####
+#### Structure: 
+#### 1. Plot whole Australia drought and storm intensity maps
+#### 2. Plot selected region severity and intensity maps
 
-#### 1. Make spatial plots
+
+#### 1. Plot whole Australia drought and storm intensity maps
+
+
+
+
+
+
+#### 2. Plot selected region severity and intensity maps
 sourceDir = "output"
 destDir = "output/plots"
 user.region.name = "Larger_Sydney"
@@ -222,10 +238,13 @@ make_spatial_plots_for_user_defined_regions(sourceDir = "output",
 ############################################################################################
 
 ### to do list:
-### 1. Create extreme index for the entire Australia 
-###    shouldn't be big, because lon x lat x extreme percentile, based on one particular duration threshold
-###    hence we will have several files for each extreme index, defined by duration, 
-###    then in each file we will have 3d matrix with the last dimension splitting into different extreme percentile.
+### 1. Merge extreme index for the entire Australia 
 ### 2. With Australia extreme index created, we can make plots to show the drought and storm extreme pattern
+### 3. Revise code to speed up the process
+### 4. Add wind data (station-based)
+### 5. Combine wind, rainfall and drought index to create a cumulative extreme index
+### 6. Make nicer plots
+### 7. All needed dates and extreme combination
+
 
 

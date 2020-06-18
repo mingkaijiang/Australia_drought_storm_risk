@@ -16,8 +16,6 @@ process_GSOD_station_data <- function(sourceDir, destDir,
                                                       user.lon.min=user.lon.min,
                                                       plot.option=plot.option)
     
-    tmp1 <- c()
-    tmp2 <- c()
 
     ### number of stations
     n.station <- dim(gsodDF)[1]
@@ -40,13 +38,17 @@ process_GSOD_station_data <- function(sourceDir, destDir,
         ## folder path
         pathDF$file <- paste0(station.id, "-", pathDF$year, ".op.gz")
         
-        pathDF$path <- paste0(sourceDir, "/gsod/gsod_", pathDF$year, "/")
+        pathDF$path <- paste0(sourceDir, "gsod_", pathDF$year, "/")
         
-        pathDF$filepath <- paste0(sourceDir, "/gsod/gsod_", pathDF$year, "/",
+        pathDF$filepath <- paste0(sourceDir, "gsod_", pathDF$year, "/",
                                   station.id, "-", pathDF$year, ".op.gz")
         
         ## read in the path and create percentile dataframe on wind and gust data
         n.files <- dim(pathDF)[1]
+        
+        ## empty array to store data
+        tmp1 <- c()
+        tmp2 <- c()
         
         for (j in 1:n.files) {
             all.file.names <- list.files(path = pathDF$path[j], pattern = "*.op.gz")
@@ -76,8 +78,8 @@ process_GSOD_station_data <- function(sourceDir, destDir,
                 
             } else {
                 print("file not found")
-                tmp1 <- tmp1
-                tmp2 <- tmp2
+                #tmp1 <- tmp1
+                #tmp2 <- tmp2
             }
             
         } # j
@@ -87,7 +89,7 @@ process_GSOD_station_data <- function(sourceDir, destDir,
         tmp2 <- as.numeric(gsub(999.9, "", tmp2))
         
         ### assign value
-        gsodDF$max.wind[i] <- ifelse(length(tmp1) == 0, NA, max(tmp1))
+        gsodDF$max.wind[i] <- ifelse(length(tmp1) == 0, NA, max(tmp1, na.rm=T))
         gsodDF$wind999[i] <- ifelse(length(tmp1) == 0, NA, quantile(tmp1, 0.999, na.rm=T))
         gsodDF$wind99[i] <- ifelse(length(tmp1) == 0, NA, quantile(tmp1, 0.99, na.rm=T))
         gsodDF$wind95[i] <- ifelse(length(tmp1) == 0, NA, quantile(tmp1, 0.95, na.rm=T))
@@ -98,7 +100,7 @@ process_GSOD_station_data <- function(sourceDir, destDir,
         gsodDF$wind50[i] <- ifelse(length(tmp1) == 0, NA, quantile(tmp1, 0.50, na.rm=T))
         gsodDF$wind40[i] <- ifelse(length(tmp1) == 0, NA, quantile(tmp1, 0.40, na.rm=T))
         
-        gsodDF$max.gust[i] <- ifelse(length(tmp2) == 0, NA, max(tmp2))
+        gsodDF$max.gust[i] <- ifelse(length(tmp2) == 0, NA, max(tmp2, na.rm=T))
         gsodDF$gust999[i] <- ifelse(length(tmp2) == 0, NA, quantile(tmp2, 0.999, na.rm=T))
         gsodDF$gust99[i] <- ifelse(length(tmp2) == 0, NA, quantile(tmp2, 0.99, na.rm=T))
         gsodDF$gust95[i] <- ifelse(length(tmp2) == 0, NA, quantile(tmp2, 0.95, na.rm=T))
