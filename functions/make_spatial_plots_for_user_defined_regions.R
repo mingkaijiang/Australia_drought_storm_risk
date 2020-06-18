@@ -416,7 +416,7 @@ make_spatial_plots_for_user_defined_regions <- function(sourceDir, destDir,
         xlim(user.lon.min, user.lon.max)+
         ylim(user.lat.min, user.lat.max)
     
-    
+    ### save plot
     jpeg(paste0(destDir, "/", user.region.name, "_", date.of.interest,
                "_storm_", storm.duration,
                "_drought_", drought.duration, ".jpg"), units="in", res=150,width = 16, height=20)
