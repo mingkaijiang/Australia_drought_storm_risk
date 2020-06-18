@@ -39,6 +39,10 @@ make_spatial_plots_for_user_defined_regions <- function(sourceDir, destDir,
                                      drought.duration, "_",
                                      user.region.name, "_regions.rds"))
     
+    wind.severity <- read.csv(paste0(sourceDir, "/GSOD_Wind_Extreme_Severity_", 
+                                     date.of.interest, "_", user.region.name,
+                                     "_regions.csv"))
+    
     
     ### prepare lat and lon real information
     ### grid information
@@ -49,7 +53,6 @@ make_spatial_plots_for_user_defined_regions <- function(sourceDir, destDir,
     lon.lab <- paste0("lon", lon.id)
     
     lon <- seq(111.975, 111.975 + (0.05 * 885), by=0.05)
-    #lat <- seq(-44.525, -44.525 + (0.05 * 690), by=0.05)
     lat <- seq(-10.025, -10.025 + (-0.05 * 690), by=-0.05)
     
     ### create lon lat DF for future plotting
@@ -323,12 +326,101 @@ make_spatial_plots_for_user_defined_regions <- function(sourceDir, destDir,
         ylim(user.lat.min, user.lat.max)
     
     
+    ### wind severity percentile
+    p5 <- ggplot(aus.poly) +
+        geom_point(wind.severity, mapping=aes(lon, lat, fill=as.character(wind.severity.percentile)), pch = 21)+
+        geom_sf(fill=NA) +
+        geom_point(aes(x=151.2093, y=-33.8688), col="red")+  # sydney
+        annotate("text", x=151.2093, y=-34.2, label = "Sydney")+
+        geom_point(aes(x=149.13, y=-35.2809), col="red")+    # canberra
+        annotate("text", x=149.13, y=-35.5, label = "Canberra")+
+        geom_point(aes(x=151.7817, y=-32.9283), col="red")+    # new castle
+        annotate("text", x=151.7817, y=-33.1, label = "Newcastle")+
+        geom_point(aes(x=149.5775, y=-33.4193), col="red")+    # Bathurst
+        annotate("text", x=149.5775, y=-33.8, label = "Bathurst")+
+        geom_point(aes(x=147.3598, y=-35.1082), col="red")+    # Wagga Wagga
+        annotate("text", x=147.3598, y=-35.5, label = "Wagga Wagga")+
+        geom_point(aes(x=149.7812, y=-30.3324), col="red")+    # Narrabri
+        annotate("text", x=149.7812, y=-30.8, label = "Narrabri")+
+        geom_point(aes(x=152.9, y=-31.4333), col="red")+    # Port Macquarie
+        annotate("text", x=152.9, y=-31.9, label = "Port Macquarie")+
+        geom_point(aes(x=145.9378, y=-30.0888), col="red")+    # Bourke
+        annotate("text", x=145.9378, y=-30.5, label = "Bourke")+
+        geom_point(aes(x=153.4, y=-28.0167), col="red")+    # Gold Coast
+        annotate("text", x=153.4, y=-28.5, label = "Gold Coast")+
+        geom_point(aes(x=146.0455, y=-34.2801), col="red")+    # Griffith
+        annotate("text", x=146.0455, y=-34.6, label = "Griffith")+
+        theme_linedraw() +
+        theme(panel.grid.minor=element_blank(),
+              axis.text.x=element_text(size=12),
+              axis.title.x=element_text(size=14),
+              axis.text.y=element_text(size=12),
+              axis.title.y=element_text(size=14),
+              legend.text=element_text(size=12),
+              legend.title=element_text(size=14),
+              panel.grid.major=element_blank(),
+              legend.position="bottom",
+              legend.box = 'vertical',
+              legend.box.just = 'left')+
+        #scale_fill_viridis_b(name="value")+
+        scale_fill_manual(name="value",
+                          limits=c("99.9", "99", "95", "90", "80", "70", "60", "50", "40"),
+                          values=rain.color,
+                          labels=c("99.9", "99", "95", "90", "80", "70", "60", "50", "40"))+
+        guides(color = guide_legend(nrow=5, byrow = T))+
+        ggtitle(paste0("Max. wind severity percentile"))+
+        xlim(user.lon.min, user.lon.max)+
+        ylim(user.lat.min, user.lat.max)
+    
+    ### wind speed intensity (0.1 knots)
+    p6 <- ggplot(aus.poly) +
+        geom_point(wind.severity, mapping=aes(lon, lat, fill=selected.wind.speed), pch = 21)+
+        geom_sf(fill=NA) +
+        geom_point(aes(x=151.2093, y=-33.8688), col="red")+  # sydney
+        annotate("text", x=151.2093, y=-34.2, label = "Sydney")+
+        geom_point(aes(x=149.13, y=-35.2809), col="red")+    # canberra
+        annotate("text", x=149.13, y=-35.5, label = "Canberra")+
+        geom_point(aes(x=151.7817, y=-32.9283), col="red")+    # new castle
+        annotate("text", x=151.7817, y=-33.1, label = "Newcastle")+
+        geom_point(aes(x=149.5775, y=-33.4193), col="red")+    # Bathurst
+        annotate("text", x=149.5775, y=-33.8, label = "Bathurst")+
+        geom_point(aes(x=147.3598, y=-35.1082), col="red")+    # Wagga Wagga
+        annotate("text", x=147.3598, y=-35.5, label = "Wagga Wagga")+
+        geom_point(aes(x=149.7812, y=-30.3324), col="red")+    # Narrabri
+        annotate("text", x=149.7812, y=-30.8, label = "Narrabri")+
+        geom_point(aes(x=152.9, y=-31.4333), col="red")+    # Port Macquarie
+        annotate("text", x=152.9, y=-31.9, label = "Port Macquarie")+
+        geom_point(aes(x=145.9378, y=-30.0888), col="red")+    # Bourke
+        annotate("text", x=145.9378, y=-30.5, label = "Bourke")+
+        geom_point(aes(x=153.4, y=-28.0167), col="red")+    # Gold Coast
+        annotate("text", x=153.4, y=-28.5, label = "Gold Coast")+
+        geom_point(aes(x=146.0455, y=-34.2801), col="red")+    # Griffith
+        annotate("text", x=146.0455, y=-34.6, label = "Griffith")+
+        theme_linedraw() +
+        theme(panel.grid.minor=element_blank(),
+              axis.text.x=element_text(size=12),
+              axis.title.x=element_text(size=14),
+              axis.text.y=element_text(size=12),
+              axis.title.y=element_text(size=14),
+              legend.text=element_text(size=12),
+              legend.title=element_text(size=14),
+              panel.grid.major=element_blank(),
+              legend.position="bottom",
+              legend.box = 'vertical',
+              legend.box.just = 'left')+
+        scale_fill_viridis_b(name="value")+
+        guides(color = guide_legend(nrow=5, byrow = T))+
+        ggtitle(paste0("Max. wind speed (0.1 knots)"))+
+        xlim(user.lon.min, user.lon.max)+
+        ylim(user.lat.min, user.lat.max)
+    
+    
     jpeg(paste0(destDir, "/", user.region.name, "_", date.of.interest,
                "_storm_", storm.duration,
-               "_drought_", drought.duration, ".jpg"), units="in", res=150,width = 16, height=16)
+               "_drought_", drought.duration, ".jpg"), units="in", res=150,width = 16, height=20)
     
     
-    grid.arrange(p1, p2, p3, p4, nrow = 2)
+    grid.arrange(p1, p2, p3, p4, p5, p6, nrow = 3)
     
     dev.off()
     

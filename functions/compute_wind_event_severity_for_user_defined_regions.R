@@ -60,7 +60,9 @@ compute_wind_event_severity_for_user_defined_regions <- function(sourceDir,
     
     
     ### remove NAs
+    gsodDF$selected.wind.speed[gsodDF$selected.wind.speed==999.9] <- NA
     subDF <- gsodDF[complete.cases(gsodDF$selected.wind.speed),]
+    
     
     ### check severity
     subDF$wind_severity_percentile <- ifelse(subDF$selected.wind.speed>=subDF$wind999, 99.9,
@@ -75,9 +77,19 @@ compute_wind_event_severity_for_user_defined_regions <- function(sourceDir,
     
     
     ### save data
-    write.csv(subDF, paste0(destDir, "/GSOD_Wind_Extreme_Severity_", date.of.interest, "_", 
+    outDF <- subDF[,c("LAT", "LON", "ELEV.M.", "BEGIN", "END", "s.year", "e.year",
+                      "max.wind", "wind999", "wind99", "wind95", "wind90",
+                      "wind80", "wind70", "wind60", "wind50", "wind40",
+                      "station.id", "selected.wind.speed", "wind_severity_percentile")]
+    
+    colnames(outDF) <- c("lat", "lon", "elev", "s.date", "e.date", "s.year", "e.year",
+                         "max.wind", "wind999", "wind99", "wind95", "wind90",
+                         "wind80", "wind70", "wind60", "wind50", "wind40",
+                         "station.id", "selected.wind.speed", "wind.severity.percentile")
+    
+    write.csv(outDF, paste0(destDir, "/GSOD_Wind_Extreme_Severity_", date.of.interest, "_", 
                             user.region.name,
-                            "_regions.csv"))
+                            "_regions.csv"), row.names=F)
     
 
 }
