@@ -141,6 +141,12 @@ merge_and_compute_Australia_storm_index <- function(sourceDir, destDir,
         saveRDS(out_percentile, file=paste0(sourceDir, "/Group_", file.id, 
                                             "_Storm_extreme_percentile_", duration,
                                             "_Australia.rds"))
+        
+        ### unlist several large files to save space
+        rm(myData)
+        rm(out_percentile)
+        
+        
     } # file.id
     
 
