@@ -131,7 +131,13 @@ process_GSOD_station_data(sourceDir = "/Volumes/TOSHIBAEXT/gsod/",
                           user.lon.min = 145,
                           plot.option = T)
 
-
+plot_GSOD_station_wind_data_for_user_selected_regions(sourceDir = "output",
+                                                      destDir = "output/plots",
+                                                      user.region.name = "Larger_Sydney",
+                                                      user.lat.max = -28,
+                                                      user.lat.min = -36,
+                                                      user.lon.max = 155,
+                                                      user.lon.min = 145)
 
 #### 4. For each extreme rainfall event, obtain the drought severity information
 ####    User can specify a particular date.of.interest,
@@ -151,6 +157,12 @@ compute_drought_and_storm_event_severity_for_user_defined_regions(sourceDir = "i
                                                                   date.of.interest = "20191126",
                                                                   storm.duration = "1-day",
                                                                   drought.duration = "1-year")
+
+
+compute_wind_event_severity_for_user_defined_regions(sourceDir = "/Volumes/TOSHIBAEXT/gsod/",
+                                                     destDir = "output",
+                                                     user.region.name = "Larger_Sydney",
+                                                     date.of.interest = "20191126")
 
 
 compute_drought_and_storm_event_severity_for_user_defined_regions(sourceDir = "input", 
