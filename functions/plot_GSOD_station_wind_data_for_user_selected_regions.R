@@ -24,7 +24,7 @@ plot_GSOD_station_wind_data_for_user_selected_regions <- function(sourceDir,
     
     #### ploting storm severity
     p1 <- ggplot(aus.poly) +
-        geom_tile(storm.severity.long, mapping=aes(lon, lat, fill=as.character(value)))+
+        geom_point(myDF, mapping=aes(LON, LAT, fill=max.wind), pch = 21)+
         geom_sf(fill=NA) +
         geom_point(aes(x=151.2093, y=-33.8688), col="red")+  # sydney
         annotate("text", x=151.2093, y=-34.2, label = "Sydney")+
@@ -58,13 +58,16 @@ plot_GSOD_station_wind_data_for_user_selected_regions <- function(sourceDir,
               legend.position="bottom",
               legend.box = 'vertical',
               legend.box.just = 'left')+
-        scale_fill_manual(name="value",
-                          limits=c("99.9", "99", "95", "90", "80", "70", "60", "50", "40"),
-                          values=rain.color,
-                          labels=c("99.9", "99", "95", "90", "80", "70", "60", "50", "40"))+
-        ggtitle(paste0("Storm ", storm.duration, " severity percentile"))+
-        guides(color = guide_legend(nrow=5, byrow = T))+
+        scale_fill_viridis_b(name="max wind speed")+
+        ggtitle(paste0("Max wind speed (0.1 knots)"))+
         xlim(user.lon.min, user.lon.max)+
         ylim(user.lat.min, user.lat.max)
     
+    ### plot
+    jpeg(paste0(destDir, "/GSOD_max_wind_speed_", user.region.name, ".jpg"), 
+         units="in", res=150,width = 6, height=6)
+    plot(p1)    
+    dev.off()
+    
+
 }
