@@ -44,6 +44,12 @@ source("prepare.R")
 convert_from_spatial_to_temporal_DF_whole_Australia(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/rain/", 
                                                     destDir = "/Volumes/TOSHIBAEXT/AWAP/output")
 
+merge_and_compute_Australia_storm_index(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/output",
+                                        destDir = "input")
+
+merge_and_compute_Australia_drought_index(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/output",
+                                          destDir = "/Volumes/TOSHIBAEXT/AWAP/output")
+
 #### make user specified selection of spatial range
 #### Note that, region has to be small (i.e. ~ 10 by 10 degree) to not exceed memory limit
 #### User also need to specify region name.

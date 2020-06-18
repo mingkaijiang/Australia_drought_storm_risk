@@ -21,7 +21,6 @@ convert_from_spatial_to_temporal_DF_whole_Australia <- function(sourceDir, destD
     lon.lab <- paste0("lon", lon.id)
     
     lon <- seq(111.975, 111.975 + (0.05 * 885), by=0.05)
-    #lat <- seq(-44.525, -44.525 + (0.05 * 690), by=0.05)
     lat <- seq(-10.025, -10.025 + (-0.05 * 690), by=-0.05)
     
     ### create lon lat DF for future plotting

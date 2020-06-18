@@ -16,7 +16,6 @@ compute_storm_index_for_user_defined_regions <- function(sourceDir, destDir,
     
     
     ### loop each grid
-    system.time(
     for (i in 1:dim1) {
         for (j in 1:dim2) {
             ### get the rainfall data for each grid
@@ -159,7 +158,6 @@ compute_storm_index_for_user_defined_regions <- function(sourceDir, destDir,
             
         } # j loop
     } # i loop
-    )
     
 
     ### write output    
