@@ -23,6 +23,10 @@ merge_Australia_storm_extreme_DF <- function(sourceDir, destDir,
         stDF[loc1:loc2,,] <- myData
     }
     
+    ### save
+    saveRDS(stDF, file=paste0(destDir, "/Storm_extreme_percentile_", duration,
+                                        "_Australia.rds"))
+    
     ########################### prepare grid information DF ############################
     ### grid information
     lat.id <- c(1:691)
