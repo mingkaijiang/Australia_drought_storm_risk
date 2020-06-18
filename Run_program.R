@@ -210,7 +210,6 @@ user.lat.max = -28
 user.lat.min = -36
 user.lon.max = 155
 user.lon.min = 145
-
 make_spatial_plots_for_user_defined_regions(sourceDir = "output",
                                             destDir = "output/plots",
                                             user.region.name = "Larger_Sydney",

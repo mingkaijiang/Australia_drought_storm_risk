@@ -328,7 +328,9 @@ make_spatial_plots_for_user_defined_regions <- function(sourceDir, destDir,
     
     ### wind severity percentile
     p5 <- ggplot(aus.poly) +
-        geom_point(wind.severity, mapping=aes(lon, lat, fill=as.character(wind.severity.percentile)), pch = 21)+
+        geom_point(wind.severity, mapping=aes(lon, lat, 
+                                              fill=as.character(wind.severity.percentile)), 
+                   pch = 21, size = 5)+
         geom_sf(fill=NA) +
         geom_point(aes(x=151.2093, y=-33.8688), col="red")+  # sydney
         annotate("text", x=151.2093, y=-34.2, label = "Sydney")+
@@ -374,7 +376,8 @@ make_spatial_plots_for_user_defined_regions <- function(sourceDir, destDir,
     
     ### wind speed intensity (0.1 knots)
     p6 <- ggplot(aus.poly) +
-        geom_point(wind.severity, mapping=aes(lon, lat, fill=selected.wind.speed), pch = 21)+
+        geom_point(wind.severity, mapping=aes(lon, lat, fill=selected.wind.speed), 
+                   pch = 21, size = 5)+
         geom_sf(fill=NA) +
         geom_point(aes(x=151.2093, y=-33.8688), col="red")+  # sydney
         annotate("text", x=151.2093, y=-34.2, label = "Sydney")+
