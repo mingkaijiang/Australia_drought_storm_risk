@@ -153,6 +153,18 @@ plot_Australia_drought_extreme_DF <- function(sourceDir, destDir,
             annotate("text", x=151.2093, y=-34.2, label = "Sydney")+
             geom_point(aes(x=149.13, y=-35.2809), col="red")+    # canberra
             annotate("text", x=149.13, y=-35.5, label = "Canberra")+
+            geom_point(aes(x=138.6007, y=-34.9285), col="red")+    # Adelaide
+            annotate("text", x=138.6007, y=-35.3, label = "Adelaide")+
+            geom_point(aes(x=153.0251, y=-27.4698), col="red")+    # Brisbane
+            annotate("text", x=153.0251, y=-27.9, label = "Brisbane")+
+            geom_point(aes(x=130.8456, y=-12.4634), col="red")+    # Darwin
+            annotate("text", x=130.8456, y=-12.9, label = "Darwin")+
+            geom_point(aes(x=147.3272, y=-42.8821), col="red")+    # Hobart
+            annotate("text", x=147.3272, y=-43.3, label = "Hobart")+
+            geom_point(aes(x=144.9631, y=-37.8136), col="red")+    # Melbourne
+            annotate("text", x=144.9631, y=-38.3, label = "Melbourne")+
+            geom_point(aes(x=115.8605, y=-31.9505), col="red")+    # Perth
+            annotate("text", x=115.8605, y=-32.4, label = "Perth")+
             theme_linedraw() +
             theme(panel.grid.minor=element_blank(),
                   axis.text.x=element_text(size=12),
@@ -178,6 +190,18 @@ plot_Australia_drought_extreme_DF <- function(sourceDir, destDir,
             annotate("text", x=151.2093, y=-34.2, label = "Sydney")+
             geom_point(aes(x=149.13, y=-35.2809), col="red")+    # canberra
             annotate("text", x=149.13, y=-35.5, label = "Canberra")+
+            geom_point(aes(x=138.6007, y=-34.9285), col="red")+    # Adelaide
+            annotate("text", x=138.6007, y=-35.3, label = "Adelaide")+
+            geom_point(aes(x=153.0251, y=-27.4698), col="red")+    # Brisbane
+            annotate("text", x=153.0251, y=-27.9, label = "Brisbane")+
+            geom_point(aes(x=130.8456, y=-12.4634), col="red")+    # Darwin
+            annotate("text", x=130.8456, y=-12.9, label = "Darwin")+
+            geom_point(aes(x=147.3272, y=-42.8821), col="red")+    # Hobart
+            annotate("text", x=147.3272, y=-43.3, label = "Hobart")+
+            geom_point(aes(x=144.9631, y=-37.8136), col="red")+    # Melbourne
+            annotate("text", x=144.9631, y=-38.3, label = "Melbourne")+
+            geom_point(aes(x=115.8605, y=-31.9505), col="red")+    # Perth
+            annotate("text", x=115.8605, y=-32.4, label = "Perth")+
             theme_linedraw() +
             theme(panel.grid.minor=element_blank(),
                   axis.text.x=element_text(size=12),
@@ -203,6 +227,18 @@ plot_Australia_drought_extreme_DF <- function(sourceDir, destDir,
             annotate("text", x=151.2093, y=-34.2, label = "Sydney")+
             geom_point(aes(x=149.13, y=-35.2809), col="red")+    # canberra
             annotate("text", x=149.13, y=-35.5, label = "Canberra")+
+            geom_point(aes(x=138.6007, y=-34.9285), col="red")+    # Adelaide
+            annotate("text", x=138.6007, y=-35.3, label = "Adelaide")+
+            geom_point(aes(x=153.0251, y=-27.4698), col="red")+    # Brisbane
+            annotate("text", x=153.0251, y=-27.9, label = "Brisbane")+
+            geom_point(aes(x=130.8456, y=-12.4634), col="red")+    # Darwin
+            annotate("text", x=130.8456, y=-12.9, label = "Darwin")+
+            geom_point(aes(x=147.3272, y=-42.8821), col="red")+    # Hobart
+            annotate("text", x=147.3272, y=-43.3, label = "Hobart")+
+            geom_point(aes(x=144.9631, y=-37.8136), col="red")+    # Melbourne
+            annotate("text", x=144.9631, y=-38.3, label = "Melbourne")+
+            geom_point(aes(x=115.8605, y=-31.9505), col="red")+    # Perth
+            annotate("text", x=115.8605, y=-32.4, label = "Perth")+
             theme_linedraw() +
             theme(panel.grid.minor=element_blank(),
                   axis.text.x=element_text(size=12),
@@ -227,7 +263,18 @@ plot_Australia_drought_extreme_DF <- function(sourceDir, destDir,
             geom_point(aes(x=151.2093, y=-33.8688), col="red")+  # sydney
             annotate("text", x=151.2093, y=-34.2, label = "Sydney")+
             geom_point(aes(x=149.13, y=-35.2809), col="red")+    # canberra
-            annotate("text", x=149.13, y=-35.5, label = "Canberra")+
+            annotate("text", x=149.13, y=-35.5, label = "Canberra")+            geom_point(aes(x=138.6007, y=-34.9285), col="red")+    # Adelaide
+            annotate("text", x=138.6007, y=-35.3, label = "Adelaide")+
+            geom_point(aes(x=153.0251, y=-27.4698), col="red")+    # Brisbane
+            annotate("text", x=153.0251, y=-27.9, label = "Brisbane")+
+            geom_point(aes(x=130.8456, y=-12.4634), col="red")+    # Darwin
+            annotate("text", x=130.8456, y=-12.9, label = "Darwin")+
+            geom_point(aes(x=147.3272, y=-42.8821), col="red")+    # Hobart
+            annotate("text", x=147.3272, y=-43.3, label = "Hobart")+
+            geom_point(aes(x=144.9631, y=-37.8136), col="red")+    # Melbourne
+            annotate("text", x=144.9631, y=-38.3, label = "Melbourne")+
+            geom_point(aes(x=115.8605, y=-31.9505), col="red")+    # Perth
+            annotate("text", x=115.8605, y=-32.4, label = "Perth")+
             theme_linedraw() +
             theme(panel.grid.minor=element_blank(),
                   axis.text.x=element_text(size=12),
