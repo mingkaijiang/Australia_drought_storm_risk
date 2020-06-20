@@ -76,27 +76,27 @@ source("prepare.R")
 ####     Each layer is the 99.9th, 99th, 95th, 90th, 80th, 70th, 60th, 50th, 40th percentile
 
 #### placeholder for computing storm index for whole Australia (merging 23 rds data)
-merge_and_compute_Australia_storm_index(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/output",
-                                        destDir = "/Volumes/TOSHIBAEXT/AWAP/output",
-                                        duration = "1-day")
+#merge_and_compute_Australia_storm_index(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/output",
+#                                        destDir = "/Volumes/TOSHIBAEXT/AWAP/output",
+#                                        duration = "1-day")
 
 
 #### Generate storm index for user defined region, 
 #### based on user defined duration - 1 day storm intensity
 #### no plot generated
-compute_storm_index_for_user_defined_regions(sourceDir = "input", 
-                                             destDir = "output",
-                                             user.region.name = "Larger_Sydney",
-                                             duration = "1-day")
+#compute_storm_index_for_user_defined_regions(sourceDir = "input", 
+#                                             destDir = "output",
+#                                             user.region.name = "Larger_Sydney",
+#                                             duration = "1-day")
 
 
 #### Generate storm index for user defined region, 
 #### based on user defined duration - 5 day storm intensity
 #### no plot generated
-compute_storm_index_for_user_defined_regions(sourceDir = "input", 
-                                             destDir = "output",
-                                             user.region.name = "Larger_Sydney",
-                                             duration = "5-day")
+#compute_storm_index_for_user_defined_regions(sourceDir = "input", 
+#                                             destDir = "output",
+#                                             user.region.name = "Larger_Sydney",
+#                                             duration = "5-day")
 
 #### 2. Calculate drought index:
 ####     Drought index has duration options of consecutive no rain days, 1-year, 2-year,
@@ -105,40 +105,40 @@ compute_storm_index_for_user_defined_regions(sourceDir = "input",
 ####     0.1th, 1th, 5th, 10th, 20th, 30th, 40th, 50th percentile of the rainfall distribution
 
 #### placeholder for computing drought index for whole Australia (merging 23 rds)
-merge_and_compute_Australia_drought_index(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/output",
-                                          destDir = "/Volumes/TOSHIBAEXT/AWAP/output",
-                                          duration = "1-year")
+#merge_and_compute_Australia_drought_index(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/output",
+#                                          destDir = "/Volumes/TOSHIBAEXT/AWAP/output",
+#                                          duration = "1-year")
 
 #### Generate drought index for user defined region, 
 #### based on user defined duration - antecedent 1-year rainfall total
 #### no plot generated
-compute_drought_index_for_user_defined_regions(sourceDir = "input", 
-                                               destDir = "output",
-                                               user.region.name = "Larger_Sydney",
-                                               duration = "1-year")
+#compute_drought_index_for_user_defined_regions(sourceDir = "input", 
+#                                               destDir = "output",
+#                                               user.region.name = "Larger_Sydney",
+#                                               duration = "1-year")
 
 
 #### Generate drought index for user defined region, 
 #### based on user defined duration - antecedent 2-year rainfall total
 #### no plot generated
-compute_drought_index_for_user_defined_regions(sourceDir = "input", 
-                                               destDir = "output",
-                                               user.region.name = "Larger_Sydney",
-                                               duration = "2-year")
+#compute_drought_index_for_user_defined_regions(sourceDir = "input", 
+#                                               destDir = "output",
+#                                               user.region.name = "Larger_Sydney",
+#                                               duration = "2-year")
 
 
 #### 3. Process wind data to calculate wind index
 ####    Just one-day max wind and gust speed.
 ####    This is GSOD station based dataset,
 ####    so we have data gaps and spatial representative issues
-process_GSOD_station_data(sourceDir = "/Volumes/TOSHIBAEXT/gsod/", 
-                          destDir = "output",
-                          user.region.name = "Larger_Sydney",
-                          user.lat.max = -28,
-                          user.lat.min = -36,
-                          user.lon.max = 155,
-                          user.lon.min = 145,
-                          plot.option = T)
+#process_GSOD_station_data(sourceDir = "/Volumes/TOSHIBAEXT/gsod/", 
+#                          destDir = "output",
+#                          user.region.name = "Larger_Sydney",
+#                          user.lat.max = -28,
+#                          user.lat.min = -36,
+#                          user.lon.max = 155,
+#                          user.lon.min = 145,
+#                          plot.option = T)
 
 #### After data processing, plot wind speed spatial map
 plot_GSOD_station_wind_data_for_user_selected_regions(sourceDir = "output",
