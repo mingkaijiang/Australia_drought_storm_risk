@@ -180,7 +180,7 @@ plot_Australia_drought_extreme_DF <- function(sourceDir, destDir,
             scale_fill_manual(name="value",
                               values=rev(rain.color),
                               labels=value_lab1)+
-            ggtitle(paste0("Antecedent ", duration, " drought severity P99.9"))+
+            ggtitle(paste0("Antecedent ", duration, " drought severity P0.1"))+
             guides(color = guide_legend(nrow=5, byrow = T))
         
         p2 <- ggplot(aus.poly) +
@@ -217,7 +217,7 @@ plot_Australia_drought_extreme_DF <- function(sourceDir, destDir,
             scale_fill_manual(name="value",
                               values=rev(rain.color),
                               labels=value_lab2)+
-            ggtitle(paste0("Antecedent ", duration, " drought severity P99"))+
+            ggtitle(paste0("Antecedent ", duration, " drought severity P1.0"))+
             guides(color = guide_legend(nrow=5, byrow = T))
         
         p3 <- ggplot(aus.poly) +
@@ -254,7 +254,7 @@ plot_Australia_drought_extreme_DF <- function(sourceDir, destDir,
             scale_fill_manual(name="value",
                               values=rev(rain.color),
                               labels=value_lab3)+
-            ggtitle(paste0("Antecedent ", duration, " drought severity P95"))+
+            ggtitle(paste0("Antecedent ", duration, " drought severity P5.0"))+
             guides(color = guide_legend(nrow=5, byrow = T))
         
         p4 <- ggplot(aus.poly) +
@@ -263,7 +263,8 @@ plot_Australia_drought_extreme_DF <- function(sourceDir, destDir,
             geom_point(aes(x=151.2093, y=-33.8688), col="red")+  # sydney
             annotate("text", x=151.2093, y=-34.2, label = "Sydney")+
             geom_point(aes(x=149.13, y=-35.2809), col="red")+    # canberra
-            annotate("text", x=149.13, y=-35.5, label = "Canberra")+            geom_point(aes(x=138.6007, y=-34.9285), col="red")+    # Adelaide
+            annotate("text", x=149.13, y=-35.5, label = "Canberra")+            
+            geom_point(aes(x=138.6007, y=-34.9285), col="red")+    # Adelaide
             annotate("text", x=138.6007, y=-35.3, label = "Adelaide")+
             geom_point(aes(x=153.0251, y=-27.4698), col="red")+    # Brisbane
             annotate("text", x=153.0251, y=-27.9, label = "Brisbane")+
@@ -290,7 +291,7 @@ plot_Australia_drought_extreme_DF <- function(sourceDir, destDir,
             scale_fill_manual(name="value",
                               values=rev(rain.color),
                               labels=value_lab4)+
-            ggtitle(paste0("Antecedent ", duration, " drought severity P90"))+
+            ggtitle(paste0("Antecedent ", duration, " drought severity P10"))+
             guides(color = guide_legend(nrow=5, byrow = T))
         
         

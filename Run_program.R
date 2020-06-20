@@ -106,8 +106,8 @@ compute_storm_index_for_user_defined_regions(sourceDir = "input",
 
 #### placeholder for computing drought index for whole Australia (merging 23 rds)
 merge_and_compute_Australia_drought_index(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/output",
-                                        destDir = "/Volumes/TOSHIBAEXT/AWAP/output",
-                                        duration = "1-year")
+                                          destDir = "/Volumes/TOSHIBAEXT/AWAP/output",
+                                          duration = "1-year")
 
 #### Generate drought index for user defined region, 
 #### based on user defined duration - antecedent 1-year rainfall total
@@ -210,7 +210,7 @@ plot_Australia_storm_extreme_DF(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/output",
 ##### 1.2. plot Australia storm extreme
 plot_Australia_drought_extreme_DF(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/output",
                                 destDir = "output",
-                                duration = "1-day",
+                                duration = "1-year",
                                 plot.option = T)
 
 #### 2. Plot selected region severity and intensity maps
