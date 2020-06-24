@@ -28,7 +28,7 @@ plot_Australia_storm_extreme_DF <- function(sourceDir, destDir,
                                         "_Australia.rds"))
     
     
-    if (plot.option = T) {
+    if (plot.option == T) {
         ########################### prepare grid information DF ############################
         ### grid information
         lat.id <- c(1:691)
