@@ -1,8 +1,7 @@
-unzip_all_z_files <- function(s.yr, e.yr) {
+unzip_all_z_files <- function(sourceDir, s.yr, e.yr) {
     
     tseries <- seq(s.yr, e.yr, by=1)
     
-    sourceDir <- "/Volumes/TOSHIBAEXT/AWAP/rain/"
     destDir <- sourceDir
         
     for (j in tseries) {

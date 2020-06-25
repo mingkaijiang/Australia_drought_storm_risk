@@ -29,10 +29,11 @@ source("prepare.R")
 #### 1 . Download AWAP data from BOM website
 ####     Only need to run this code once.
 #download_AWAP_rainfall_data(destDir="/Volumes/TOSHIBAEXT/AWAP/rain/")
+download_AWAP_temperature_data(destDir="output/temperature/")
 
 #### 2. Unzip all .z files
 ####    Only need to run this code once
-#unzip_all_z_files(s.yr = 2018, e.yr = 2020)
+unzip_all_z_files(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/rain/", s.yr = 1900, e.yr = 2020)
 
 #### 3. Plot one-year total rainfall to check rmatches with BOM observations
 #plot_total_rainfall_for_a_year(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/rain/", 
