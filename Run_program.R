@@ -69,14 +69,14 @@ unzip_all_z_files(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/temperature/", s.yr = 20
 #                                                             user.region.name = "Larger_Sydney")
 
 ### daily tmax
-#convert_from_spatial_to_temporal_DF_for_user_defined_regions(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/temperature/", 
-#                                                             destDir = "/Volumes/TOSHIBAEXT/AWAP/output",
-#                                                             varName = "tmax",
-#                                                             user.lat.max = -28,
-#                                                             user.lat.min = -36,
-#                                                             user.lon.max = 155,
-#                                                             user.lon.min = 145,
-#                                                             user.region.name = "Larger_Sydney")
+convert_from_spatial_to_temporal_DF_for_user_defined_regions(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/temperature/", 
+                                                             destDir = "/Volumes/TOSHIBAEXT/AWAP/output",
+                                                             varName = "tmax",
+                                                             user.lat.max = -28,
+                                                             user.lat.min = -36,
+                                                             user.lon.max = 155,
+                                                             user.lon.min = 145,
+                                                             user.region.name = "Larger_Sydney")
 
 
 ###########################################################################################
@@ -118,14 +118,14 @@ unzip_all_z_files(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/temperature/", s.yr = 20
 #### based on user defined duration - 1 & 5 day storm intensity
 #### no plot generated
 compute_storm_return_time_for_user_defined_regions(sourceDir = "input", 
-                                             destDir = "output",
-                                             user.region.name = "Larger_Sydney",
-                                             duration = 1)
+                                                   destDir = "output",
+                                                   user.region.name = "Larger_Sydney",
+                                                   duration = 1)
 
 compute_storm_return_time_for_user_defined_regions(sourceDir = "input", 
-                                             destDir = "output",
-                                             user.region.name = "Larger_Sydney",
-                                             duration = 5)
+                                                   destDir = "output",
+                                                   user.region.name = "Larger_Sydney",
+                                                   duration = 5)
 
 #### 2. Calculate drought index:
 ####     Drought index has duration options of consecutive no rain days, 1-year, 2-year,
