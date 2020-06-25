@@ -1,4 +1,5 @@
 convert_from_spatial_to_temporal_DF_for_user_defined_regions <- function(sourceDir, destDir,
+                                                                         varName,
                                                                          user.lat.min,
                                                                          user.lat.max,
                                                                          user.lon.min,
@@ -48,8 +49,17 @@ convert_from_spatial_to_temporal_DF_for_user_defined_regions <- function(sourceD
     colnames(dayDF) <- c("Date", "Year", "Lab", "Path")
     dayDF$Year <- year(dayDF$Date)
     dayDF$Lab <- gsub("-", "", dayDF$Date)
-    dayDF$Path <- paste0(sourceDir, dayDF$Year, "/rain_", 
-                         dayDF$Lab, ".grid")
+    
+    if (varName == "rain") {
+        dayDF$Path <- paste0(sourceDir, dayDF$Year, "/rain_", 
+                             dayDF$Lab, ".grid")
+    } else if (varName == "tmax") {
+        dayDF$Path <- paste0(sourceDir, dayDF$Year, "/", dayDF$Lab,
+                             dayDF$Lab, ".grid")
+    } else {
+        print(paste0("no rule for ", varName))
+    }
+    
     
     ### get subset lat information
     lat.list.sub <- unique(latlonDF.sub$latID)
@@ -81,7 +91,7 @@ convert_from_spatial_to_temporal_DF_for_user_defined_regions <- function(sourceD
     } # i loop
     
     ### save output
-    saveRDS(out, file=paste0(destDir, "/", user.region.name, "_regions.rds"))
+    saveRDS(out, file=paste0(destDir, "/", varName, "_", user.region.name, "_regions.rds"))
     
 }   # function loop
 

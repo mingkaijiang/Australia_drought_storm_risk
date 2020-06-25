@@ -42,9 +42,9 @@ unzip_all_z_files(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/temperature/", s.yr = 20
 #                               destDir = "output",
 #                               user.defined.year = 2019)
 
-plot_daily_tmax_for_a_year(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/temperature/", 
-                           destDir = "output",
-                           user.defined.year = 2019)
+#plot_daily_tmax_for_a_year(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/temperature/", 
+#                           destDir = "output",
+#                           user.defined.year = 2019)
 
 #### 4. Convert from per day to per grid
 #### Only need to run this code once
@@ -58,9 +58,20 @@ plot_daily_tmax_for_a_year(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/temperature/",
 #### Note that, region has to be small (i.e. ~ 10 by 10 degree) to not exceed memory limit
 #### User also need to specify region name.
 #### Only need to run once, takes long to run (2 hour)
-### Sydney
+### daily rainfall
 #convert_from_spatial_to_temporal_DF_for_user_defined_regions(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/rain/", 
 #                                                             destDir = "/Volumes/TOSHIBAEXT/AWAP/output",
+#                                                             varName = "rain",
+#                                                             user.lat.max = -28,
+#                                                             user.lat.min = -36,
+#                                                             user.lon.max = 155,
+#                                                             user.lon.min = 145,
+#                                                             user.region.name = "Larger_Sydney")
+
+### daily tmax
+#convert_from_spatial_to_temporal_DF_for_user_defined_regions(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/temperature/", 
+#                                                             destDir = "/Volumes/TOSHIBAEXT/AWAP/output",
+#                                                             varName = "tmax",
 #                                                             user.lat.max = -28,
 #                                                             user.lat.min = -36,
 #                                                             user.lon.max = 155,
@@ -110,6 +121,7 @@ compute_storm_return_time_for_user_defined_regions(sourceDir = "input",
                                              destDir = "output",
                                              user.region.name = "Larger_Sydney",
                                              duration = 1)
+
 compute_storm_return_time_for_user_defined_regions(sourceDir = "input", 
                                              destDir = "output",
                                              user.region.name = "Larger_Sydney",
