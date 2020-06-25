@@ -170,9 +170,9 @@ plot_storm_return_time <- function(sourceDir, destDir,  user.region.name,
     storm.intensity.long <- merge(storm.intensity.long, latlonDF.sub,
                                  by=c("latID", "lonID"))   
     
-    storm.P95.long <- melt(stormData[,,1])
-    colnames(storm.P95.long) <- c("latID", "lonID", "value")
-    storm.P95.long <- merge(storm.P95.long, latlonDF.sub,
+    storm.P70.long <- melt(stormData[,,1])
+    colnames(storm.P70.long) <- c("latID", "lonID", "value")
+    storm.P70.long <- merge(storm.P70.long, latlonDF.sub,
                                  by=c("latID", "lonID"))
     
     ### read in Australia
