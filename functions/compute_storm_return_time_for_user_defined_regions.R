@@ -62,7 +62,7 @@ compute_storm_return_time_for_user_defined_regions <- function(sourceDir, destDi
     
 
     ### write output    
-    saveRDS(out_percentile, file=paste0(destDir, "/Storm_extreme_return_time_", duration,
+    saveRDS(out_percentile, file=paste0(destDir, "/Storm_extreme_return_time_", duration, "-day",
                                         "_", user.region.name, "_regions.rds"))
     
 }  

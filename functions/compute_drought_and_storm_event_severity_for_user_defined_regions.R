@@ -28,6 +28,8 @@ compute_drought_and_storm_event_severity_for_user_defined_regions <- function(so
                                 user.region.name, "_regions.rds"))
     droughtData <- readRDS(paste0(destDir, "/Drought_extreme_percentile_", drought.duration, "_",
                                   user.region.name, "_regions.rds"))
+    returnData <- readRDS(paste0(destDir, "/Storm_extreme_return_time_", storm.duration, "_",
+                                 user.region.name, "_regions.rds"))
     
     ### dimension information
     dim1 <- dim(myData)[1]
@@ -40,6 +42,7 @@ compute_drought_and_storm_event_severity_for_user_defined_regions <- function(so
     
     drought.severity.on.date.of.interest <- array(NA, c(dim1, dim2))
     storm.severity.on.date.of.interest <- array(NA, c(dim1, dim2))
+    storm.return.severity.on.date.of.interest <- array(NA, c(dim1, dim2))
     
     ### loop each grid
     for (i in c(1:dim1)) {
@@ -150,6 +153,17 @@ compute_drought_and_storm_event_severity_for_user_defined_regions <- function(so
             storm.P50 <- ifelse(is.na(stormData[i,j,8]), 0, stormData[i,j,8])
             storm.P40 <- ifelse(is.na(stormData[i,j,9]), 0, stormData[i,j,9])
             
+            ### get storm extreme index information
+            return.P99 <- ifelse(is.na(returnData[i,j,1]), 0, returnData[i,j,1])
+            return.P98 <- ifelse(is.na(returnData[i,j,2]), 0, returnData[i,j,2])
+            return.P95 <- ifelse(is.na(returnData[i,j,3]), 0, returnData[i,j,3])
+            return.P90 <- ifelse(is.na(returnData[i,j,4]), 0, returnData[i,j,4])
+            return.P80 <- ifelse(is.na(returnData[i,j,5]), 0, returnData[i,j,5])
+            return.P70 <- ifelse(is.na(returnData[i,j,6]), 0, returnData[i,j,6])
+            return.P60 <- ifelse(is.na(returnData[i,j,7]), 0, returnData[i,j,7])
+            return.P50 <- ifelse(is.na(returnData[i,j,8]), 0, returnData[i,j,8])
+            return.P40 <- ifelse(is.na(returnData[i,j,9]), 0, returnData[i,j,9])
+            
             ### get drought extreme information
             drought.P001 <- droughtData[i,j,1]
             drought.P01 <- droughtData[i,j,2]
@@ -237,6 +251,44 @@ compute_drought_and_storm_event_severity_for_user_defined_regions <- function(so
                 
             }
             
+            ### check storm severity based on return interval
+            if (storm.on.date.of.interest[i,j]>=return.P99) {
+                
+                storm.return.severity.on.date.of.interest[i,j] <- 100
+                
+            } else if (storm.on.date.of.interest[i,j]>=return.P98 & storm.on.date.of.interest[i,j]<return.P99) {
+                
+                storm.return.severity.on.date.of.interest[i,j] <- 50.0
+                
+            } else if (storm.on.date.of.interest[i,j]>=return.P95 & storm.on.date.of.interest[i,j]<return.P98) {
+                
+                storm.return.severity.on.date.of.interest[i,j] <- 20.0
+                
+            } else if (storm.on.date.of.interest[i,j]>=return.P90 & storm.on.date.of.interest[i,j]<return.P95) {
+                
+                storm.return.severity.on.date.of.interest[i,j] <- 10.0
+                
+            } else if (storm.on.date.of.interest[i,j]>=return.P80 & storm.on.date.of.interest[i,j]<return.P90) {
+                
+                storm.return.severity.on.date.of.interest[i,j] <- 5.0
+                
+            } else if (storm.on.date.of.interest[i,j]>=return.P70 & storm.on.date.of.interest[i,j]<return.P80) {
+                
+                storm.return.severity.on.date.of.interest[i,j] <- 3.3
+                
+            } else if (storm.on.date.of.interest[i,j]>=return.P60 & storm.on.date.of.interest[i,j]<return.P70) {
+                
+                storm.return.severity.on.date.of.interest[i,j] <- 2.5
+                
+            } else if (storm.on.date.of.interest[i,j]>=return.P50 & storm.on.date.of.interest[i,j]<return.P60) {
+                
+                storm.return.severity.on.date.of.interest[i,j] <- 2.0
+                
+            } else {
+                storm.return.severity.on.date.of.interest[i,j] <- 1.67
+                
+            }
+            
         } # j loop
     } # i loop
     
@@ -244,6 +296,11 @@ compute_drought_and_storm_event_severity_for_user_defined_regions <- function(so
     ### save output
     saveRDS(storm.severity.on.date.of.interest, 
             file=paste0(destDir, "/storm_severity_", date.of.interest, "_",
+                        storm.duration, "_",
+                        user.region.name, "_regions.rds"))
+    
+    saveRDS(storm.return.severity.on.date.of.interest, 
+            file=paste0(destDir, "/storm_return_severity_", date.of.interest, "_",
                         storm.duration, "_",
                         user.region.name, "_regions.rds"))
     
