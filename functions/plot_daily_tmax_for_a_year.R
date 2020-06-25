@@ -82,7 +82,7 @@ plot_daily_tmax_for_a_year <- function(sourceDir, destDir,
     ### prepare discrete plotting scheme
     ### get the value breaks
     value_brks <- round(quantile(outDF$value, 
-                                 probs = seq(0, 1, 100/11/100)), 2)
+                                 probs = seq(0, 1, 100/9/100)), 2)
     
     value_brks <- unique(value_brks)
     
@@ -137,7 +137,7 @@ plot_daily_tmax_for_a_year <- function(sourceDir, destDir,
                           values=rev(rain.color),
                           labels=value_lab)+
         guides(color = guide_legend(nrow=5, byrow = T))+
-        ggtitle(paste0("Year ", user.defined.year, " total rainfall"))
+        ggtitle(paste0("Year ", user.defined.year, " daily Tmax"))
     
     ### save image
     jpeg(paste0(destDir, "/Australia_Year_", user.defined.year,
