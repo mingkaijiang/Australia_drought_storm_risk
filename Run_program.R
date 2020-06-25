@@ -67,8 +67,6 @@ source("prepare.R")
 #### 1. Calculate storm index
 #### 2. Calculate drought index
 #### 3. Calculate wind index
-#### 4. Calculate drought and storm severity index
-
 
 #### 1. Calculate storm index, based on Sydney region daily data;
 ####     Storm index has duration options of 1 - 5 days
@@ -161,7 +159,19 @@ plot_GSOD_station_wind_data_for_user_selected_regions(sourceDir = "output",
                                                       user.lon.max = 155,
                                                       user.lon.min = 145)
 
-#### 4. For each extreme rainfall event, obtain the drought severity information
+
+### +++++++++++++++ End basic code to generate climate extreme index ++++++++++++++++++ ####
+############################################################################################
+
+
+###########################################################################################
+#### +++++++++++++++ Climate extreme severity investigation ++++++++++++++++++++++++++ ####
+#### Structure: 
+#### 1. compute drought and storm severity for a selected region and date
+#### 2. compute wind severity for a selected region and date
+#### 3 and so on: repeat 1 and 2 for different region/date
+
+#### 1. For each extreme rainfall event, obtain the drought severity information
 ####    User can specify a particular date.of.interest,
 ####    the script will calculate the short storm and aggregated rainfall data 
 ####    based on user-defined storm and drought duration,
@@ -186,6 +196,7 @@ compute_wind_event_severity_for_user_defined_regions(sourceDir = "/Volumes/TOSHI
                                                      date.of.interest = "20191126")
 
 
+#### Repeat for different duration/region option
 compute_drought_and_storm_event_severity_for_user_defined_regions(sourceDir = "input", 
                                                                   destDir = "output",
                                                                   user.region.name = "Larger_Sydney",
@@ -194,6 +205,7 @@ compute_drought_and_storm_event_severity_for_user_defined_regions(sourceDir = "i
                                                                   drought.duration = "1-year")
 
 
+#### Repeat for different duration/region option
 compute_drought_and_storm_event_severity_for_user_defined_regions(sourceDir = "input", 
                                                                   destDir = "output",
                                                                   user.region.name = "Larger_Sydney",
@@ -202,7 +214,7 @@ compute_drought_and_storm_event_severity_for_user_defined_regions(sourceDir = "i
                                                                   drought.duration = "2-year")
 
 
-### +++++++++++++++ End basic code to generate climate extreme index ++++++++++++++++++ ####
+### +++++++++++++++ Climate extreme severity investigation +++++++++++++++++++++++++++ ####
 ############################################################################################
 
 
@@ -271,6 +283,29 @@ make_spatial_plots_for_user_defined_regions(sourceDir = "output",
                                             user.lon.min = 145,
                                             storm.duration = "5-day",
                                             drought.duration = "2-year")
+
+
+#### Sydney and Hunter valley region only
+sourceDir = "output"
+destDir = "output/plots"
+user.region.name = "Larger_Sydney"
+date.of.interest = "20191126"
+user.lat.max = -28
+user.lat.min = -36
+user.lon.max = 155
+user.lon.min = 145
+storm.duration = "1-day"
+drought.duration = "1-year"
+make_spatial_plots_for_user_defined_regions(sourceDir = "output",
+                                            destDir = "output/plots",
+                                            user.region.name = "Larger_Sydney",
+                                            date.of.interest = "20191126",
+                                            user.lat.max = -28,
+                                            user.lat.min = -36,
+                                            user.lon.max = 155,
+                                            user.lon.min = 145,
+                                            storm.duration = "1-day",
+                                            drought.duration = "1-year")
 
 
 ### ++++++++++++++++++++++++++++++++++++ End plotting +++++++++++++++++++++++++++++++++ ####
