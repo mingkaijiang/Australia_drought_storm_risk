@@ -170,13 +170,24 @@ make_spatial_plots_for_Sydney_Hunter_valley_regions <- function(sourceDir, destD
         geom_raster(storm.severity.long, mapping=aes(lon, lat, fill=as.character(value)))+
         geom_sf(fill=NA) +
         geom_point(aes(x=151.2093, y=-33.8688), col="red")+  # sydney
-        annotate("text", x=151.2093, y=-33.9688, label = "Sydney")+
+        annotate("text", x=151.2093, y=-33.9688, label = "Sydney", col="brown")+
         geom_point(aes(x=150.8595, y=-32.0546), col="red")+    # canberra
-        annotate("text", x=150.8595, y=-32.1546, label = "Scone")+
+        annotate("text", x=150.8595, y=-32.1546, label = "Scone", col="brown")+
         geom_point(aes(x=151.7817, y=-32.9283), col="red")+    # new castle
-        annotate("text", x=151.7817, y=-33.0, label = "Newcastle")+
+        annotate("text", x=151.7817, y=-33.0, label = "Newcastle", col="brown")+
         geom_point(aes(x=150.3557, y=-32.1393), col="red")+    # Merriwa
-        annotate("text", x=150.3557, y=-32.2393, label = "Merriwa")+
+        annotate("text", x=150.3557, y=-32.2393, label = "Merriwa", col="brown")+
+        geom_point(aes(x=151.3624, y=-32.8345), col="red")+    # Cessnock
+        annotate("text", x=151.3624, y=-32.9345, label = "Cessnock", col="brown")+
+        geom_point(aes(x=150.75, y=-33.6), col="red")+    # Richmond
+        annotate("text", x=150.75, y=-33.7, label = "Richmond", col="brown")+
+        geom_point(aes(x=151.1788, y=-32.5695), col="red")+    # Singleton
+        annotate("text", x=151.1788, y=-32.6695, label = "Singleton", col="brown")+
+        geom_point(aes(x=151.3417, y=-33.4267), col="red")+    # Gosford
+        annotate("text", x=151.3417, y=-33.5267, label = "Gosford", col="brown")+
+        annotate("text", x=150.9190, y=-33.0482, label = "Yengo NF")+
+        annotate("text", x=150.3765, y=-33.0174, label = "Wollemi NF")+
+        annotate("text", x=151.6632, y=-32.0671, label = "Barrington Tops NF")+
         theme_linedraw() +
         theme(panel.grid.minor=element_blank(),
               axis.text.x=element_text(size=12),
@@ -198,31 +209,29 @@ make_spatial_plots_for_Sydney_Hunter_valley_regions <- function(sourceDir, destD
         xlim(lon.min.syd, lon.max.syd)+
         ylim(lat.min.syd, lat.max.syd)
     
-
-    ### plot storm intensity
+    ### plot storm intensity (mm/d)
     p2 <- ggplot(aus.poly) +
         geom_tile(storm.intensity.long, mapping=aes(lon, lat, fill=value_cat))+
         geom_sf(fill=NA) +
         geom_point(aes(x=151.2093, y=-33.8688), col="red")+  # sydney
-        annotate("text", x=151.2093, y=-34.2, label = "Sydney")+
-        geom_point(aes(x=149.13, y=-35.2809), col="red")+    # canberra
-        annotate("text", x=149.13, y=-35.5, label = "Canberra")+
+        annotate("text", x=151.2093, y=-33.9688, label = "Sydney", col="brown")+
+        geom_point(aes(x=150.8595, y=-32.0546), col="red")+    # canberra
+        annotate("text", x=150.8595, y=-32.1546, label = "Scone", col="brown")+
         geom_point(aes(x=151.7817, y=-32.9283), col="red")+    # new castle
-        annotate("text", x=151.7817, y=-33.1, label = "Newcastle")+
-        geom_point(aes(x=149.5775, y=-33.4193), col="red")+    # Bathurst
-        annotate("text", x=149.5775, y=-33.8, label = "Bathurst")+
-        geom_point(aes(x=147.3598, y=-35.1082), col="red")+    # Wagga Wagga
-        annotate("text", x=147.3598, y=-35.5, label = "Wagga Wagga")+
-        geom_point(aes(x=149.7812, y=-30.3324), col="red")+    # Narrabri
-        annotate("text", x=149.7812, y=-30.8, label = "Narrabri")+
-        geom_point(aes(x=152.9, y=-31.4333), col="red")+    # Port Macquarie
-        annotate("text", x=152.9, y=-31.9, label = "Port Macquarie")+
-        geom_point(aes(x=145.9378, y=-30.0888), col="red")+    # Bourke
-        annotate("text", x=145.9378, y=-30.5, label = "Bourke")+
-        geom_point(aes(x=153.4, y=-28.0167), col="red")+    # Gold Coast
-        annotate("text", x=153.4, y=-28.5, label = "Gold Coast")+
-        geom_point(aes(x=146.0455, y=-34.2801), col="red")+    # Griffith
-        annotate("text", x=146.0455, y=-34.6, label = "Griffith")+
+        annotate("text", x=151.7817, y=-33.0, label = "Newcastle", col="brown")+
+        geom_point(aes(x=150.3557, y=-32.1393), col="red")+    # Merriwa
+        annotate("text", x=150.3557, y=-32.2393, label = "Merriwa", col="brown")+
+        geom_point(aes(x=151.3624, y=-32.8345), col="red")+    # Cessnock
+        annotate("text", x=151.3624, y=-32.9345, label = "Cessnock", col="brown")+
+        geom_point(aes(x=150.75, y=-33.6), col="red")+    # Richmond
+        annotate("text", x=150.75, y=-33.7, label = "Richmond", col="brown")+
+        geom_point(aes(x=151.1788, y=-32.5695), col="red")+    # Singleton
+        annotate("text", x=151.1788, y=-32.6695, label = "Singleton", col="brown")+
+        geom_point(aes(x=151.3417, y=-33.4267), col="red")+    # Gosford
+        annotate("text", x=151.3417, y=-33.5267, label = "Gosford", col="brown")+
+        annotate("text", x=150.9190, y=-33.0482, label = "Yengo NF")+
+        annotate("text", x=150.3765, y=-33.0174, label = "Wollemi NF")+
+        annotate("text", x=151.6632, y=-32.0671, label = "Barrington Tops NF")+
         theme_linedraw() +
         theme(panel.grid.minor=element_blank(),
               axis.text.x=element_text(size=12),
@@ -235,38 +244,37 @@ make_spatial_plots_for_Sydney_Hunter_valley_regions <- function(sourceDir, destD
               legend.position="bottom",
               legend.box = 'vertical',
               legend.box.just = 'left')+
-        ggtitle(paste0("Storm ", storm.duration, " intensity"))+
+        ggtitle(paste0("Storm ", storm.duration, " intensity (mm/d)"))+
         scale_fill_manual(name="value",
                           values=rev(rain.color.storm),
                           labels=storm.intensity.long.lab)+
         guides(color = guide_legend(nrow=5, byrow = T))+
-        xlim(user.lon.min, user.lon.max)+
-        ylim(user.lat.min, user.lat.max)
+        xlim(lon.min.syd, lon.max.syd)+
+        ylim(lat.min.syd, lat.max.syd)
     
     #### ploting drought severity
     p3 <- ggplot(aus.poly) +
         geom_tile(drought.severity.long, mapping=aes(lon, lat, fill=as.character(value)))+
         geom_sf(fill=NA) +
         geom_point(aes(x=151.2093, y=-33.8688), col="red")+  # sydney
-        annotate("text", x=151.2093, y=-34.2, label = "Sydney")+
-        geom_point(aes(x=149.13, y=-35.2809), col="red")+    # canberra
-        annotate("text", x=149.13, y=-35.5, label = "Canberra")+
+        annotate("text", x=151.2093, y=-33.9688, label = "Sydney", col="brown")+
+        geom_point(aes(x=150.8595, y=-32.0546), col="red")+    # canberra
+        annotate("text", x=150.8595, y=-32.1546, label = "Scone", col="brown")+
         geom_point(aes(x=151.7817, y=-32.9283), col="red")+    # new castle
-        annotate("text", x=151.7817, y=-33.1, label = "Newcastle")+
-        geom_point(aes(x=149.5775, y=-33.4193), col="red")+    # Bathurst
-        annotate("text", x=149.5775, y=-33.8, label = "Bathurst")+
-        geom_point(aes(x=147.3598, y=-35.1082), col="red")+    # Wagga Wagga
-        annotate("text", x=147.3598, y=-35.5, label = "Wagga Wagga")+
-        geom_point(aes(x=149.7812, y=-30.3324), col="red")+    # Narrabri
-        annotate("text", x=149.7812, y=-30.8, label = "Narrabri")+
-        geom_point(aes(x=152.9, y=-31.4333), col="red")+    # Port Macquarie
-        annotate("text", x=152.9, y=-31.9, label = "Port Macquarie")+
-        geom_point(aes(x=145.9378, y=-30.0888), col="red")+    # Bourke
-        annotate("text", x=145.9378, y=-30.5, label = "Bourke")+
-        geom_point(aes(x=153.4, y=-28.0167), col="red")+    # Gold Coast
-        annotate("text", x=153.4, y=-28.5, label = "Gold Coast")+
-        geom_point(aes(x=146.0455, y=-34.2801), col="red")+    # Griffith
-        annotate("text", x=146.0455, y=-34.6, label = "Griffith")+
+        annotate("text", x=151.7817, y=-33.0, label = "Newcastle", col="brown")+
+        geom_point(aes(x=150.3557, y=-32.1393), col="red")+    # Merriwa
+        annotate("text", x=150.3557, y=-32.2393, label = "Merriwa", col="brown")+
+        geom_point(aes(x=151.3624, y=-32.8345), col="red")+    # Cessnock
+        annotate("text", x=151.3624, y=-32.9345, label = "Cessnock", col="brown")+
+        geom_point(aes(x=150.75, y=-33.6), col="red")+    # Richmond
+        annotate("text", x=150.75, y=-33.7, label = "Richmond", col="brown")+
+        geom_point(aes(x=151.1788, y=-32.5695), col="red")+    # Singleton
+        annotate("text", x=151.1788, y=-32.6695, label = "Singleton", col="brown")+
+        geom_point(aes(x=151.3417, y=-33.4267), col="red")+    # Gosford
+        annotate("text", x=151.3417, y=-33.5267, label = "Gosford", col="brown")+
+        annotate("text", x=150.9190, y=-33.0482, label = "Yengo NF")+
+        annotate("text", x=150.3765, y=-33.0174, label = "Wollemi NF")+
+        annotate("text", x=151.6632, y=-32.0671, label = "Barrington Tops NF")+
         theme_linedraw() +
         theme(panel.grid.minor=element_blank(),
               axis.text.x=element_text(size=12),
@@ -285,34 +293,33 @@ make_spatial_plots_for_Sydney_Hunter_valley_regions <- function(sourceDir, destD
                           labels=c("0.1", "1", "5", "10", "20", "30", "40", "50", "60"))+
         ggtitle(paste0("Antecedent ", drought.duration, " rainfall severity percentile"))+
         guides(color = guide_legend(nrow=5, byrow = T))+
-        xlim(user.lon.min, user.lon.max)+
-        ylim(user.lat.min, user.lat.max)
+        xlim(lon.min.syd, lon.max.syd)+
+        ylim(lat.min.syd, lat.max.syd)
     
     
-    ### plot drought intensity
+    ### plot drought intensity (mm/yr)
     p4 <- ggplot(aus.poly) +
         geom_tile(drought.intensity.long, mapping=aes(lon, lat, fill=value_cat))+
         geom_sf(fill=NA) +
         geom_point(aes(x=151.2093, y=-33.8688), col="red")+  # sydney
-        annotate("text", x=151.2093, y=-34.2, label = "Sydney")+
-        geom_point(aes(x=149.13, y=-35.2809), col="red")+    # canberra
-        annotate("text", x=149.13, y=-35.5, label = "Canberra")+
+        annotate("text", x=151.2093, y=-33.9688, label = "Sydney", col="brown")+
+        geom_point(aes(x=150.8595, y=-32.0546), col="red")+    # canberra
+        annotate("text", x=150.8595, y=-32.1546, label = "Scone", col="brown")+
         geom_point(aes(x=151.7817, y=-32.9283), col="red")+    # new castle
-        annotate("text", x=151.7817, y=-33.1, label = "Newcastle")+
-        geom_point(aes(x=149.5775, y=-33.4193), col="red")+    # Bathurst
-        annotate("text", x=149.5775, y=-33.8, label = "Bathurst")+
-        geom_point(aes(x=147.3598, y=-35.1082), col="red")+    # Wagga Wagga
-        annotate("text", x=147.3598, y=-35.5, label = "Wagga Wagga")+
-        geom_point(aes(x=149.7812, y=-30.3324), col="red")+    # Narrabri
-        annotate("text", x=149.7812, y=-30.8, label = "Narrabri")+
-        geom_point(aes(x=152.9, y=-31.4333), col="red")+    # Port Macquarie
-        annotate("text", x=152.9, y=-31.9, label = "Port Macquarie")+
-        geom_point(aes(x=145.9378, y=-30.0888), col="red")+    # Bourke
-        annotate("text", x=145.9378, y=-30.5, label = "Bourke")+
-        geom_point(aes(x=153.4, y=-28.0167), col="red")+    # Gold Coast
-        annotate("text", x=153.4, y=-28.5, label = "Gold Coast")+
-        geom_point(aes(x=146.0455, y=-34.2801), col="red")+    # Griffith
-        annotate("text", x=146.0455, y=-34.6, label = "Griffith")+
+        annotate("text", x=151.7817, y=-33.0, label = "Newcastle", col="brown")+
+        geom_point(aes(x=150.3557, y=-32.1393), col="red")+    # Merriwa
+        annotate("text", x=150.3557, y=-32.2393, label = "Merriwa", col="brown")+
+        geom_point(aes(x=151.3624, y=-32.8345), col="red")+    # Cessnock
+        annotate("text", x=151.3624, y=-32.9345, label = "Cessnock", col="brown")+
+        geom_point(aes(x=150.75, y=-33.6), col="red")+    # Richmond
+        annotate("text", x=150.75, y=-33.7, label = "Richmond", col="brown")+
+        geom_point(aes(x=151.1788, y=-32.5695), col="red")+    # Singleton
+        annotate("text", x=151.1788, y=-32.6695, label = "Singleton", col="brown")+
+        geom_point(aes(x=151.3417, y=-33.4267), col="red")+    # Gosford
+        annotate("text", x=151.3417, y=-33.5267, label = "Gosford", col="brown")+
+        annotate("text", x=150.9190, y=-33.0482, label = "Yengo NF")+
+        annotate("text", x=150.3765, y=-33.0174, label = "Wollemi NF")+
+        annotate("text", x=151.6632, y=-32.0671, label = "Barrington Tops NF")+
         theme_linedraw() +
         theme(panel.grid.minor=element_blank(),
               axis.text.x=element_text(size=12),
@@ -328,10 +335,10 @@ make_spatial_plots_for_Sydney_Hunter_valley_regions <- function(sourceDir, destD
         scale_fill_manual(name="value",
                           values=rev(rain.color.drought),
                           labels=drought.intensity.long.lab)+
-        ggtitle(paste0("Antecedent ", drought.duration, " rainfall"))+
+        ggtitle(paste0("Antecedent ", drought.duration, " rainfall (mm/yr)"))+
         guides(color = guide_legend(nrow=5, byrow = T))+
-        xlim(user.lon.min, user.lon.max)+
-        ylim(user.lat.min, user.lat.max)
+        xlim(lon.min.syd, lon.max.syd)+
+        ylim(lat.min.syd, lat.max.syd)
     
     
     ### wind severity percentile
@@ -341,25 +348,24 @@ make_spatial_plots_for_Sydney_Hunter_valley_regions <- function(sourceDir, destD
                    pch = 21, size = 5)+
         geom_sf(fill=NA) +
         geom_point(aes(x=151.2093, y=-33.8688), col="red")+  # sydney
-        annotate("text", x=151.2093, y=-34.2, label = "Sydney")+
-        geom_point(aes(x=149.13, y=-35.2809), col="red")+    # canberra
-        annotate("text", x=149.13, y=-35.5, label = "Canberra")+
+        annotate("text", x=151.2093, y=-33.9688, label = "Sydney", col="brown")+
+        geom_point(aes(x=150.8595, y=-32.0546), col="red")+    # canberra
+        annotate("text", x=150.8595, y=-32.1546, label = "Scone", col="brown")+
         geom_point(aes(x=151.7817, y=-32.9283), col="red")+    # new castle
-        annotate("text", x=151.7817, y=-33.1, label = "Newcastle")+
-        geom_point(aes(x=149.5775, y=-33.4193), col="red")+    # Bathurst
-        annotate("text", x=149.5775, y=-33.8, label = "Bathurst")+
-        geom_point(aes(x=147.3598, y=-35.1082), col="red")+    # Wagga Wagga
-        annotate("text", x=147.3598, y=-35.5, label = "Wagga Wagga")+
-        geom_point(aes(x=149.7812, y=-30.3324), col="red")+    # Narrabri
-        annotate("text", x=149.7812, y=-30.8, label = "Narrabri")+
-        geom_point(aes(x=152.9, y=-31.4333), col="red")+    # Port Macquarie
-        annotate("text", x=152.9, y=-31.9, label = "Port Macquarie")+
-        geom_point(aes(x=145.9378, y=-30.0888), col="red")+    # Bourke
-        annotate("text", x=145.9378, y=-30.5, label = "Bourke")+
-        geom_point(aes(x=153.4, y=-28.0167), col="red")+    # Gold Coast
-        annotate("text", x=153.4, y=-28.5, label = "Gold Coast")+
-        geom_point(aes(x=146.0455, y=-34.2801), col="red")+    # Griffith
-        annotate("text", x=146.0455, y=-34.6, label = "Griffith")+
+        annotate("text", x=151.7817, y=-33.0, label = "Newcastle", col="brown")+
+        geom_point(aes(x=150.3557, y=-32.1393), col="red")+    # Merriwa
+        annotate("text", x=150.3557, y=-32.2393, label = "Merriwa", col="brown")+
+        geom_point(aes(x=151.3624, y=-32.8345), col="red")+    # Cessnock
+        annotate("text", x=151.3624, y=-32.9345, label = "Cessnock", col="brown")+
+        geom_point(aes(x=150.75, y=-33.6), col="red")+    # Richmond
+        annotate("text", x=150.75, y=-33.7, label = "Richmond", col="brown")+
+        geom_point(aes(x=151.1788, y=-32.5695), col="red")+    # Singleton
+        annotate("text", x=151.1788, y=-32.6695, label = "Singleton", col="brown")+
+        geom_point(aes(x=151.3417, y=-33.4267), col="red")+    # Gosford
+        annotate("text", x=151.3417, y=-33.5267, label = "Gosford", col="brown")+
+        annotate("text", x=150.9190, y=-33.0482, label = "Yengo NF")+
+        annotate("text", x=150.3765, y=-33.0174, label = "Wollemi NF")+
+        annotate("text", x=151.6632, y=-32.0671, label = "Barrington Tops NF")+
         theme_linedraw() +
         theme(panel.grid.minor=element_blank(),
               axis.text.x=element_text(size=12),
@@ -378,34 +384,33 @@ make_spatial_plots_for_Sydney_Hunter_valley_regions <- function(sourceDir, destD
                           labels=c("99.9", "99", "95", "90", "80", "70", "60", "50", "40"))+
         guides(color = guide_legend(nrow=5, byrow = T))+
         ggtitle(paste0("Max. wind severity percentile"))+
-        xlim(user.lon.min, user.lon.max)+
-        ylim(user.lat.min, user.lat.max)
+        xlim(lon.min.syd, lon.max.syd)+
+        ylim(lat.min.syd, lat.max.syd)
     
-    ### wind speed intensity (0.1 knots)
+    ### wind speed intensity (m/s)
     p6 <- ggplot(aus.poly) +
-        geom_point(wind.severity, mapping=aes(lon, lat, fill=selected.wind.speed), 
+        geom_point(wind.severity, mapping=aes(lon, lat, fill=selected.wind.speed*0.51), 
                    pch = 21, size = 5)+
         geom_sf(fill=NA) +
         geom_point(aes(x=151.2093, y=-33.8688), col="red")+  # sydney
-        annotate("text", x=151.2093, y=-34.2, label = "Sydney")+
-        geom_point(aes(x=149.13, y=-35.2809), col="red")+    # canberra
-        annotate("text", x=149.13, y=-35.5, label = "Canberra")+
+        annotate("text", x=151.2093, y=-33.9688, label = "Sydney", col="brown")+
+        geom_point(aes(x=150.8595, y=-32.0546), col="red")+    # canberra
+        annotate("text", x=150.8595, y=-32.1546, label = "Scone", col="brown")+
         geom_point(aes(x=151.7817, y=-32.9283), col="red")+    # new castle
-        annotate("text", x=151.7817, y=-33.1, label = "Newcastle")+
-        geom_point(aes(x=149.5775, y=-33.4193), col="red")+    # Bathurst
-        annotate("text", x=149.5775, y=-33.8, label = "Bathurst")+
-        geom_point(aes(x=147.3598, y=-35.1082), col="red")+    # Wagga Wagga
-        annotate("text", x=147.3598, y=-35.5, label = "Wagga Wagga")+
-        geom_point(aes(x=149.7812, y=-30.3324), col="red")+    # Narrabri
-        annotate("text", x=149.7812, y=-30.8, label = "Narrabri")+
-        geom_point(aes(x=152.9, y=-31.4333), col="red")+    # Port Macquarie
-        annotate("text", x=152.9, y=-31.9, label = "Port Macquarie")+
-        geom_point(aes(x=145.9378, y=-30.0888), col="red")+    # Bourke
-        annotate("text", x=145.9378, y=-30.5, label = "Bourke")+
-        geom_point(aes(x=153.4, y=-28.0167), col="red")+    # Gold Coast
-        annotate("text", x=153.4, y=-28.5, label = "Gold Coast")+
-        geom_point(aes(x=146.0455, y=-34.2801), col="red")+    # Griffith
-        annotate("text", x=146.0455, y=-34.6, label = "Griffith")+
+        annotate("text", x=151.7817, y=-33.0, label = "Newcastle", col="brown")+
+        geom_point(aes(x=150.3557, y=-32.1393), col="red")+    # Merriwa
+        annotate("text", x=150.3557, y=-32.2393, label = "Merriwa", col="brown")+
+        geom_point(aes(x=151.3624, y=-32.8345), col="red")+    # Cessnock
+        annotate("text", x=151.3624, y=-32.9345, label = "Cessnock", col="brown")+
+        geom_point(aes(x=150.75, y=-33.6), col="red")+    # Richmond
+        annotate("text", x=150.75, y=-33.7, label = "Richmond", col="brown")+
+        geom_point(aes(x=151.1788, y=-32.5695), col="red")+    # Singleton
+        annotate("text", x=151.1788, y=-32.6695, label = "Singleton", col="brown")+
+        geom_point(aes(x=151.3417, y=-33.4267), col="red")+    # Gosford
+        annotate("text", x=151.3417, y=-33.5267, label = "Gosford", col="brown")+
+        annotate("text", x=150.9190, y=-33.0482, label = "Yengo NF")+
+        annotate("text", x=150.3765, y=-33.0174, label = "Wollemi NF")+
+        annotate("text", x=151.6632, y=-32.0671, label = "Barrington Tops NF")+
         theme_linedraw() +
         theme(panel.grid.minor=element_blank(),
               axis.text.x=element_text(size=12),
@@ -420,9 +425,9 @@ make_spatial_plots_for_Sydney_Hunter_valley_regions <- function(sourceDir, destD
               legend.box.just = 'left')+
         scale_fill_viridis_b(name="value")+
         guides(color = guide_legend(nrow=5, byrow = T))+
-        ggtitle(paste0("Max. wind speed (0.1 knots)"))+
-        xlim(user.lon.min, user.lon.max)+
-        ylim(user.lat.min, user.lat.max)
+        ggtitle(paste0("Max. wind speed (m/s)"))+
+        xlim(lon.min.syd, lon.max.syd)+
+        ylim(lat.min.syd, lat.max.syd)
     
     ### save plot
     jpeg(paste0(destDir, "/Sydney_Hunter_Valley_", date.of.interest,
