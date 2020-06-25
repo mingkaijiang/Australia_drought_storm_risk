@@ -1,5 +1,5 @@
 plot_daily_tmax_for_a_year <- function(sourceDir, destDir,
-                                           user.defined.year) {
+                                       user.defined.year) {
     
     ### grid information
     lat.id <- c(1:691)
@@ -46,8 +46,11 @@ plot_daily_tmax_for_a_year <- function(sourceDir, destDir,
         myDF <- read.ascii.grid(inName)
         
         ### matrix addition
-        out <- matrix(mapply(mean, out, myDF$data, MoreArgs=list(na.rm=T)), ncol=length(lon.id))
+        out <- matrix(mapply(sum, out, myDF$data, MoreArgs=list(na.rm=T)), ncol=length(lon.id))
     }
+    
+    ### sum / no of days
+    out <- out / 360
     
     ### save output
     saveRDS(out, file=paste0(destDir, "/Australia_daily_tmax_year_",
