@@ -331,6 +331,13 @@ make_spatial_plots_for_user_defined_regions(sourceDir = "output",
 ############################################################################################
 
 ### to do list:
+### 1. Check file name update works?
+### 2. Add PET calculation based on T
+### 3. Revise drought index
+### 4. Update the plotting code with revised drought and rainfall index
+
+
+### old to do list:
 ### 3. Revise code to speed up the selected region extreme severity checking script
 ### 4. Clean code to make it more reader-friendly
 ### 5. Create spider chart to combine indices on wind, storm and drought 
