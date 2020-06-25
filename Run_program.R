@@ -273,6 +273,29 @@ make_spatial_plots_for_user_defined_regions(sourceDir = "output",
                                             drought.duration = "2-year")
 
 
+#### Sydney and Hunter valley region only
+sourceDir = "output"
+destDir = "output/plots"
+user.region.name = "Larger_Sydney"
+date.of.interest = "20191126"
+user.lat.max = -28
+user.lat.min = -36
+user.lon.max = 155
+user.lon.min = 145
+storm.duration = "1-day"
+drought.duration = "1-year"
+make_spatial_plots_for_user_defined_regions(sourceDir = "output",
+                                            destDir = "output/plots",
+                                            user.region.name = "Larger_Sydney",
+                                            date.of.interest = "20191126",
+                                            user.lat.max = -28,
+                                            user.lat.min = -36,
+                                            user.lon.max = 155,
+                                            user.lon.min = 145,
+                                            storm.duration = "1-day",
+                                            drought.duration = "1-year")
+
+
 ### ++++++++++++++++++++++++++++++++++++ End plotting +++++++++++++++++++++++++++++++++ ####
 ############################################################################################
 
