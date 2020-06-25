@@ -98,6 +98,18 @@ source("prepare.R")
 #                                             user.region.name = "Larger_Sydney",
 #                                             duration = "5-day")
 
+#### Generate storm return time for user defined region, 
+#### based on user defined duration - 1 & 5 day storm intensity
+#### no plot generated
+compute_storm_return_time_for_user_defined_regions(sourceDir = "input", 
+                                             destDir = "output",
+                                             user.region.name = "Larger_Sydney",
+                                             duration = 1)
+compute_storm_return_time_for_user_defined_regions(sourceDir = "input", 
+                                             destDir = "output",
+                                             user.region.name = "Larger_Sydney",
+                                             duration = 5)
+
 #### 2. Calculate drought index:
 ####     Drought index has duration options of consecutive no rain days, 1-year, 2-year,
 ####     Output a 3 dimension matrix with lat lon and 9 layers of storm index
