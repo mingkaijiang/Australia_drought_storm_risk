@@ -29,7 +29,7 @@ source("prepare.R")
 #### 1 . Download AWAP data from BOM website
 ####     Only need to run this code once.
 #download_AWAP_rainfall_data(destDir="/Volumes/TOSHIBAEXT/AWAP/rain/")
-download_AWAP_temperature_data(destDir="output/temperature/")
+download_AWAP_temperature_data(destDir="/Volumes/TOSHIBAEXT/AWAP/temperature/")
 
 #### 2. Unzip all .z files
 ####    Only need to run this code once
