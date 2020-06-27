@@ -168,7 +168,7 @@ calculate_PET_based_on_Tmax(sourceDir = "input",
 #merge_and_compute_Australia_drought_index(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/output",
 #                                          destDir = "/Volumes/TOSHIBAEXT/AWAP/output",
 #                                          duration = "1-year")
-
+################################################################
 
 
 
@@ -182,32 +182,31 @@ calculate_PET_based_on_Tmax(sourceDir = "input",
 ####     No plot generated.
 
 #### B1.1. 1-day storm intensity
-#compute_storm_index_for_user_defined_regions(sourceDir = "input", 
-#                                             destDir = "output",
-#                                             user.region.name = "Larger_Sydney",
-#                                             duration = "1-day")
+compute_storm_index_for_user_defined_regions(sourceDir = "input", 
+                                             destDir = "output/storm",
+                                             user.region.name = "SydneyHunter",
+                                             duration = "1-day")
 
 
 #### B1.2. 5-day storm intensity
-#compute_storm_index_for_user_defined_regions(sourceDir = "input", 
-#                                             destDir = "output",
-#                                             user.region.name = "Larger_Sydney",
-#                                             duration = "5-day")
-
+compute_storm_index_for_user_defined_regions(sourceDir = "input", 
+                                             destDir = "output/storm",
+                                             user.region.name = "SydneyHunter",
+                                             duration = "5-day")
 
 
 #### B2. Generate storm return time for user defined region, 
 ####     based on user defined duration - 1 & 5 day storm intensity
 #### B2.1. 1-day rainfall intensity
 compute_storm_return_time_for_user_defined_regions(sourceDir = "input", 
-                                                   destDir = "output",
-                                                   user.region.name = "Larger_Sydney",
+                                                   destDir = "output/storm",
+                                                   user.region.name = "SydneyHunter",
                                                    duration = 1)
 
 #### B2.2. 5-day rainfall intensity
 compute_storm_return_time_for_user_defined_regions(sourceDir = "input", 
-                                                   destDir = "output",
-                                                   user.region.name = "Larger_Sydney",
+                                                   destDir = "output/storm",
+                                                   user.region.name = "SydneyHunter",
                                                    duration = 5)
 
 
@@ -229,7 +228,7 @@ process_GSOD_station_data(sourceDir = "/Volumes/TOSHIBAEXT/gsod/",
 
 #### B3.2. Plot wind speed percentile for user selected region
 ####       Note: for the moment, cities are for larger sydney still!!!!
-plot_GSOD_station_wind_data_for_user_selected_regions(sourceDir = "output",
+plot_GSOD_station_wind_data_for_user_selected_regions(sourceDir = "input",
                                                       destDir = "plots",
                                                       user.lat.max = -31,
                                                       user.lat.min = -35,
@@ -249,14 +248,14 @@ plot_GSOD_station_wind_data_for_user_selected_regions(sourceDir = "output",
 #### B4.1. antecedent 1-year water availability
 #compute_drought_index_for_user_defined_regions(sourceDir = "input", 
 #                                               destDir = "output",
-#                                               user.region.name = "Larger_Sydney",
+#                                               user.region.name = "SydneyHunter",
 #                                               duration = "1-year")
 
 
 #### B4.2. antecedent 2-year water availability
 #compute_drought_index_for_user_defined_regions(sourceDir = "input", 
 #                                               destDir = "output",
-#                                               user.region.name = "Larger_Sydney",
+#                                               user.region.name = "SydneyHunter",
 #                                               duration = "2-year")
 
 
@@ -355,7 +354,7 @@ plot_GSOD_station_wind_data_for_user_selected_regions(sourceDir = "output",
 ####                     table of storm and drought severity
 compute_drought_and_storm_event_severity_for_user_defined_regions(sourceDir = "input", 
                                                                   destDir = "output",
-                                                                  user.region.name = "Larger_Sydney",
+                                                                  user.region.name = "SydneyHunter",
                                                                   date.of.interest = "20191126",
                                                                   storm.duration = "1-day",
                                                                   drought.duration = "1-year")
@@ -363,14 +362,14 @@ compute_drought_and_storm_event_severity_for_user_defined_regions(sourceDir = "i
 
 compute_wind_event_severity_for_user_defined_regions(sourceDir = "/Volumes/TOSHIBAEXT/gsod/",
                                                      destDir = "output",
-                                                     user.region.name = "Larger_Sydney",
+                                                     user.region.name = "SydneyHunter",
                                                      date.of.interest = "20191126")
 
 
 #### Repeat for different duration/region option
 compute_drought_and_storm_event_severity_for_user_defined_regions(sourceDir = "input", 
                                                                   destDir = "output",
-                                                                  user.region.name = "Larger_Sydney",
+                                                                  user.region.name = "SydneyHunter",
                                                                   date.of.interest = "20191126",
                                                                   storm.duration = "5-day",
                                                                   drought.duration = "1-year")
@@ -379,7 +378,7 @@ compute_drought_and_storm_event_severity_for_user_defined_regions(sourceDir = "i
 #### Repeat for different duration/region option
 compute_drought_and_storm_event_severity_for_user_defined_regions(sourceDir = "input", 
                                                                   destDir = "output",
-                                                                  user.region.name = "Larger_Sydney",
+                                                                  user.region.name = "SydneyHunter",
                                                                   date.of.interest = "20191126",
                                                                   storm.duration = "5-day",
                                                                   drought.duration = "2-year")
@@ -415,7 +414,7 @@ compute_drought_and_storm_event_severity_for_user_defined_regions(sourceDir = "i
 #### 2. Plot selected region severity and intensity maps
 #make_spatial_plots_for_user_defined_regions(sourceDir = "output",
 #                                            destDir = "output/plots",
-#                                            user.region.name = "Larger_Sydney",
+#                                            user.region.name = "SydneyHunter",
 #                                            date.of.interest = "20191126",
 #                                            user.lat.max = -28,
 #                                            user.lat.min = -36,
@@ -428,7 +427,7 @@ compute_drought_and_storm_event_severity_for_user_defined_regions(sourceDir = "i
 #
 #make_spatial_plots_for_user_defined_regions(sourceDir = "output",
 #                                            destDir = "output/plots",
-#                                            user.region.name = "Larger_Sydney",
+#                                            user.region.name = "SydneyHunter",
 #                                            date.of.interest = "20191126",
 #                                            user.lat.max = -28,
 #                                            user.lat.min = -36,
@@ -440,7 +439,7 @@ compute_drought_and_storm_event_severity_for_user_defined_regions(sourceDir = "i
 #
 #make_spatial_plots_for_user_defined_regions(sourceDir = "output",
 #                                            destDir = "output/plots",
-#                                            user.region.name = "Larger_Sydney",
+#                                            user.region.name = "SydneyHunter",
 #                                            date.of.interest = "20191126",
 #                                            user.lat.max = -28,
 #                                            user.lat.min = -36,
@@ -452,8 +451,8 @@ compute_drought_and_storm_event_severity_for_user_defined_regions(sourceDir = "i
 
 #### 3. Sydney and Hunter valley region only
 sourceDir = "output"
-destDir = "output/plots"
-user.region.name = "Larger_Sydney"
+destDir = "plots"
+user.region.name = "SydneyHunter"
 date.of.interest = "20191126"
 user.lat.max = -28
 user.lat.min = -36
@@ -462,13 +461,13 @@ user.lon.min = 145
 storm.duration = "1-day"
 drought.duration = "1-year"
 make_spatial_plots_for_Sydney_Hunter_valley_regions(sourceDir = "output",
-                                                    destDir = "output/plots",
-                                                    user.region.name = "Larger_Sydney",
+                                                    destDir = "plots",
+                                                    user.region.name = "SydneyHunter",
                                                     date.of.interest = "20191126",
-                                                    user.lat.max = -28,
-                                                    user.lat.min = -36,
-                                                    user.lon.max = 155,
-                                                    user.lon.min = 145,
+                                                    user.lat.max = -31,
+                                                    user.lat.min = -35,
+                                                    user.lon.max = 153,
+                                                    user.lon.min = 149,
                                                     storm.duration = "1-day",
                                                     drought.duration = "1-year")
 
