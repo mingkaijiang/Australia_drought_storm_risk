@@ -18,30 +18,76 @@ make_spatial_plots_for_Sydney_Hunter_valley_regions <- function(sourceDir,
     user.lon.min = 149
     
     #### read in data
+    ## storm rainfall total
     storm.intensity.1day <- readRDS(paste0(sourceDir, "/storm",
                                            "/storm_intensity_", 
                                            date.of.interest, "_1-day_",
                                            user.region.name, "_regions.rds"))
     
-    drought.intensity <- readRDS(paste0(sourceDir, 
-                                      "/drought_intensity_", 
-                                      date.of.interest, "_",
-                                      drought.duration, "_",
-                                      user.region.name, "_regions.rds"))
+    storm.intensity.5day <- readRDS(paste0(sourceDir, "/storm",
+                                           "/storm_intensity_", 
+                                           date.of.interest, "_5-day_",
+                                           user.region.name, "_regions.rds"))
     
-    storm.severity <- readRDS(paste0(sourceDir, 
-                                      "/storm_severity_", 
-                                      date.of.interest, "_",
-                                      storm.duration, "_",
-                                     user.region.name, "_regions.rds"))
+    ## antecedent water availability
+    drought.intensity.1yr <- readRDS(paste0(sourceDir, "/antecedent_water_availability", 
+                                            "/antecedent_water_availability_intensity_", 
+                                            date.of.interest, "_1-year_",
+                                            user.region.name, "_regions.rds"))
     
-    drought.severity <- readRDS(paste0(sourceDir, 
-                                     "/drought_severity_", 
-                                     date.of.interest, "_",
-                                     drought.duration, "_",
-                                     user.region.name, "_regions.rds"))
+    drought.intensity.2yr <- readRDS(paste0(sourceDir, "/antecedent_water_availability", 
+                                            "/antecedent_water_availability_intensity_", 
+                                            date.of.interest, "_2-year_",
+                                            user.region.name, "_regions.rds"))
     
-    wind.severity <- read.csv(paste0(sourceDir, "/GSOD_Wind_Extreme_Severity_", 
+    ## antecedent atmospheric dryness
+    dryness.intensity.1yr <- readRDS(paste0(sourceDir, "/antecedent_atmospheric_dryness", 
+                                            "/antecedent_atmospheric_dryness_intensity_", 
+                                            date.of.interest, "_1-year_",
+                                            user.region.name, "_regions.rds"))
+    
+    dryness.intensity.2yr <- readRDS(paste0(sourceDir, "/antecedent_atmospheric_dryness", 
+                                            "/antecedent_atmospheric_dryness_intensity_", 
+                                            date.of.interest, "_2-year_",
+                                            user.region.name, "_regions.rds"))
+    
+    
+    ## storm severity
+    storm.severity.1day <- readRDS(paste0(sourceDir, "/storm",
+                                          "/storm_return_severity_", 
+                                          date.of.interest, "_1-day_",
+                                          user.region.name, "_regions.rds"))
+    
+    storm.severity.5day <- readRDS(paste0(sourceDir, "/storm",
+                                          "/storm_return_severity_", 
+                                          date.of.interest, "_5-day_",
+                                          user.region.name, "_regions.rds"))
+    
+    ## drought severity
+    drought.severity.1yr <- readRDS(paste0(sourceDir, "/antecedent_water_availability", 
+                                           "/antecedent_water_availability_severity_", 
+                                           date.of.interest, "_1-year_",
+                                           user.region.name, "_regions.rds"))
+    
+    drought.severity.2yr <- readRDS(paste0(sourceDir, "/antecedent_water_availability", 
+                                           "/antecedent_water_availability_severity_", 
+                                           date.of.interest, "_2-year_",
+                                           user.region.name, "_regions.rds"))
+    
+    ## atmospheric dryness severity
+    dryness.severity.1yr <- readRDS(paste0(sourceDir, "/antecedent_atmospheric_dryness", 
+                                           "/antecedent_atmospheric_dryness_severity_", 
+                                           date.of.interest, "_1-year_",
+                                           user.region.name, "_regions.rds"))
+    
+    dryness.severity.2yr <- readRDS(paste0(sourceDir, "/antecedent_atmospheric_dryness", 
+                                           "/antecedent_atmospheric_dryness_severity_", 
+                                           date.of.interest, "_2-year_",
+                                           user.region.name, "_regions.rds"))
+    
+    
+    ## wind intensity and severity
+    wind.severity <- read.csv(paste0(sourceDir, "/wind/GSOD_Wind_Extreme_Severity_", 
                                      date.of.interest, "_", user.region.name,
                                      "_regions.csv"))
     
