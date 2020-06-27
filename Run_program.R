@@ -280,10 +280,10 @@ calculate_PD_based_on_PET(sourceDir = "input",
 #                                                               duration = "1-year")
 
 #### B5.2. atmospheric dryness for antecedent 2-year period
-compute_antecedent_atmospheric_dryness_for_user_defined_regions(sourceDir = "input", 
-                                                                destDir = "output/antecedent_atmospheric_dryness",
-                                                                user.region.name = "SydneyHunter",
-                                                                duration = "2-year")
+#compute_antecedent_atmospheric_dryness_for_user_defined_regions(sourceDir = "input", 
+#                                                                destDir = "output/antecedent_atmospheric_dryness",
+#                                                                user.region.name = "SydneyHunter",
+#                                                                duration = "2-year")
 
 
 
@@ -520,6 +520,8 @@ compute_antecedent_atmospheric_dryness_severity_for_user_defined_regions(sourceD
                                                                          user.region.name = "SydneyHunter",
                                                                          date.of.interest = "20200218",
                                                                          duration = "2-year")
+
+
 
 
 #### A5. check antecedent water deficit (PET - P) for date of selection over the user defined region

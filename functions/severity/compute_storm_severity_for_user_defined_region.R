@@ -1,8 +1,8 @@
-compute_drought_and_storm_event_severity_for_user_defined_regions <- function(sourceDir, 
-                                                                              destDir, 
-                                                                              user.region.name,
-                                                                              date.of.interest,
-                                                                              storm.duration) {
+compute_storm_severity_for_user_defined_regions <- function(sourceDir, 
+                                                            destDir, 
+                                                            user.region.name,
+                                                            date.of.interest,
+                                                            storm.duration) {
     
     
     ### translate date of interest into nday information

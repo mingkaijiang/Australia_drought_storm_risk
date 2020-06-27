@@ -86,7 +86,7 @@ compute_wind_event_severity_for_user_defined_regions <- function(sourceDir1,
     ### check severity in terms of return interval
     subDF$wind_return_severity_percentile <- ifelse(subDF$selected.wind.speed>=subDF$return50, 50.0,
                                                     ifelse(subDF$selected.wind.speed>=subDF$return40 & subDF$selected.wind.speed<subDF$return50, 40.0,
-                                                           ifelse(subDF$selected.wind.speed>=subDF$return30 & subDF$selected.wind.speed<subDFreturn40, 30.0,
+                                                           ifelse(subDF$selected.wind.speed>=subDF$return30 & subDF$selected.wind.speed<subDF$return40, 30.0,
                                                                   ifelse(subDF$selected.wind.speed>=subDF$return20 & subDF$selected.wind.speed<subDF$wind30, 20.0,
                                                                          ifelse(subDF$selected.wind.speed>=subDF$return10 & subDF$selected.wind.speed<subDF$return20, 10.0,
                                                                                 ifelse(subDF$selected.wind.speed>=subDF$return05 & subDF$selected.wind.speed<subDF$return10, 5.0, 1.0))))))
