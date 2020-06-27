@@ -82,16 +82,13 @@ select_station_from_GSOD_global_dataset <- function(destDir,
     outDF$wind50 <- NA
     outDF$wind40 <- NA
     
-    #outDF$max.gust <- NA
-    #outDF$gust999 <- NA
-    #outDF$gust99 <- NA
-    #outDF$gust95 <- NA
-    #outDF$gust90 <- NA
-    #outDF$gust80 <- NA
-    #outDF$gust70 <- NA
-    #outDF$gust60 <- NA
-    #outDF$gust50 <- NA
-    #outDF$gust40 <- NA
+    outDF$return50 <- NA
+    outDF$return40 <- NA
+    outDF$return30 <- NA
+    outDF$return20 <- NA
+    outDF$return10 <- NA
+    outDF$return05 <- NA
+    outDF$return01 <- NA
     
     ### remove un-useful columns
     outDF$STATE <- NULL

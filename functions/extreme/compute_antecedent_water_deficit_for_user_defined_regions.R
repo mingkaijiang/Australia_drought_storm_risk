@@ -1,8 +1,14 @@
-compute_drought_index_for_user_defined_regions <- function(sourceDir, destDir, 
-                                                           user.region.name, duration) {
+compute_antecedent_water_deficit_for_user_defined_regions <- function(sourceDir, 
+                                                                            destDir, 
+                                                                            user.region.name, 
+                                                                            duration) {
+    #### Create output folder
+    if(!dir.exists(destDir)) {
+        dir.create(destDir, showWarnings = FALSE)
+    }
     
     ### read in the R database
-    myData <- readRDS(paste0(sourceDir, "/rain_", user.region.name, "_regions.rds"))
+    myData <- readRDS(paste0(sourceDir, "/vpd_", user.region.name, "_regions.rds"))
     
     ### dimension information
     dim1 <- dim(myData)[1]
@@ -21,43 +27,7 @@ compute_drought_index_for_user_defined_regions <- function(sourceDir, destDir,
             all <- myData[i,j,]
             
             ### get precipitation percentile
-            if (duration == "no.rain.period") {
-                
-                ## check data distribution
-                test1 <- rle(all)
-                
-                ## convert into dataframe
-                DF1 <- data.frame(test1$lengths, test1$values)
-                colnames(DF1) <- c("lengths", "values")
-                DF1$cumsum <- cumsum(DF1$lengths)
-                DF1$loc1 <- c(1:dim(DF1)[1])
-                
-                ## subset no rain DF
-                sub <- subset(DF1, values == 0)
-                
-                ## obtain statistics
-                max.no.rain.duration <- round(max(sub$lengths, na.rm=T), 0)
-                P999 <- round(quantile(sub$lengths, 0.999, na.rm=T),0)
-                P99 <- round(quantile(sub$lengths, 0.99, na.rm=T),0)
-                P95 <- round(quantile(sub$lengths, 0.95, na.rm=T),0)
-                P90 <- round(quantile(sub$lengths, 0.90, na.rm=T),0)
-                P80 <- round(quantile(sub$lengths, 0.80, na.rm=T),0)
-                P70 <- round(quantile(sub$lengths, 0.70, na.rm=T),0)
-                P60 <- round(quantile(sub$lengths, 0.60, na.rm=T),0)
-                P50 <- round(quantile(sub$lengths, 0.50, na.rm=T),0)
-                
-                ### assign value
-                out_percentile[i,j, 1] <- max.no.rain.duration
-                out_percentile[i,j, 2] <- P999
-                out_percentile[i,j, 3] <- P99
-                out_percentile[i,j, 4] <- P95
-                out_percentile[i,j, 5] <- P90
-                out_percentile[i,j, 6] <- P80
-                out_percentile[i,j, 7] <- P70
-                out_percentile[i,j, 8] <- P60
-                out_percentile[i,j, 9] <- P50
-                
-            } else if (duration == "1-year") {
+            if (duration == "1-year") {
                 
                 ### assign NA to first two days
                 DF2 <- c()
@@ -135,7 +105,7 @@ compute_drought_index_for_user_defined_regions <- function(sourceDir, destDir,
         } # j loop
     } # i loop
     
-    saveRDS(out_percentile, file=paste0(destDir, "/Drought_extreme_percentile_", duration,
+    saveRDS(out_percentile, file=paste0(destDir, "/antecedent_atmospheric_dryness_percentile_", duration,
                                         "_", user.region.name, "_regions.rds"))
     
     

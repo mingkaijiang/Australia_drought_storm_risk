@@ -127,11 +127,18 @@ calculate_VPD_based_on_es_and_vp3pm(sourceDir = "input",
                                     user.region.name = "SydneyHunter")
 
 
-#### 7. Calculate PET based on Tmax
+#### 7. Calculate PET minus P
+#### 7.1. Calculate PET based on Tmax
 calculate_PET_based_on_Tmax(sourceDir = "input",
                             destDir = "input",
                             varName = "pet",
                             user.region.name = "SydneyHunter")
+
+#### 7.2 Calculate PET minus P
+calculate_PD_based_on_PET(sourceDir = "input",
+                          destDir = "input",
+                          varName = "pd",
+                          user.region.name = "SydneyHunter")
 
 #### Note: the station-based wind speed data is processed later in the next section
 
@@ -216,7 +223,7 @@ compute_storm_return_time_for_user_defined_regions(sourceDir = "input",
 ####      We have data gaps and spatial representative issues in the dataset,
 ####      but they do not matter for our purpose here.
 ####      After data processing, plot wind speed spatial map for whole Australia
-####      We also calculated wind speed extreme percentile within this function.
+####      We also calculated wind speed intensity and return interval percentile within this function.
 process_GSOD_station_data(sourceDir = "/Volumes/TOSHIBAEXT/gsod/", 
                           destDir = "input",
                           user.lat.max = -31,
@@ -236,6 +243,8 @@ plot_GSOD_station_wind_data_for_user_selected_regions(sourceDir = "input",
                                                       user.lon.min = 149,
                                                       user.region.name = "SydneyHunter")
 
+
+
 #### B4. Calculate antecedent 1 and 2 year rainfall availability:
 ####     Drought index has duration options of consecutive no rain days, 1-year, 2-year,
 ####     Output a 3 dimension matrix with lat lon and 9 layers of storm index
@@ -246,37 +255,47 @@ plot_GSOD_station_wind_data_for_user_selected_regions(sourceDir = "input",
 ####     No plot generated
 
 #### B4.1. antecedent 1-year water availability
-#compute_drought_index_for_user_defined_regions(sourceDir = "input", 
-#                                               destDir = "output",
-#                                               user.region.name = "SydneyHunter",
-#                                               duration = "1-year")
+compute_antecedent_water_availability_for_user_defined_regions(sourceDir = "input", 
+                                                               destDir = "output/antecedent_water_availability",
+                                                               user.region.name = "SydneyHunter",
+                                                               duration = "1-year")
 
 
 #### B4.2. antecedent 2-year water availability
-#compute_drought_index_for_user_defined_regions(sourceDir = "input", 
-#                                               destDir = "output",
-#                                               user.region.name = "SydneyHunter",
-#                                               duration = "2-year")
+compute_antecedent_water_availability_for_user_defined_regions(sourceDir = "input", 
+                                                               destDir = "output/antecedent_water_availability",
+                                                               user.region.name = "SydneyHunter",
+                                                               duration = "2-year")
 
 
 #### B5. calculate atmospheric dryness (VPD) for antecedent 1 and 2-year period
 #### B5.1. atmospheric dryness for antecendent 1-year period
-
+compute_antecedent_atmospheric_dryness_for_user_defined_regions(sourceDir = "input", 
+                                                               destDir = "output/antecedent_atmospheric_dryness",
+                                                               user.region.name = "SydneyHunter",
+                                                               duration = "1-year")
 
 #### B5.2. atmospheric dryness for antecedent 2-year period
-
-
-
+compute_antecedent_atmospheric_dryness_for_user_defined_regions(sourceDir = "input", 
+                                                                destDir = "output/antecedent_atmospheric_dryness",
+                                                                user.region.name = "SydneyHunter",
+                                                                duration = "2-year")
 
 
 
 #### B6. calculate water deficit (PET - P) drought intex for antecedent 1 and 2 year period
 
 #### B6.1. water deficit for 1-year period
-
+compute_antecedent_water_deficit_for_user_defined_regions(sourceDir = "input", 
+                                                          destDir = "output/antecedent_water_deficit",
+                                                          user.region.name = "SydneyHunter",
+                                                          duration = "1-year")
 
 #### B6.2. water deficit for 2-year period
-
+compute_antecedent_water_deficit_for_user_defined_regions(sourceDir = "input", 
+                                                          destDir = "output/antecedent_water_deficit",
+                                                          user.region.name = "SydneyHunter",
+                                                          duration = "2-year")
 
 
 

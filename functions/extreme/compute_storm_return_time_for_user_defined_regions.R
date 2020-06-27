@@ -2,6 +2,10 @@ compute_storm_return_time_for_user_defined_regions <- function(sourceDir, destDi
                                                                user.region.name, 
                                                                duration) {
     
+    #### Create output folder
+    if(!dir.exists(destDir)) {
+        dir.create(destDir, showWarnings = FALSE)
+    }
     
     ### read in the R database
     myData <- readRDS(paste0(sourceDir, "/rain_", user.region.name, "_regions.rds"))
