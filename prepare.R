@@ -3,6 +3,10 @@ if(!dir.exists("output")) {
     dir.create("output", showWarnings = FALSE)
 }
 
+if(!dir.exists("plots")) {
+    dir.create("plots", showWarnings = FALSE)
+}
+
 #### Install packages
 if(!require(pacman))install.packages("pacman")
 pacman::p_load(raster,

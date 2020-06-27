@@ -6,15 +6,18 @@
 
 
 #######################################################################################
-### +++++++++++++++++++++++++++++ General codes +++++++++++++++++++++++++++++++++++ ###
+### +++++++++++++++++++++++++++++ General set-up ++++++++++++++++++++++++++++++++++ ###
 ### clear wk space
 rm(list=ls(all=TRUE))
 
 ### source all necessary files
 source("prepare.R")
 
-###++++++++++++++++++++++++++++++++ End general codes ++++++++++++++++++++++++++++++++####
+###+++++++++++++++++++++++++++++++ End general set-up ++++++++++++++++++++++++++++++++####
 ##########################################################################################
+
+
+
 
 
 ###########################################################################################
@@ -22,29 +25,48 @@ source("prepare.R")
 #### Structure:
 #### 1. Download data
 #### 2. Unzip files
-#### 3. Plot year 2019 and check with observation
+#### 3. Data quality check: Plot year 2019 and check with observation
 #### 4. Convert data from per day to per grid, for whole Australia
 #### 5. Convert data from per day to per grid, for user defined regions
+#### 6. Calculate VPD based on: 
+#### 6.1. Calculate saturated vapor pressure based on Tmax
+#### 6.2. Calculate VPD based on ES and EA (VP at 3 pm)
+#### 7. Calculate PET based on Tmax
 
 #### 1 . Download AWAP data from BOM website
 ####     Only need to run this code once.
+### 1.1. Daily rainfall data - from 1900 to 2020 (march 31st)
 #download_AWAP_rainfall_data(destDir="/Volumes/TOSHIBAEXT/AWAP/rain/")
-download_AWAP_temperature_data(destDir="/Volumes/TOSHIBAEXT/AWAP/temperature/")
+
+### 1.2. Daily maximum temperature - from 1911 to 2020 (march 31st)
+#download_AWAP_temperature_data(destDir="/Volumes/TOSHIBAEXT/AWAP/tmax/")
+
+### 1.3. Vapor pressure at 3 pm - from 1971 to 2020 (march 31st)
+download_AWAP_vp3pm_data(destDir="/Volumes/TOSHIBAEXT/AWAP/vp3pm/")
+
 
 #### 2. Unzip all .z files
 ####    Only need to run this code once
-#unzip_all_z_files(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/rain/", s.yr = 2018, e.yr = 2020)
-unzip_all_z_files(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/temperature/", s.yr = 2018, e.yr = 2020)
+#unzip_all_z_files(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/rain/", s.yr = 1900, e.yr = 2020)
+
+#unzip_all_z_files(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/tmax/", s.yr = 1911, e.yr = 2020)
+
+unzip_all_z_files(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/vp3pm/", s.yr = 1971, e.yr = 2020)
 
 
-#### 3. Plot one-year total rainfall to check rmatches with BOM observations
+#### 3. Data quality check: Plot one-year total rainfall to check rmatches with BOM observations
 #plot_total_rainfall_for_a_year(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/rain/", 
 #                               destDir = "output",
 #                               user.defined.year = 2019)
 
-#plot_daily_tmax_for_a_year(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/temperature/", 
+#plot_daily_tmax_for_a_year(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/tmax/", 
 #                           destDir = "output",
 #                           user.defined.year = 2019)
+
+plot_daily_vp3pm_for_a_year(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/vp3pm/", 
+                           destDir = "output",
+                           user.defined.year = 2019)
+
 
 #### 4. Convert from per day to per grid
 #### Only need to run this code once
@@ -69,7 +91,7 @@ unzip_all_z_files(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/temperature/", s.yr = 20
 #                                                             user.region.name = "Larger_Sydney")
 
 ### daily tmax
-convert_from_spatial_to_temporal_DF_for_user_defined_regions(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/temperature/", 
+convert_from_spatial_to_temporal_DF_for_user_defined_regions(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/tmax/", 
                                                              destDir = "/Volumes/TOSHIBAEXT/AWAP/output",
                                                              varName = "tmax",
                                                              user.lat.max = -28,
@@ -78,85 +100,123 @@ convert_from_spatial_to_temporal_DF_for_user_defined_regions(sourceDir = "/Volum
                                                              user.lon.min = 145,
                                                              user.region.name = "Larger_Sydney")
 
+### daily ea (vapor pressure) at 3 pm
+convert_from_spatial_to_temporal_DF_for_user_defined_regions(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/vp3pm/", 
+                                                             destDir = "/Volumes/TOSHIBAEXT/AWAP/output",
+                                                             varName = "vp3pm",
+                                                             user.lat.max = -28,
+                                                             user.lat.min = -36,
+                                                             user.lon.max = 155,
+                                                             user.lon.min = 145,
+                                                             user.region.name = "Larger_Sydney")
+
+
+#### 6. Calculate VPD based on Tmax and vp3pm
+### 6.1. Calculate saturated vapor pressure based on Tmax
+calculate_saturated_vapor_pressure_based_on_Tmax(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/output",
+                                                 destDir = "/Volumes/TOSHIBAEXT/AWAP/output",
+                                                 varName = "es",
+                                                 user.lat.max = -28,
+                                                 user.lat.min = -36,
+                                                 user.lon.max = 155,
+                                                 user.lon.min = 145,
+                                                 user.region.name = "Larger_Sydney")
+
+### 6.2. Calculate VPD based on ES and EA
+calculate_VPD_based_on_es_and_vp3pm(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/output",
+                                    destDir = "/Volumes/TOSHIBAEXT/AWAP/output",
+                                    varName = "vpd",
+                                    user.lat.max = -28,
+                                    user.lat.min = -36,
+                                    user.lon.max = 155,
+                                    user.lon.min = 145,
+                                    user.region.name = "Larger_Sydney")
+
+
+#### 7. Calculate PET based on Tmax
+calculate_PET_based_on_Tmax(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/output",
+                            destDir = "/Volumes/TOSHIBAEXT/AWAP/output",
+                            varName = "vpd",
+                            user.lat.max = -28,
+                            user.lat.min = -36,
+                            user.lon.max = 155,
+                            user.lon.min = 145,
+                            user.region.name = "Larger_Sydney")
+
+### +++++++++++++++++++++ End basic code to process the raw data +++++++++++++++++++++ ####
+###########################################################################################
+
+
+
+
 
 ###########################################################################################
-### +++++++++++++++ Basic code to generate climate extreme index +++++++++++++++++++++ ####
+### ++++++++++++++++++++++ Generate climate extreme index ++++++++++++++++++++++++++++ ####
 #### Structure:
-#### 1. Calculate storm index
-#### 2. Calculate drought index
-#### 3. Calculate wind index
+#### A. Australia
+#### A1. Storm index (1-day rainfall intensity) for whole Australia (merging 23 RDS datasets)
+#### A2. Drought index (antecedent 1-year rainfall total) for whole Australia (merging 23 RDS datasets)
 
-#### 1. Calculate storm index, based on Sydney region daily data;
-####     Storm index has duration options of 1 - 5 days
-####     Output a 3 dimension matrix with lat lon and 9 layers of storm index
-####     Each layer is the 99.9th, 99th, 95th, 90th, 80th, 70th, 60th, 50th, 40th percentile
+#### B. User selected region:
+#### B1. Calculate user selected region gridded short-term storm index (1 and 5 day rainfall intensity)
+#### B2. Calculate user selected region gridded short-term storm return index (1 and 5 day rainfall intensity return interval)
+#### B3. Calculate user selected region station-based wind index (daily max wind speed)
+#### B4. Calculate user selected region antecedent water availability index (1 and 2 year antecedent rainfall total)
+#### B5. Calculate user selected region antecedent atmospheric index (mean VPD for 1 and 2 year antecendent period)
+#### B6. Calculate user selected region antecedent water deficit index (PET - P for 1 and 2 year antecedent period)
 
-#### placeholder for computing storm index for whole Australia (merging 23 rds data)
+#### A. Australia
+#### A1. placeholder for computing storm index for whole Australia (merging 23 rds data)
 #merge_and_compute_Australia_storm_index(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/output",
 #                                        destDir = "/Volumes/TOSHIBAEXT/AWAP/output",
 #                                        duration = "1-day")
 
 
-#### Generate storm index for user defined region, 
-#### based on user defined duration - 1 day storm intensity
-#### no plot generated
+#### A2. placeholder for computing drought index for whole Australia (merging 23 rds)
+#merge_and_compute_Australia_drought_index(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/output",
+#                                          destDir = "/Volumes/TOSHIBAEXT/AWAP/output",
+#                                          duration = "1-year")
+
+
+#### B. User selected region (i.e. Larger sydney regions)
+#### B1. Calculate storm index, based on Sydney region daily data;
+####     Storm index has duration options of 1 - 5 days
+####     Output a 3 dimension matrix with lat lon and 9 layers of storm index
+####     Each layer is the 99.9th, 99th, 95th, 90th, 80th, 70th, 60th, 50th, 40th percentile
+####     Generate storm index for user defined region, 
+####     based on user defined duration - 1 day storm intensity.
+####     No plot generated.
+#### B1.1. 1-day storm intensity
 #compute_storm_index_for_user_defined_regions(sourceDir = "input", 
 #                                             destDir = "output",
 #                                             user.region.name = "Larger_Sydney",
 #                                             duration = "1-day")
 
 
-#### Generate storm index for user defined region, 
-#### based on user defined duration - 5 day storm intensity
-#### no plot generated
+#### B1.2. 5-day storm intensity
 #compute_storm_index_for_user_defined_regions(sourceDir = "input", 
 #                                             destDir = "output",
 #                                             user.region.name = "Larger_Sydney",
 #                                             duration = "5-day")
 
-#### Generate storm return time for user defined region, 
-#### based on user defined duration - 1 & 5 day storm intensity
-#### no plot generated
+
+
+#### B2. Generate storm return time for user defined region, 
+####     based on user defined duration - 1 & 5 day storm intensity
+#### B2.1. 1-day rainfall intensity
 compute_storm_return_time_for_user_defined_regions(sourceDir = "input", 
                                                    destDir = "output",
                                                    user.region.name = "Larger_Sydney",
                                                    duration = 1)
 
+#### B2.2. 5-day rainfall intensity
 compute_storm_return_time_for_user_defined_regions(sourceDir = "input", 
                                                    destDir = "output",
                                                    user.region.name = "Larger_Sydney",
                                                    duration = 5)
 
-#### 2. Calculate drought index:
-####     Drought index has duration options of consecutive no rain days, 1-year, 2-year,
-####     Output a 3 dimension matrix with lat lon and 9 layers of storm index
-####     Each layer is the number of no rain days, 
-####     0.1th, 1th, 5th, 10th, 20th, 30th, 40th, 50th percentile of the rainfall distribution
 
-#### placeholder for computing drought index for whole Australia (merging 23 rds)
-#merge_and_compute_Australia_drought_index(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/output",
-#                                          destDir = "/Volumes/TOSHIBAEXT/AWAP/output",
-#                                          duration = "1-year")
-
-#### Generate drought index for user defined region, 
-#### based on user defined duration - antecedent 1-year rainfall total
-#### no plot generated
-#compute_drought_index_for_user_defined_regions(sourceDir = "input", 
-#                                               destDir = "output",
-#                                               user.region.name = "Larger_Sydney",
-#                                               duration = "1-year")
-
-
-#### Generate drought index for user defined region, 
-#### based on user defined duration - antecedent 2-year rainfall total
-#### no plot generated
-#compute_drought_index_for_user_defined_regions(sourceDir = "input", 
-#                                               destDir = "output",
-#                                               user.region.name = "Larger_Sydney",
-#                                               duration = "2-year")
-
-
-#### 3. Process wind data to calculate wind index
+#### B3. Process wind data to calculate wind index
 ####    Just one-day max wind and gust speed.
 ####    This is GSOD station based dataset,
 ####    so we have data gaps and spatial representative issues
@@ -178,14 +238,107 @@ plot_GSOD_station_wind_data_for_user_selected_regions(sourceDir = "output",
                                                       user.lon.max = 155,
                                                       user.lon.min = 145)
 
+#### B4. Calculate antecedent 1 and 2 year rainfall availability:
+####     Drought index has duration options of consecutive no rain days, 1-year, 2-year,
+####     Output a 3 dimension matrix with lat lon and 9 layers of storm index
+####     Each layer is the number of no rain days, 
+####     0.1th, 1th, 5th, 10th, 20th, 30th, 40th, 50th percentile of the rainfall distribution.
+####     Generate drought index for user defined region, 
+####     based on user defined duration - antecedent 1-year rainfall total.
+####     No plot generated
 
-### +++++++++++++++ End basic code to generate climate extreme index ++++++++++++++++++ ####
+#### B4.1. antecedent 1-year water availability
+#compute_drought_index_for_user_defined_regions(sourceDir = "input", 
+#                                               destDir = "output",
+#                                               user.region.name = "Larger_Sydney",
+#                                               duration = "1-year")
+
+
+#### B4.2. antecedent 2-year water availability
+#compute_drought_index_for_user_defined_regions(sourceDir = "input", 
+#                                               destDir = "output",
+#                                               user.region.name = "Larger_Sydney",
+#                                               duration = "2-year")
+
+
+#### B5. calculate atmospheric dryness (VPD) for antecedent 1 and 2-year period
+#### B5.1. atmospheric dryness for antecendent 1-year period
+
+
+#### B5.2. atmospheric dryness for antecedent 2-year period
+
+
+
+
+
+
+#### B6. calculate water deficit (PET - P) drought intex for antecedent 1 and 2 year period
+
+#### B6.1. water deficit for 1-year period
+
+
+#### B6.2. water deficit for 2-year period
+
+
+
+
+
+### ++++++++++++++++++++++ End generate climate extreme index +++++++++++++++++++++++++ ####
 ############################################################################################
 
 
+
+
+
+
 ###########################################################################################
-#### +++++++++++++++ Climate extreme severity investigation ++++++++++++++++++++++++++ ####
+#### ++++++++++ Investigate climate extreme severity for date of interest ++++++++++++ ####
 #### Structure: 
+#### A. date of interest: 20191126
+####    region affected: Hornsby Shire, Ku-ring-gai, Lane Cove, 
+####                     Northern Beaches, Sutherland Shire, Willoughby
+#### A1. check storm intensity severity for date of selection over the user defined region
+#### A1.1. storm intensity over 1-day period
+#### A1.2. storm intensity over 5-day period
+
+#### A2. check storm intensity severity in terms of return interval for date of selection over the user defined region
+#### A2.1. storm intensity return interval for 1-day rainfall event
+#### A2.2. storm intensity return interval for 5-day rainfall event
+
+#### A3. check wind intensity severity for date of selection over the user defined region
+
+#### A4. check antecedent water availability for date of selection over the user defined region
+#### A4.1. antecedent 1-year water availability
+#### A4.2. antecedent 2-year water availability
+
+#### A5. check antecedent atmospheric dryness (VPD) for date of selection over the user defined region
+#### A5.1. antecedent 1-year atmospheric dryness
+#### A5.2. antecedent 2-year atmospheric dryness
+
+#### A6. check antecedent water deficit (PET - P) for date of selection over the user defined region
+#### A6.1. antecedent 1-year water deficit
+#### A6.2. antecedent 2-year water deficit
+
+#### B. date of interest: 20200208
+####    region affected: Burwood, Canada Bay, Central Coast, Cessnock, Georges River, 
+####                     Hornsby, Hunters Hill, Inner West, Ku-ring-gai, Lake Macquarie, 
+####                     Lane Cove, Maitland, Mosman, Newcastle, North Sydney, Northern Beaches,
+####                     Port Stephens, Randwick, Ryde, Stathfield, Sutherland, Sydney City, 
+####                     Waverly, Willoughby, Woollahra
+
+#### C. date of interest: 20200218
+####    region affected: same as B (i.e. Burwood, Canada Bay, Central Coast, Cessnock, Georges River, 
+####                     Hornsby, Hunters Hill, Inner West, Ku-ring-gai, Lake Macquarie, 
+####                     Lane Cove, Maitland, Mosman, Newcastle, North Sydney, Northern Beaches,
+####                     Port Stephens, Randwick, Ryde, Stathfield, Sutherland, Sydney City, 
+####                     Waverly, Willoughby, Woollahra)
+
+#### D. Storm season: 20191001 to 20200331
+#### ???
+
+
+
+
 #### 1. compute drought and storm severity for a selected region and date
 #### 2. compute wind severity for a selected region and date
 #### 3 and so on: repeat 1 and 2 for different region/date
@@ -233,78 +386,72 @@ compute_drought_and_storm_event_severity_for_user_defined_regions(sourceDir = "i
                                                                   drought.duration = "2-year")
 
 
-### +++++++++++++++ Climate extreme severity investigation +++++++++++++++++++++++++++ ####
+#### ++++++++++ End investigate climate extreme severity for date of interest +++++++++ ####
 ############################################################################################
 
 
+
+
+
+
 ############################################################################################
-### ++++++++++++++++++++++++++++++++++ Start plotting +++++++++++++++++++++++++++++++++ ####
+### ++++++++++++++++++++++++++++++++++++ Plotting +++++++++++++++++++++++++++++++++++++ ####
 #### Structure: 
 #### 1. Plot Australia extreme
 #### 2. Plot selected region severity and intensity maps
 
 ##### 1.1. plot Australia storm extreme
-plot_Australia_storm_extreme_DF(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/output",
-                                destDir = "output",
-                                duration = "1-day",
-                                plot.option = T)
-
-
-##### 1.2. plot Australia storm extreme
-plot_Australia_drought_extreme_DF(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/output",
-                                destDir = "output",
-                                duration = "1-year",
-                                plot.option = T)
+#plot_Australia_storm_extreme_DF(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/output",
+#                                destDir = "output",
+#                                duration = "1-day",
+#                                plot.option = T)
+#
+#
+###### 1.2. plot Australia storm extreme
+#plot_Australia_drought_extreme_DF(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/output",
+#                                destDir = "output",
+#                                duration = "1-year",
+#                                plot.option = T)
 
 #### 2. Plot selected region severity and intensity maps
-sourceDir = "output"
-destDir = "output/plots"
-user.region.name = "Larger_Sydney"
-date.of.interest = "20191126"
-storm.duration = "1-day"
-drought.duration = "1-year"
-user.lat.max = -28
-user.lat.min = -36
-user.lon.max = 155
-user.lon.min = 145
-make_spatial_plots_for_user_defined_regions(sourceDir = "output",
-                                            destDir = "output/plots",
-                                            user.region.name = "Larger_Sydney",
-                                            date.of.interest = "20191126",
-                                            user.lat.max = -28,
-                                            user.lat.min = -36,
-                                            user.lon.max = 155,
-                                            user.lon.min = 145,
-                                            storm.duration = "1-day",
-                                            drought.duration = "1-year")
+#make_spatial_plots_for_user_defined_regions(sourceDir = "output",
+#                                            destDir = "output/plots",
+#                                            user.region.name = "Larger_Sydney",
+#                                            date.of.interest = "20191126",
+#                                            user.lat.max = -28,
+#                                            user.lat.min = -36,
+#                                            user.lon.max = 155,
+#                                            user.lon.min = 145,
+#                                            storm.duration = "1-day",
+#                                            drought.duration = "1-year")
+#
+#
+#
+#make_spatial_plots_for_user_defined_regions(sourceDir = "output",
+#                                            destDir = "output/plots",
+#                                            user.region.name = "Larger_Sydney",
+#                                            date.of.interest = "20191126",
+#                                            user.lat.max = -28,
+#                                            user.lat.min = -36,
+#                                            user.lon.max = 155,
+#                                            user.lon.min = 145,
+#                                            storm.duration = "5-day",
+#                                            drought.duration = "1-year")
+#
+#
+#make_spatial_plots_for_user_defined_regions(sourceDir = "output",
+#                                            destDir = "output/plots",
+#                                            user.region.name = "Larger_Sydney",
+#                                            date.of.interest = "20191126",
+#                                            user.lat.max = -28,
+#                                            user.lat.min = -36,
+#                                            user.lon.max = 155,
+#                                            user.lon.min = 145,
+#                                            storm.duration = "5-day",
+#                                            drought.duration = "2-year")
 
 
-
-make_spatial_plots_for_user_defined_regions(sourceDir = "output",
-                                            destDir = "output/plots",
-                                            user.region.name = "Larger_Sydney",
-                                            date.of.interest = "20191126",
-                                            user.lat.max = -28,
-                                            user.lat.min = -36,
-                                            user.lon.max = 155,
-                                            user.lon.min = 145,
-                                            storm.duration = "5-day",
-                                            drought.duration = "1-year")
-
-
-make_spatial_plots_for_user_defined_regions(sourceDir = "output",
-                                            destDir = "output/plots",
-                                            user.region.name = "Larger_Sydney",
-                                            date.of.interest = "20191126",
-                                            user.lat.max = -28,
-                                            user.lat.min = -36,
-                                            user.lon.max = 155,
-                                            user.lon.min = 145,
-                                            storm.duration = "5-day",
-                                            drought.duration = "2-year")
-
-
-#### Sydney and Hunter valley region only
+#### 3. Sydney and Hunter valley region only
 sourceDir = "output"
 destDir = "output/plots"
 user.region.name = "Larger_Sydney"
@@ -330,6 +477,12 @@ make_spatial_plots_for_user_defined_regions(sourceDir = "output",
 ### ++++++++++++++++++++++++++++++++++++ End plotting +++++++++++++++++++++++++++++++++ ####
 ############################################################################################
 
+
+
+
+
+
+#######################
 ### to do list:
 ### 1. Check file name update works?
 ### 2. Add PET calculation based on T
