@@ -1,18 +1,21 @@
-make_spatial_plots_for_Sydney_Hunter_valley_regions <- function(sourceDir, destDir,
+make_spatial_plots_for_Sydney_Hunter_valley_regions <- function(sourceDir, 
+                                                                destDir,
                                                                 user.region.name,
                                                                 date.of.interest,
-                                                                user.lat.max,
-                                                                user.lat.min,
-                                                                user.lon.max,
-                                                                user.lon.min,
                                                                 storm.duration,
                                                                 drought.duration) {
 
-        
+    #################################### prepare datasets ######################################    
     #### Create output folder
     if(!dir.exists(destDir)) {
         dir.create(destDir, showWarnings = FALSE)
     }
+    
+    #### fixed user defined lat and lon information, for Sydney and Hunter Valley regions
+    user.lat.max = -31
+    user.lat.min = -35
+    user.lon.max = 153
+    user.lon.min = 149
     
     #### read in data
     storm.intensity <- readRDS(paste0(sourceDir, 
@@ -122,25 +125,8 @@ make_spatial_plots_for_Sydney_Hunter_valley_regions <- function(sourceDir, destD
     storm.intensity.long <- subset(storm.intensity.long, layer == 1)
     storm.intensity.long <- subset(storm.intensity.long, value != "NA")
     
-    ### lat and lon range for the Sydney and Hunter Valley range
-    lat.max.syd <- -32
-    lat.min.syd <- -34
-    lon.max.syd <- 152
-    lon.min.syd <- 150
     
-    ### subset Sydney and Hunter Valley region
-    #drought.severity.long <- subset(drought.severity.long, lat <= lat.max.syd & lat >= lat.min.syd &
-    #                                    lon <= lon.max.syd & lon >= lon.min.syd)
-    #
-    #storm.severity.long <- subset(storm.severity.long, lat <= lat.max.syd & lat >= lat.min.syd &
-    #                                    lon <= lon.max.syd & lon >= lon.min.syd)
-    #
-    #drought.intensity.long <- subset(drought.intensity.long, lat <= lat.max.syd & lat >= lat.min.syd &
-    #                                    lon <= lon.max.syd & lon >= lon.min.syd)
-    #
-    #storm.intensity.long <- subset(storm.intensity.long, lat <= lat.max.syd & lat >= lat.min.syd &
-    #                                    lon <= lon.max.syd & lon >= lon.min.syd)
-    
+    #################################### prepare plot input ######################################    
     ### prepare color palette
     n.discrete.colors <- 9
     heat.color <- rev(brewer.pal(n = n.discrete.colors, name = "YlOrRd"))
@@ -165,6 +151,12 @@ make_spatial_plots_for_Sydney_Hunter_valley_regions <- function(sourceDir, destD
     aus.poly <- ne_countries(scale = "medium", country = "Australia", returnclass = "sf")
     
     
+    
+    #################################### plotting ######################################    
+    ### >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  
+    ### >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+    
+    ############################### 1-day rainfall ####################################
     #### ploting storm severity
     p1 <- ggplot(aus.poly) +
         geom_raster(storm.severity.long, mapping=aes(lon, lat, fill=as.character(value)))+
@@ -206,8 +198,8 @@ make_spatial_plots_for_Sydney_Hunter_valley_regions <- function(sourceDir, destD
                           labels=c("99.9", "99", "95", "90", "80", "70", "60", "50", "40"))+
         ggtitle(paste0("Storm ", storm.duration, " severity percentile"))+
         guides(color = guide_legend(nrow=5, byrow = T))+
-        xlim(lon.min.syd, lon.max.syd)+
-        ylim(lat.min.syd, lat.max.syd)
+        xlim(user.lon.min, user.lon.max)+
+        ylim(user.lat.min, user.lat.max)
     
     ### plot storm intensity (mm/d)
     p2 <- ggplot(aus.poly) +
@@ -249,9 +241,34 @@ make_spatial_plots_for_Sydney_Hunter_valley_regions <- function(sourceDir, destD
                           values=rev(rain.color.storm),
                           labels=storm.intensity.long.lab)+
         guides(color = guide_legend(nrow=5, byrow = T))+
-        xlim(lon.min.syd, lon.max.syd)+
-        ylim(lat.min.syd, lat.max.syd)
+        xlim(user.lon.min, user.lon.max)+
+        ylim(user.lat.min, user.lat.max)
     
+    
+    #### save plot
+    jpeg(paste0(destDir, "/Sydney_Hunter_Valley_", date.of.interest,
+                "_storm_1-day.jpg"), units="in", res=150,
+         width = 16, height=10)
+    grid.arrange(p1, p2, nrow = 1)
+    dev.off()
+    
+    
+    ############################### 5-day rainfall ####################################
+    #### place holder
+    
+    
+    #### place holder
+    
+    
+    #### save plot
+    jpeg(paste0(destDir, "/Sydney_Hunter_Valley_", date.of.interest,
+                "_storm_5-day.jpg"), units="in", res=150,
+         width = 16, height=10)
+    grid.arrange(p1, p2, nrow = 1)
+    dev.off()
+    
+    
+    #################### antecedent 1-year water availability ########################
     #### ploting drought severity
     p3 <- ggplot(aus.poly) +
         geom_tile(drought.severity.long, mapping=aes(lon, lat, fill=as.character(value)))+
@@ -293,8 +310,8 @@ make_spatial_plots_for_Sydney_Hunter_valley_regions <- function(sourceDir, destD
                           labels=c("0.1", "1", "5", "10", "20", "30", "40", "50", "60"))+
         ggtitle(paste0("Antecedent ", drought.duration, " rainfall severity percentile"))+
         guides(color = guide_legend(nrow=5, byrow = T))+
-        xlim(lon.min.syd, lon.max.syd)+
-        ylim(lat.min.syd, lat.max.syd)
+        xlim(user.lon.min, user.lon.max)+
+        ylim(user.lat.min, user.lat.max)
     
     
     ### plot drought intensity (mm/yr)
@@ -337,10 +354,34 @@ make_spatial_plots_for_Sydney_Hunter_valley_regions <- function(sourceDir, destD
                           labels=drought.intensity.long.lab)+
         ggtitle(paste0("Antecedent ", drought.duration, " rainfall (mm/yr)"))+
         guides(color = guide_legend(nrow=5, byrow = T))+
-        xlim(lon.min.syd, lon.max.syd)+
-        ylim(lat.min.syd, lat.max.syd)
+        xlim(user.lon.min, user.lon.max)+
+        ylim(user.lat.min, user.lat.max)
+    
+    #### save plot
+    jpeg(paste0(destDir, "/Sydney_Hunter_Valley_", date.of.interest,
+                "_antecedent_water_availability_1-year.jpg"), units="in", res=150,
+         width = 16, height=10)
+    grid.arrange(p1, p2, nrow = 1)
+    dev.off()
     
     
+    #################### antecedent 2-year water availability ########################
+    #### place holder
+    
+    #### place holder
+    
+    
+    
+    #### save plot
+    jpeg(paste0(destDir, "/Sydney_Hunter_Valley_", date.of.interest,
+                "_antecedent_water_availability_2-year.jpg"), units="in", res=150,
+         width = 16, height=10)
+    grid.arrange(p1, p2, nrow = 1)
+    dev.off()
+    
+    
+    
+    ################################### wind speed ####################################
     ### wind severity percentile
     p5 <- ggplot(aus.poly) +
         geom_point(wind.severity, mapping=aes(lon, lat, 
@@ -384,8 +425,8 @@ make_spatial_plots_for_Sydney_Hunter_valley_regions <- function(sourceDir, destD
                           labels=c("99.9", "99", "95", "90", "80", "70", "60", "50", "40"))+
         guides(color = guide_legend(nrow=5, byrow = T))+
         ggtitle(paste0("Max. wind severity percentile"))+
-        xlim(lon.min.syd, lon.max.syd)+
-        ylim(lat.min.syd, lat.max.syd)
+        xlim(user.lon.min, user.lon.max)+
+        ylim(user.lat.min, user.lat.max)
     
     ### wind speed intensity (m/s)
     p6 <- ggplot(aus.poly) +
@@ -426,17 +467,70 @@ make_spatial_plots_for_Sydney_Hunter_valley_regions <- function(sourceDir, destD
         scale_fill_viridis_b(name="value")+
         guides(color = guide_legend(nrow=5, byrow = T))+
         ggtitle(paste0("Max. wind speed (m/s)"))+
-        xlim(lon.min.syd, lon.max.syd)+
-        ylim(lat.min.syd, lat.max.syd)
+        xlim(user.lon.min, user.lon.max)+
+        ylim(user.lat.min, user.lat.max)
     
-    ### save plot
+    
+    #### save plot
     jpeg(paste0(destDir, "/Sydney_Hunter_Valley_", date.of.interest,
-               "_storm_", storm.duration,
-               "_drought_", drought.duration, ".jpg"), units="in", res=150,width = 16, height=20)
+                "_max_wind_speed.jpg"), units="in", res=150,
+         width = 16, height=10)
+    grid.arrange(p1, p2, nrow = 1)
+    dev.off()
     
     
-    grid.arrange(p1, p2, p3, p4, p5, p6, nrow = 3)
+    ######################## antecedent 1-year atmospheric dryness ######################
+    #### place holder
     
+    #### place holder
+    
+    #### save plot
+    jpeg(paste0(destDir, "/Sydney_Hunter_Valley_", date.of.interest,
+                "_antecedent_atmospheric_dryness_1-year.jpg"), units="in", res=150,
+         width = 16, height=10)
+    grid.arrange(p1, p2, nrow = 1)
+    dev.off()
+    
+    ######################## antecedent 2-year atmospheric dryness ######################
+    #### place holder
+    
+    #### place holder
+    
+    
+    #### save plot
+    jpeg(paste0(destDir, "/Sydney_Hunter_Valley_", date.of.interest,
+                "_antecedent_atmospheric_dryness_2-year.jpg"), units="in", res=150,
+         width = 16, height=10)
+    grid.arrange(p1, p2, nrow = 1)
+    dev.off()
+    
+    ######################## antecedent 1-year water deficit ######################
+    #### place holder
+    
+    
+    #### place holder
+    
+    
+    #### save plot
+    jpeg(paste0(destDir, "/Sydney_Hunter_Valley_", date.of.interest,
+                "_antecedent_water_deficit_1-year.jpg"), units="in", res=150,
+         width = 16, height=10)
+    grid.arrange(p1, p2, nrow = 1)
+    dev.off()
+    
+    
+    ######################## antecedent 2-year water deficit ######################
+    #### place holder
+    
+    
+    #### place holder
+    
+    
+    #### save plot
+    jpeg(paste0(destDir, "/Sydney_Hunter_Valley_", date.of.interest,
+                "_antecedent_water_deficit_2-year.jpg"), units="in", res=150,
+         width = 16, height=10)
+    grid.arrange(p1, p2, nrow = 1)
     dev.off()
     
 }

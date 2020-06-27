@@ -444,20 +444,12 @@ sourceDir = "output"
 destDir = "plots"
 user.region.name = "SydneyHunter"
 date.of.interest = "20191126"
-user.lat.max = -31
-user.lat.min = -35
-user.lon.max = 153
-user.lon.min = 149
 storm.duration = "1-day"
 drought.duration = "1-year"
 make_spatial_plots_for_Sydney_Hunter_valley_regions(sourceDir = "output",
                                                     destDir = "plots",
                                                     user.region.name = "SydneyHunter",
                                                     date.of.interest = "20191126",
-                                                    user.lat.max = -31,
-                                                    user.lat.min = -35,
-                                                    user.lon.max = 153,
-                                                    user.lon.min = 149,
                                                     storm.duration = "1-day",
                                                     drought.duration = "1-year")
 
@@ -466,18 +458,15 @@ make_spatial_plots_for_Sydney_Hunter_valley_regions(sourceDir = "output",
 ############################################################################################
 
 
-
-
-
-
 #######################
 ### to do list:
 ### 1. check if VP data has pre-1971 time points
 ### 2. check if temperature data has pre-1911 time points
-
-### 1. Check file name update works?
-### 2. Add PET calculation based on T
-### 3. Revise drought index
-### 4. Update the plotting code with revised drought and rainfall index
+### 3. add appropricate matrix calculation to obtain PD, ES, VPD, PET
+### 4. Plot: a) add VPD, PET, 
+###          b) split plots, 
+###          c) different dates, 
+###          d) add DEM? 
+###          e) add cities and borders, forest cover
 
 

@@ -5,7 +5,7 @@ download_AWAP_vp3pm_data <- function(destDir) {
     url1 <- "http://www.bom.gov.au/web03/ncc/www/awap/vprp/vprph15/daily/grid/0.05/history/nat/"
     
     ### file names
-    day.list <- seq.Date(as.Date("2012/07/18"), 
+    day.list <- seq.Date(as.Date("1971/01/01"), 
                          as.Date("2020/03/31"), 
                          by="day")
     
