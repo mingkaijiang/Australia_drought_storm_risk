@@ -1,12 +1,12 @@
-compute_antecedent_water_availability_severity_for_user_defined_regions <- function(sourceDir, 
-                                                                                    destDir, 
-                                                                                    user.region.name,
-                                                                                    date.of.interest,
-                                                                                    drought.duration) {
+compute_antecedent_water_deficit_severity_for_user_defined_regions <- function(sourceDir, 
+                                                                               destDir, 
+                                                                               user.region.name,
+                                                                               date.of.interest,
+                                                                               duration) {
     
     
     ### translate date of interest into nday information
-    date.list <- seq.Date(as.Date("1900/01/01"), 
+    date.list <- seq.Date(as.Date("1911/01/01"), 
                           as.Date("2020/03/31"), 
                           by="day")
     date.list <- gsub("-", "", date.list)
@@ -22,9 +22,10 @@ compute_antecedent_water_availability_severity_for_user_defined_regions <- funct
     
 
     ### read in the R database
-    myData <- readRDS(paste0(sourceDir, "/rain_", user.region.name, "_regions.rds"))
+    myData <- readRDS(paste0(sourceDir, "/pd_", user.region.name, "_regions.rds"))
     
-    droughtData <- readRDS(paste0(destDir, "/Drought_extreme_percentile_", drought.duration, "_",
+    droughtData <- readRDS(paste0(destDir, "/antecedent_water_deficit_percentile_", 
+                                  duration, "_",
                                   user.region.name, "_regions.rds"))
 
     
@@ -44,7 +45,7 @@ compute_antecedent_water_availability_severity_for_user_defined_regions <- funct
 
             ### calculate drought index based on pre-defined date of interest
             ### get precipitation percentile
-           if (drought.duration == "1-year") {
+           if (duration == "1-year") {
                 
                 ### get the rainfall data for each grid
                 all <- myData[i,j,]
@@ -61,7 +62,7 @@ compute_antecedent_water_availability_severity_for_user_defined_regions <- funct
                 ## obtain 1-year rainfall before the date of interest
                 total.rainfall <- DF2[nday]
                 
-            } else if (drought.duration == "2-year") {
+            } else if (duration == "2-year") {
                 
                 ### get the rainfall data for each grid
                 all <- myData[i,j,]
@@ -141,13 +142,13 @@ compute_antecedent_water_availability_severity_for_user_defined_regions <- funct
     
     ### save output
     saveRDS(drought.severity.on.date.of.interest, 
-            file=paste0(destDir, "/antecedent_water_availability_severity_", date.of.interest, "_",
-                        drought.duration, "_",
+            file=paste0(destDir, "/antecedent_water_deficit_severity_", date.of.interest, "_",
+                        duration, "_",
                         user.region.name, "_regions.rds"))
     
     saveRDS(drought.on.date.of.interest, 
-            file=paste0(destDir, "/antecedent_water_availability_intensity_", date.of.interest, "_",
-                        drought.duration, "_",
+            file=paste0(destDir, "/antecedent_water_deficit_intensity_", date.of.interest, "_",
+                        duration, "_",
                         user.region.name, "_regions.rds"))
     
 } 
