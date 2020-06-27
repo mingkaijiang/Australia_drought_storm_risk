@@ -209,16 +209,16 @@ calculate_PD_based_on_PET(sourceDir = "input",
 #### B2. Generate storm return time for user defined region, 
 ####     based on user defined duration - 1 & 5 day storm intensity
 #### B2.1. 1-day rainfall intensity
-compute_storm_return_time_for_user_defined_regions(sourceDir = "input", 
-                                                   destDir = "output/storm",
-                                                   user.region.name = "SydneyHunter",
-                                                   duration = 1)
+#compute_storm_return_time_for_user_defined_regions(sourceDir = "input", 
+#                                                   destDir = "output/storm",
+#                                                   user.region.name = "SydneyHunter",
+#                                                   duration = 1)
 
 #### B2.2. 5-day rainfall intensity
-compute_storm_return_time_for_user_defined_regions(sourceDir = "input", 
-                                                   destDir = "output/storm",
-                                                   user.region.name = "SydneyHunter",
-                                                   duration = 5)
+#compute_storm_return_time_for_user_defined_regions(sourceDir = "input", 
+#                                                   destDir = "output/storm",
+#                                                   user.region.name = "SydneyHunter",
+#                                                   duration = 5)
 
 
 #### B3. Process wind data to calculate wind index
@@ -238,7 +238,6 @@ process_GSOD_station_data(sourceDir = "/Volumes/TOSHIBAEXT/gsod/",
                           plot.option = T)
 
 #### B3.2. Plot wind speed percentile for user selected region
-####       Note: for the moment, cities are for larger sydney still!!!!
 plot_GSOD_station_wind_data_for_user_selected_regions(sourceDir = "input",
                                                       destDir = "plots",
                                                       user.lat.max = -31,
