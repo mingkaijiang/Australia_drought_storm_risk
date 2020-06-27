@@ -133,6 +133,10 @@ calculate_VPD_based_on_es_and_vp3pm(sourceDir = "input",
 calculate_PET_based_on_Tmax(sourceDir = "input",
                             destDir = "input",
                             varName = "pet",
+                            user.lat.max = -31,
+                            user.lat.min = -35,
+                            user.lon.max = 153,
+                            user.lon.min = 149,
                             user.region.name = "SydneyHunter")
 
 #### 7.2 Calculate PET minus P

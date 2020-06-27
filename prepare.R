@@ -37,7 +37,8 @@ pacman::p_load(raster,
                rgeos,
                rnaturalearthdata,
                rnaturalearth,
-               AWAPer)    
+               AWAPer,
+               SPEI)    
 
 
 #### Sourcing all R files in the modules subdirectory
