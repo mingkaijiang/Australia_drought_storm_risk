@@ -24,7 +24,7 @@ compute_antecedent_water_availability_severity_for_user_defined_regions <- funct
     ### read in the R database
     myData <- readRDS(paste0(sourceDir, "/rain_", user.region.name, "_regions.rds"))
     
-    droughtData <- readRDS(paste0(destDir, "/Drought_extreme_percentile_", drought.duration, "_",
+    droughtData <- readRDS(paste0(destDir, "/antecedent_water_availability_percentile_", drought.duration, "_",
                                   user.region.name, "_regions.rds"))
 
     
