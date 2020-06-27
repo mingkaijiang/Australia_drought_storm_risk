@@ -1,6 +1,7 @@
-compute_storm_return_time_for_user_defined_regions <- function(sourceDir, destDir, 
-                                                               user.region.name, 
-                                                               duration) {
+compute_storm_return_time_for_user_defined_regions <- function (sourceDir, 
+                                                                destDir, 
+                                                                user.region.name, 
+                                                                duration) {
     
     #### Create output folder
     if(!dir.exists(destDir)) {

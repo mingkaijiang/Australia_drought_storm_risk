@@ -83,38 +83,42 @@ source("prepare.R")
 #### Only need to run once, takes long to run (2 hour for 10 by 10)
 
 #### 5.1 daily rainfall
-convert_from_spatial_to_temporal_DF_for_user_defined_regions_rain(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/rain/", 
-                                                                  destDir = "input",
-                                                                  varName = "rain",
-                                                                  user.lat.max = -31,
-                                                                  user.lat.min = -35,
-                                                                  user.lon.max = 153,
-                                                                  user.lon.min = 149,
-                                                                  user.region.name = "SydneyHunter")
+#convert_from_spatial_to_temporal_DF_for_user_defined_regions_rain(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/rain/", 
+#                                                                  destDir = "input",
+#                                                                  varName = "rain",
+#                                                                  user.lat.max = -31,
+#                                                                  user.lat.min = -35,
+#                                                                  user.lon.max = 153,
+#                                                                  user.lon.min = 149,
+#                                                                  user.region.name = "SydneyHunter")
 
 #### 5.2. daily Tmax
-convert_from_spatial_to_temporal_DF_for_user_defined_regions_tmax(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/tmax/", 
-                                                                  destDir = "input",
-                                                                  varName = "tmax",
-                                                                  user.lat.max = -31,
-                                                                  user.lat.min = -35,
-                                                                  user.lon.max = 153,
-                                                                  user.lon.min = 149,
-                                                                  user.region.name = "SydneyHunter")
+#convert_from_spatial_to_temporal_DF_for_user_defined_regions_tmax(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/tmax/", 
+#                                                                  destDir = "input",
+#                                                                  varName = "tmax",
+#                                                                  user.lat.max = -31,
+#                                                                  user.lat.min = -35,
+#                                                                  user.lon.max = 153,
+#                                                                  user.lon.min = 149,
+#                                                                  user.region.name = "SydneyHunter")
 
 ### 5.3 daily vapor pressure at 3 pm
-convert_from_spatial_to_temporal_DF_for_user_defined_regions_vp3pm(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/vp3pm/", 
-                                                                   destDir = "input",
-                                                                   varName = "vp3pm",
-                                                                   user.lat.max = -31,
-                                                                   user.lat.min = -35,
-                                                                   user.lon.max = 153,
-                                                                   user.lon.min = 149,
-                                                                   user.region.name = "SydneyHunter")
+#convert_from_spatial_to_temporal_DF_for_user_defined_regions_vp3pm(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/vp3pm/", 
+#                                                                   destDir = "input",
+#                                                                   varName = "vp3pm",
+#                                                                   user.lat.max = -31,
+#                                                                   user.lat.min = -35,
+#                                                                   user.lon.max = 153,
+#                                                                   user.lon.min = 149,
+#                                                                   user.region.name = "SydneyHunter")
 
 
 #### 6. Calculate VPD based on Tmax and vp3pm
 ### 6.1. Calculate saturated vapor pressure based on Tmax
+sourceDir = "input"
+destDir = "input"
+varName = "es"
+user.region.name = "SydneyHunter"
 calculate_saturated_vapor_pressure_based_on_Tmax(sourceDir = "input",
                                                  destDir = "input",
                                                  varName = "es",
@@ -189,17 +193,17 @@ calculate_PD_based_on_PET(sourceDir = "input",
 ####     No plot generated.
 
 #### B1.1. 1-day storm intensity
-compute_storm_index_for_user_defined_regions(sourceDir = "input", 
-                                             destDir = "output/storm",
-                                             user.region.name = "SydneyHunter",
-                                             duration = "1-day")
+#compute_storm_index_for_user_defined_regions(sourceDir = "input", 
+#                                             destDir = "output/storm",
+#                                             user.region.name = "SydneyHunter",
+#                                             duration = "1-day")
 
 
 #### B1.2. 5-day storm intensity
-compute_storm_index_for_user_defined_regions(sourceDir = "input", 
-                                             destDir = "output/storm",
-                                             user.region.name = "SydneyHunter",
-                                             duration = "5-day")
+#compute_storm_index_for_user_defined_regions(sourceDir = "input", 
+#                                             destDir = "output/storm",
+#                                             user.region.name = "SydneyHunter",
+#                                             duration = "5-day")
 
 
 #### B2. Generate storm return time for user defined region, 
