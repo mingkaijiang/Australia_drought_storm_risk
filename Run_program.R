@@ -42,7 +42,7 @@ source("prepare.R")
 #download_AWAP_temperature_data(destDir="/Volumes/TOSHIBAEXT/AWAP/tmax/")
 
 ### 1.3. Vapor pressure at 3 pm - from 1971 to 2020 (march 31st)
-#download_AWAP_vp3pm_data(destDir="/Volumes/TOSHIBAEXT/AWAP/vp3pm/")
+download_AWAP_vp3pm_data(destDir="/Volumes/TOSHIBAEXT/AWAP/vp3pm/")
 
 
 
@@ -298,8 +298,6 @@ compute_antecedent_water_deficit_for_user_defined_regions(sourceDir = "input",
                                                           duration = "2-year")
 
 
-
-
 ### ++++++++++++++++++++++ End generate climate extreme index +++++++++++++++++++++++++ ####
 ############################################################################################
 
@@ -414,69 +412,42 @@ compute_drought_and_storm_event_severity_for_user_defined_regions(sourceDir = "i
 ############################################################################################
 ### ++++++++++++++++++++++++++++++++++++ Plotting +++++++++++++++++++++++++++++++++++++ ####
 #### Structure: 
-#### 1. Plot Australia extreme
-#### 2. Plot selected region severity and intensity maps
+#### A. Plot Australia extreme
+#### B. Plot selected region severity and intensity maps
+####    Each figure includes: two panel plots (left percentile, right actual value) for each index;
+####    Three dates: 20191126, 20200208, 20200218, only for Sydney zoomed-in region
+####    Index includes: drought intensity: 1). 1-year and 2). 2-year antecedent rainfall
+####                    storm intensity return interval: 3). 1-day and 4). 5-day rainfall total
+####                    wind speed: 5). 1-day max wind speed, or wind speed return interval
+####                    VPD intensity: 6). 1-year and 7). 2-year antecedent atmospheric dryness
+####                    PD intensity: 8). 1-year and 9). 2-year antecedent precipitation deficit (drought + temperature, i.e. P - PET)
+### In each case, we should map actual values, alongside normalised frequency map
 
-##### 1.1. plot Australia storm extreme
+
+##### A.1. plot Australia storm extreme
 #plot_Australia_storm_extreme_DF(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/output",
 #                                destDir = "output",
 #                                duration = "1-day",
 #                                plot.option = T)
 #
 #
-###### 1.2. plot Australia storm extreme
+###### A.2. plot Australia storm extreme
 #plot_Australia_drought_extreme_DF(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/output",
 #                                destDir = "output",
 #                                duration = "1-year",
 #                                plot.option = T)
 
-#### 2. Plot selected region severity and intensity maps
-#make_spatial_plots_for_user_defined_regions(sourceDir = "output",
-#                                            destDir = "output/plots",
-#                                            user.region.name = "SydneyHunter",
-#                                            date.of.interest = "20191126",
-#                                            user.lat.max = -28,
-#                                            user.lat.min = -36,
-#                                            user.lon.max = 155,
-#                                            user.lon.min = 145,
-#                                            storm.duration = "1-day",
-#                                            drought.duration = "1-year")
-#
-#
-#
-#make_spatial_plots_for_user_defined_regions(sourceDir = "output",
-#                                            destDir = "output/plots",
-#                                            user.region.name = "SydneyHunter",
-#                                            date.of.interest = "20191126",
-#                                            user.lat.max = -28,
-#                                            user.lat.min = -36,
-#                                            user.lon.max = 155,
-#                                            user.lon.min = 145,
-#                                            storm.duration = "5-day",
-#                                            drought.duration = "1-year")
-#
-#
-#make_spatial_plots_for_user_defined_regions(sourceDir = "output",
-#                                            destDir = "output/plots",
-#                                            user.region.name = "SydneyHunter",
-#                                            date.of.interest = "20191126",
-#                                            user.lat.max = -28,
-#                                            user.lat.min = -36,
-#                                            user.lon.max = 155,
-#                                            user.lon.min = 145,
-#                                            storm.duration = "5-day",
-#                                            drought.duration = "2-year")
+#### B. Plot selected region (i.e. Sydney and Hunter Valley) extreme severity and intensity maps
 
-
-#### 3. Sydney and Hunter valley region only
+#### B.1. Sydney and Hunter valley region only
 sourceDir = "output"
 destDir = "plots"
 user.region.name = "SydneyHunter"
 date.of.interest = "20191126"
-user.lat.max = -28
-user.lat.min = -36
-user.lon.max = 155
-user.lon.min = 145
+user.lat.max = -31
+user.lat.min = -35
+user.lon.max = 153
+user.lon.min = 149
 storm.duration = "1-day"
 drought.duration = "1-year"
 make_spatial_plots_for_Sydney_Hunter_valley_regions(sourceDir = "output",
@@ -508,13 +479,5 @@ make_spatial_plots_for_Sydney_Hunter_valley_regions(sourceDir = "output",
 ### 2. Add PET calculation based on T
 ### 3. Revise drought index
 ### 4. Update the plotting code with revised drought and rainfall index
-
-
-### old to do list:
-### 3. Revise code to speed up the selected region extreme severity checking script
-### 4. Clean code to make it more reader-friendly
-### 5. Create spider chart to combine indices on wind, storm and drought 
-### 6. Prepare codes to generate results on all needed dates 
-### 7. Write result interpretation
 
 
