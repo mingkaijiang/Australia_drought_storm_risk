@@ -37,7 +37,7 @@ calculate_PET_based_on_Tmax <- function (sourceDir,
     Tave.full <- melt(myData)
     
     ### use SPEI function thornthwaite to compute PET
-    test <- thornthwaite(Tave=myData, lat = lat.full, na.rm=F)
+    #test <- thornthwaite(Tave=Tave.full, lat = lat.full, na.rm=F)
     
      ### save output
     saveRDS(out, file=paste0(destDir, "/", varName, "_", user.region.name, "_regions.rds"))

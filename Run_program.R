@@ -259,10 +259,10 @@ calculate_PD_based_on_PET(sourceDir = "input",
 ####     No plot generated
 
 #### B4.1. antecedent 1-year water availability
-compute_antecedent_water_availability_for_user_defined_regions(sourceDir = "input", 
-                                                               destDir = "output/antecedent_water_availability",
-                                                               user.region.name = "SydneyHunter",
-                                                               duration = "1-year")
+#compute_antecedent_water_availability_for_user_defined_regions(sourceDir = "input", 
+#                                                               destDir = "output/antecedent_water_availability",
+#                                                               user.region.name = "SydneyHunter",
+#                                                               duration = "1-year")
 
 
 #### B4.2. antecedent 2-year water availability
