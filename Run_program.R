@@ -83,34 +83,34 @@ plot_daily_vp3pm_for_a_year(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/vp3pm/",
 #### Only need to run once, takes long to run (2 hour)
 
 #### 5.1 daily rainfall
-#convert_from_spatial_to_temporal_DF_for_user_defined_regions_rain(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/rain/", 
-#                                                                  destDir = "input",
-#                                                                  varName = "rain",
-#                                                                  user.lat.max = -28,
-#                                                                  user.lat.min = -36,
-#                                                                  user.lon.max = 155,
-#                                                                  user.lon.min = 145,
-#                                                                  user.region.name = "Larger_Sydney")
+convert_from_spatial_to_temporal_DF_for_user_defined_regions_rain(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/rain/", 
+                                                                  destDir = "input",
+                                                                  varName = "rain",
+                                                                  user.lat.max = -31,
+                                                                  user.lat.min = -35,
+                                                                  user.lon.max = 153,
+                                                                  user.lon.min = 149,
+                                                                  user.region.name = "SydneyHunter")
 
 #### 5.2. daily Tmax
 convert_from_spatial_to_temporal_DF_for_user_defined_regions_tmax(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/tmax/", 
                                                                   destDir = "input",
                                                                   varName = "tmax",
-                                                                  user.lat.max = -28,
-                                                                  user.lat.min = -36,
-                                                                  user.lon.max = 155,
-                                                                  user.lon.min = 145,
-                                                                  user.region.name = "Larger_Sydney")
+                                                                  user.lat.max = -31,
+                                                                  user.lat.min = -35,
+                                                                  user.lon.max = 153,
+                                                                  user.lon.min = 149,
+                                                                  user.region.name = "SydneyHunter")
 
 ### 5.3 daily vapor pressure at 3 pm
 convert_from_spatial_to_temporal_DF_for_user_defined_regions_vp3pm(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/vp3pm/", 
                                                                    destDir = "input",
                                                                    varName = "vp3pm",
-                                                                   user.lat.max = -28,
-                                                                   user.lat.min = -36,
-                                                                   user.lon.max = 155,
-                                                                   user.lon.min = 145,
-                                                                   user.region.name = "Larger_Sydney")
+                                                                   user.lat.max = -31,
+                                                                   user.lat.min = -35,
+                                                                   user.lon.max = 153,
+                                                                   user.lon.min = 149,
+                                                                   user.region.name = "SydneyHunter")
 
 
 #### 6. Calculate VPD based on Tmax and vp3pm
@@ -118,32 +118,33 @@ convert_from_spatial_to_temporal_DF_for_user_defined_regions_vp3pm(sourceDir = "
 calculate_saturated_vapor_pressure_based_on_Tmax(sourceDir = "input",
                                                  destDir = "input",
                                                  varName = "es",
-                                                 user.lat.max = -28,
-                                                 user.lat.min = -36,
-                                                 user.lon.max = 155,
-                                                 user.lon.min = 145,
-                                                 user.region.name = "Larger_Sydney")
+                                                 user.lat.max = -31,
+                                                 user.lat.min = -35,
+                                                 user.lon.max = 153,
+                                                 user.lon.min = 149,
+                                                 user.region.name = "SydneyHunter")
 
 ### 6.2. Calculate VPD based on ES and EA
 calculate_VPD_based_on_es_and_vp3pm(sourceDir = "input",
                                     destDir = "input",
                                     varName = "vpd",
-                                    user.lat.max = -28,
-                                    user.lat.min = -36,
-                                    user.lon.max = 155,
-                                    user.lon.min = 145,
-                                    user.region.name = "Larger_Sydney")
+                                    user.lat.max = -31,
+                                    user.lat.min = -35,
+                                    user.lon.max = 153,
+                                    user.lon.min = 149,
+                                    user.region.name = "SydneyHunter")
 
 
 #### 7. Calculate PET based on Tmax
 calculate_PET_based_on_Tmax(sourceDir = "input",
                             destDir = "input",
                             varName = "pet",
-                            user.lat.max = -28,
-                            user.lat.min = -36,
-                            user.lon.max = 155,
-                            user.lon.min = 145,
-                            user.region.name = "Larger_Sydney")
+                            user.lat.max = -31,
+                            user.lat.min = -35,
+                            user.lon.max = 153,
+                            user.lon.min = 149,
+                            user.region.name = "SydneyHunter")
+
 
 ### +++++++++++++++++++++ End basic code to process the raw data +++++++++++++++++++++ ####
 ###########################################################################################
@@ -219,26 +220,30 @@ compute_storm_return_time_for_user_defined_regions(sourceDir = "input",
 
 
 #### B3. Process wind data to calculate wind index
-####    Just one-day max wind and gust speed.
-####    This is GSOD station based dataset,
-####    so we have data gaps and spatial representative issues
-#process_GSOD_station_data(sourceDir = "/Volumes/TOSHIBAEXT/gsod/", 
-#                          destDir = "output",
-#                          user.region.name = "Larger_Sydney",
-#                          user.lat.max = -28,
-#                          user.lat.min = -36,
-#                          user.lon.max = 155,
-#                          user.lon.min = 145,
-#                          plot.option = T)
 
-#### After data processing, plot wind speed spatial map
+#### B3.1. One-day max wind speed extracted from the GSOD dataset. 
+####      We have data gaps and spatial representative issues in the dataset,
+####      but they do not matter for our purpose here.
+####      After data processing, plot wind speed spatial map for whole Australia
+####      We also calculated wind speed extreme percentile within this function.
+process_GSOD_station_data(sourceDir = "/Volumes/TOSHIBAEXT/gsod/", 
+                          destDir = "input",
+                          user.lat.max = -31,
+                          user.lat.min = -35,
+                          user.lon.max = 153,
+                          user.lon.min = 149,
+                          user.region.name = "SydneyHunter",
+                          plot.option = T)
+
+#### B3.2. Plot wind speed percentile for user selected region
+####       Note: for the moment, cities are for larger sydney still!!!!
 plot_GSOD_station_wind_data_for_user_selected_regions(sourceDir = "output",
-                                                      destDir = "output/plots",
-                                                      user.region.name = "Larger_Sydney",
-                                                      user.lat.max = -28,
-                                                      user.lat.min = -36,
-                                                      user.lon.max = 155,
-                                                      user.lon.min = 145)
+                                                      destDir = "plots",
+                                                      user.lat.max = -31,
+                                                      user.lat.min = -35,
+                                                      user.lon.max = 153,
+                                                      user.lon.min = 149,
+                                                      user.region.name = "SydneyHunter")
 
 #### B4. Calculate antecedent 1 and 2 year rainfall availability:
 ####     Drought index has duration options of consecutive no rain days, 1-year, 2-year,
@@ -464,16 +469,16 @@ user.lon.max = 155
 user.lon.min = 145
 storm.duration = "1-day"
 drought.duration = "1-year"
-make_spatial_plots_for_user_defined_regions(sourceDir = "output",
-                                            destDir = "output/plots",
-                                            user.region.name = "Larger_Sydney",
-                                            date.of.interest = "20191126",
-                                            user.lat.max = -28,
-                                            user.lat.min = -36,
-                                            user.lon.max = 155,
-                                            user.lon.min = 145,
-                                            storm.duration = "1-day",
-                                            drought.duration = "1-year")
+make_spatial_plots_for_Sydney_Hunter_valley_regions(sourceDir = "output",
+                                                    destDir = "output/plots",
+                                                    user.region.name = "Larger_Sydney",
+                                                    date.of.interest = "20191126",
+                                                    user.lat.max = -28,
+                                                    user.lat.min = -36,
+                                                    user.lon.max = 155,
+                                                    user.lon.min = 145,
+                                                    storm.duration = "1-day",
+                                                    drought.duration = "1-year")
 
 
 ### ++++++++++++++++++++++++++++++++++++ End plotting +++++++++++++++++++++++++++++++++ ####

@@ -50,7 +50,7 @@ select_station_from_GSOD_global_dataset <- function(destDir,
             ylim(-45, -10)
         
         ### plot
-        jpeg(paste0(destDir, "/GSOD_Australia_stations.jpg"), 
+        jpeg(paste0("plots/Australia/GSOD_Australia_stations.jpg"), 
              units="in", res=150,width = 6, height=6)
         plot(p1)    
         dev.off()
@@ -82,16 +82,16 @@ select_station_from_GSOD_global_dataset <- function(destDir,
     outDF$wind50 <- NA
     outDF$wind40 <- NA
     
-    outDF$max.gust <- NA
-    outDF$gust999 <- NA
-    outDF$gust99 <- NA
-    outDF$gust95 <- NA
-    outDF$gust90 <- NA
-    outDF$gust80 <- NA
-    outDF$gust70 <- NA
-    outDF$gust60 <- NA
-    outDF$gust50 <- NA
-    outDF$gust40 <- NA
+    #outDF$max.gust <- NA
+    #outDF$gust999 <- NA
+    #outDF$gust99 <- NA
+    #outDF$gust95 <- NA
+    #outDF$gust90 <- NA
+    #outDF$gust80 <- NA
+    #outDF$gust70 <- NA
+    #outDF$gust60 <- NA
+    #outDF$gust50 <- NA
+    #outDF$gust40 <- NA
     
     ### remove un-useful columns
     outDF$STATE <- NULL

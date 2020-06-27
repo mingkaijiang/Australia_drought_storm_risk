@@ -100,16 +100,16 @@ process_GSOD_station_data <- function(sourceDir, destDir,
         gsodDF$wind50[i] <- ifelse(length(tmp1) == 0, NA, quantile(tmp1, 0.50, na.rm=T))
         gsodDF$wind40[i] <- ifelse(length(tmp1) == 0, NA, quantile(tmp1, 0.40, na.rm=T))
         
-        gsodDF$max.gust[i] <- ifelse(length(tmp2) == 0, NA, max(tmp2, na.rm=T))
-        gsodDF$gust999[i] <- ifelse(length(tmp2) == 0, NA, quantile(tmp2, 0.999, na.rm=T))
-        gsodDF$gust99[i] <- ifelse(length(tmp2) == 0, NA, quantile(tmp2, 0.99, na.rm=T))
-        gsodDF$gust95[i] <- ifelse(length(tmp2) == 0, NA, quantile(tmp2, 0.95, na.rm=T))
-        gsodDF$gust90[i] <- ifelse(length(tmp2) == 0, NA, quantile(tmp2, 0.90, na.rm=T))
-        gsodDF$gust80[i] <- ifelse(length(tmp2) == 0, NA, quantile(tmp2, 0.80, na.rm=T))
-        gsodDF$gust70[i] <- ifelse(length(tmp2) == 0, NA, quantile(tmp2, 0.70, na.rm=T))
-        gsodDF$gust60[i] <- ifelse(length(tmp2) == 0, NA, quantile(tmp2, 0.60, na.rm=T))
-        gsodDF$gust50[i] <- ifelse(length(tmp2) == 0, NA, quantile(tmp2, 0.50, na.rm=T))
-        gsodDF$gust40[i] <- ifelse(length(tmp2) == 0, NA, quantile(tmp2, 0.40, na.rm=T))
+        #gsodDF$max.gust[i] <- ifelse(length(tmp2) == 0, NA, max(tmp2, na.rm=T))
+        #gsodDF$gust999[i] <- ifelse(length(tmp2) == 0, NA, quantile(tmp2, 0.999, na.rm=T))
+        #gsodDF$gust99[i] <- ifelse(length(tmp2) == 0, NA, quantile(tmp2, 0.99, na.rm=T))
+        #gsodDF$gust95[i] <- ifelse(length(tmp2) == 0, NA, quantile(tmp2, 0.95, na.rm=T))
+        #gsodDF$gust90[i] <- ifelse(length(tmp2) == 0, NA, quantile(tmp2, 0.90, na.rm=T))
+        #gsodDF$gust80[i] <- ifelse(length(tmp2) == 0, NA, quantile(tmp2, 0.80, na.rm=T))
+        #gsodDF$gust70[i] <- ifelse(length(tmp2) == 0, NA, quantile(tmp2, 0.70, na.rm=T))
+        #gsodDF$gust60[i] <- ifelse(length(tmp2) == 0, NA, quantile(tmp2, 0.60, na.rm=T))
+        #gsodDF$gust50[i] <- ifelse(length(tmp2) == 0, NA, quantile(tmp2, 0.50, na.rm=T))
+        #gsodDF$gust40[i] <- ifelse(length(tmp2) == 0, NA, quantile(tmp2, 0.40, na.rm=T))
         
     } # i
 
