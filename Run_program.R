@@ -266,18 +266,18 @@ calculate_PD_based_on_PET(sourceDir = "input",
 
 
 #### B4.2. antecedent 2-year water availability
-compute_antecedent_water_availability_for_user_defined_regions(sourceDir = "input", 
-                                                               destDir = "output/antecedent_water_availability",
-                                                               user.region.name = "SydneyHunter",
-                                                               duration = "2-year")
+#compute_antecedent_water_availability_for_user_defined_regions(sourceDir = "input", 
+#                                                               destDir = "output/antecedent_water_availability",
+#                                                               user.region.name = "SydneyHunter",
+#                                                               duration = "2-year")
 
 
 #### B5. calculate atmospheric dryness (VPD) for antecedent 1 and 2-year period
 #### B5.1. atmospheric dryness for antecendent 1-year period
-compute_antecedent_atmospheric_dryness_for_user_defined_regions(sourceDir = "input", 
-                                                               destDir = "output/antecedent_atmospheric_dryness",
-                                                               user.region.name = "SydneyHunter",
-                                                               duration = "1-year")
+#compute_antecedent_atmospheric_dryness_for_user_defined_regions(sourceDir = "input", 
+#                                                               destDir = "output/antecedent_atmospheric_dryness",
+#                                                               user.region.name = "SydneyHunter",
+#                                                               duration = "1-year")
 
 #### B5.2. atmospheric dryness for antecedent 2-year period
 compute_antecedent_atmospheric_dryness_for_user_defined_regions(sourceDir = "input", 
@@ -644,13 +644,10 @@ make_spatial_plots_for_Sydney_Hunter_valley_regions(sourceDir = "output",
 
 #######################
 ### to do list:
-### 1. check if VP data has pre-1971 time points
-### 2. check if temperature data has pre-1911 time points
-### 3. add appropricate matrix calculation to obtain PD, ES, VPD, PET
-### 4. Plot: a) add VPD, PET, 
-###          b) split plots, 
-###          c) different dates, 
-###          d) add DEM? 
-###          e) add cities and borders, forest cover
+### 1. VPD - value ranges between -30 to +6. Seems to be too low, and can't be positive.
+### 2. PET - more efficient way to compute PET based on SPEI package (or write your own function).
+### 3. Check results on extreme severity and intensity, all indices and dates
+### 4. Plot: a) add all variables to plotting scheme
+###          b) make nicer plots (add DEM? add cities and borders, forest cover?)
 
 
