@@ -1,11 +1,20 @@
+
+#### Create input folder
+if(!dir.exists("input")) {
+    dir.create("input", showWarnings = FALSE)
+}
+
+
 #### Create output folder
 if(!dir.exists("output")) {
     dir.create("output", showWarnings = FALSE)
 }
 
+### Create plots folder
 if(!dir.exists("plots")) {
     dir.create("plots", showWarnings = FALSE)
 }
+
 
 #### Install packages
 if(!require(pacman))install.packages("pacman")
@@ -27,7 +36,8 @@ pacman::p_load(raster,
                gridExtra,
                rgeos,
                rnaturalearthdata,
-               rnaturalearth)    
+               rnaturalearth,
+               AWAPer)    
 
 
 #### Sourcing all R files in the modules subdirectory
