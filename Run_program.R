@@ -228,23 +228,23 @@ calculate_PD_based_on_PET(sourceDir = "input",
 ####      but they do not matter for our purpose here.
 ####      After data processing, plot wind speed spatial map for whole Australia
 ####      We also calculated wind speed intensity and return interval percentile within this function.
-process_GSOD_station_data(sourceDir = "/Volumes/TOSHIBAEXT/gsod/", 
-                          destDir = "input",
-                          user.lat.max = -31,
-                          user.lat.min = -35,
-                          user.lon.max = 153,
-                          user.lon.min = 149,
-                          user.region.name = "SydneyHunter",
-                          plot.option = T)
-
-#### B3.2. Plot wind speed percentile for user selected region
-plot_GSOD_station_wind_data_for_user_selected_regions(sourceDir = "input",
-                                                      destDir = "plots",
-                                                      user.lat.max = -31,
-                                                      user.lat.min = -35,
-                                                      user.lon.max = 153,
-                                                      user.lon.min = 149,
-                                                      user.region.name = "SydneyHunter")
+#process_GSOD_station_data(sourceDir = "/Volumes/TOSHIBAEXT/gsod/", 
+#                          destDir = "input",
+#                          user.lat.max = -31,
+#                          user.lat.min = -35,
+#                          user.lon.max = 153,
+#                          user.lon.min = 149,
+#                          user.region.name = "SydneyHunter",
+#                          plot.option = T)
+#
+##### B3.2. Plot wind speed percentile for user selected region
+#plot_GSOD_station_wind_data_for_user_selected_regions(sourceDir = "input",
+#                                                      destDir = "plots",
+#                                                      user.lat.max = -31,
+#                                                      user.lat.min = -35,
+#                                                      user.lon.max = 153,
+#                                                      user.lon.min = 149,
+#                                                      user.region.name = "SydneyHunter")
 
 
 
