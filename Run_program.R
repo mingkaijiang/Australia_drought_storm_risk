@@ -34,7 +34,7 @@ source("prepare.R")
 #### 7. Calculate PET based on Tmax
 
 #### 1 . Download AWAP data from BOM website
-####     Only need to run this code once.
+####     Note: Only need to run this section of code once!!!
 ### 1.1. Daily rainfall data - from 1900 to 2020 (march 31st)
 #download_AWAP_rainfall_data(destDir="/Volumes/TOSHIBAEXT/AWAP/rain/")
 
@@ -42,11 +42,12 @@ source("prepare.R")
 #download_AWAP_temperature_data(destDir="/Volumes/TOSHIBAEXT/AWAP/tmax/")
 
 ### 1.3. Vapor pressure at 3 pm - from 1971 to 2020 (march 31st)
-download_AWAP_vp3pm_data(destDir="/Volumes/TOSHIBAEXT/AWAP/vp3pm/")
+#download_AWAP_vp3pm_data(destDir="/Volumes/TOSHIBAEXT/AWAP/vp3pm/")
+
 
 
 #### 2. Unzip all .z files
-####    Only need to run this code once
+####    Only need to run this section of code once
 #unzip_all_z_files(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/rain/", s.yr = 1900, e.yr = 2020)
 
 #unzip_all_z_files(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/tmax/", s.yr = 1911, e.yr = 2020)
@@ -56,15 +57,15 @@ unzip_all_z_files(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/vp3pm/", s.yr = 1971, e.
 
 #### 3. Data quality check: Plot one-year total rainfall to check rmatches with BOM observations
 #plot_total_rainfall_for_a_year(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/rain/", 
-#                               destDir = "output",
+#                               destDir = "plots",
 #                               user.defined.year = 2019)
 
 #plot_daily_tmax_for_a_year(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/tmax/", 
-#                           destDir = "output",
+#                           destDir = "plots",
 #                           user.defined.year = 2019)
 
 plot_daily_vp3pm_for_a_year(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/vp3pm/", 
-                           destDir = "output",
+                           destDir = "plots",
                            user.defined.year = 2019)
 
 
@@ -80,9 +81,10 @@ plot_daily_vp3pm_for_a_year(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/vp3pm/",
 #### Note that, region has to be small (i.e. ~ 10 by 10 degree) to not exceed memory limit
 #### User also need to specify region name.
 #### Only need to run once, takes long to run (2 hour)
-### daily rainfall
+
+#### 5.1 daily rainfall
 #convert_from_spatial_to_temporal_DF_for_user_defined_regions(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/rain/", 
-#                                                             destDir = "/Volumes/TOSHIBAEXT/AWAP/output",
+#                                                             destDir = "input",
 #                                                             varName = "rain",
 #                                                             user.lat.max = -28,
 #                                                             user.lat.min = -36,
@@ -90,9 +92,9 @@ plot_daily_vp3pm_for_a_year(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/vp3pm/",
 #                                                             user.lon.min = 145,
 #                                                             user.region.name = "Larger_Sydney")
 
-### daily tmax
+#### 5.2. daily Tmax
 convert_from_spatial_to_temporal_DF_for_user_defined_regions(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/tmax/", 
-                                                             destDir = "/Volumes/TOSHIBAEXT/AWAP/output",
+                                                             destDir = "input",
                                                              varName = "tmax",
                                                              user.lat.max = -28,
                                                              user.lat.min = -36,
@@ -100,9 +102,9 @@ convert_from_spatial_to_temporal_DF_for_user_defined_regions(sourceDir = "/Volum
                                                              user.lon.min = 145,
                                                              user.region.name = "Larger_Sydney")
 
-### daily ea (vapor pressure) at 3 pm
+### 5.3 daily vapor pressure at 3 pm
 convert_from_spatial_to_temporal_DF_for_user_defined_regions(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/vp3pm/", 
-                                                             destDir = "/Volumes/TOSHIBAEXT/AWAP/output",
+                                                             destDir = "input",
                                                              varName = "vp3pm",
                                                              user.lat.max = -28,
                                                              user.lat.min = -36,
@@ -113,8 +115,8 @@ convert_from_spatial_to_temporal_DF_for_user_defined_regions(sourceDir = "/Volum
 
 #### 6. Calculate VPD based on Tmax and vp3pm
 ### 6.1. Calculate saturated vapor pressure based on Tmax
-calculate_saturated_vapor_pressure_based_on_Tmax(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/output",
-                                                 destDir = "/Volumes/TOSHIBAEXT/AWAP/output",
+calculate_saturated_vapor_pressure_based_on_Tmax(sourceDir = "input",
+                                                 destDir = "input",
                                                  varName = "es",
                                                  user.lat.max = -28,
                                                  user.lat.min = -36,
@@ -123,8 +125,8 @@ calculate_saturated_vapor_pressure_based_on_Tmax(sourceDir = "/Volumes/TOSHIBAEX
                                                  user.region.name = "Larger_Sydney")
 
 ### 6.2. Calculate VPD based on ES and EA
-calculate_VPD_based_on_es_and_vp3pm(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/output",
-                                    destDir = "/Volumes/TOSHIBAEXT/AWAP/output",
+calculate_VPD_based_on_es_and_vp3pm(sourceDir = "input",
+                                    destDir = "input",
                                     varName = "vpd",
                                     user.lat.max = -28,
                                     user.lat.min = -36,
@@ -134,9 +136,9 @@ calculate_VPD_based_on_es_and_vp3pm(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/output
 
 
 #### 7. Calculate PET based on Tmax
-calculate_PET_based_on_Tmax(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/output",
-                            destDir = "/Volumes/TOSHIBAEXT/AWAP/output",
-                            varName = "vpd",
+calculate_PET_based_on_Tmax(sourceDir = "input",
+                            destDir = "input",
+                            varName = "pet",
                             user.lat.max = -28,
                             user.lat.min = -36,
                             user.lon.max = 155,
@@ -484,6 +486,9 @@ make_spatial_plots_for_user_defined_regions(sourceDir = "output",
 
 #######################
 ### to do list:
+### 1. check if VP data has pre-1971 time points
+### 2. check if temperature data has pre-1911 time points
+
 ### 1. Check file name update works?
 ### 2. Add PET calculation based on T
 ### 3. Revise drought index

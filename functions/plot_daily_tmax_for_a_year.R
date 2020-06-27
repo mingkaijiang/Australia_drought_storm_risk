@@ -1,6 +1,11 @@
 plot_daily_tmax_for_a_year <- function(sourceDir, destDir,
                                        user.defined.year) {
     
+    ### create storage directory
+    if(!dir.exists(paste0(destDir, "Australia/"))) {
+        dir.create(paste0(destDir, "Australia/"), showWarnings = FALSE)
+    }
+    
     ### grid information
     lat.id <- c(1:691)
     lat.lab <- paste0("lat", lat.id)
@@ -20,7 +25,7 @@ plot_daily_tmax_for_a_year <- function(sourceDir, destDir,
     colnames(latlonDF) <- c("latID", "lonID", "lat", "lon")
     
     ### prepare all input file path
-    dayDF <- data.frame(seq.Date(as.Date("1900/01/01"), 
+    dayDF <- data.frame(seq.Date(as.Date("1911/01/01"), 
                                  as.Date("2020/03/31"), 
                                  by="day"),
                         NA, NA, NA)
@@ -50,7 +55,7 @@ plot_daily_tmax_for_a_year <- function(sourceDir, destDir,
     }
     
     ### sum / no of days
-    out <- out / 360
+    out <- out / 365
     
     ### save output
     saveRDS(out, file=paste0(destDir, "/Australia_daily_tmax_year_",

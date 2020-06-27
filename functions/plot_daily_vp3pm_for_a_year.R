@@ -1,5 +1,5 @@
-plot_total_rainfall_for_a_year <- function(sourceDir, destDir,
-                                           user.defined.year) {
+plot_daily_vp3pm_for_a_year <- function(sourceDir, destDir,
+                                       user.defined.year) {
     
     ### create storage directory
     if(!dir.exists(paste0(destDir, "Australia/"))) {
@@ -25,14 +25,14 @@ plot_total_rainfall_for_a_year <- function(sourceDir, destDir,
     colnames(latlonDF) <- c("latID", "lonID", "lat", "lon")
     
     ### prepare all input file path
-    dayDF <- data.frame(seq.Date(as.Date("1900/01/01"), 
+    dayDF <- data.frame(seq.Date(as.Date("1971/01/01"), 
                                  as.Date("2020/03/31"), 
                                  by="day"),
                         NA, NA, NA)
     colnames(dayDF) <- c("Date", "Year", "Lab", "Path")
     dayDF$Year <- year(dayDF$Date)
     dayDF$Lab <- gsub("-", "", dayDF$Date)
-    dayDF$Path <- paste0(sourceDir, dayDF$Year, "/rain_", 
+    dayDF$Path <- paste0(sourceDir, dayDF$Year, "/", dayDF$Lab,
                          dayDF$Lab, ".grid")
     
     ### subset according to year
@@ -43,7 +43,7 @@ plot_total_rainfall_for_a_year <- function(sourceDir, destDir,
     ### create out storage matrix
     out <- array(NA, c(length(lat.id), length(lon.id)))
     
-    ### calculate annual sum rainfall
+    ### calculate annual mean daily tmax
     for (i in c(1:n.days)) {
         
         ## read in data
@@ -54,8 +54,11 @@ plot_total_rainfall_for_a_year <- function(sourceDir, destDir,
         out <- matrix(mapply(sum, out, myDF$data, MoreArgs=list(na.rm=T)), ncol=length(lon.id))
     }
     
+    ### sum / no of days
+    out <- out / 365
+    
     ### save output
-    saveRDS(out, file=paste0(destDir, "/Australia_total_rainfall_year_",
+    saveRDS(out, file=paste0(destDir, "/Australia_daily_vp3pm_year_",
                              user.defined.year, ".rds"))
     
     ### read in data
@@ -84,7 +87,7 @@ plot_total_rainfall_for_a_year <- function(sourceDir, destDir,
     ### prepare discrete plotting scheme
     ### get the value breaks
     value_brks <- round(quantile(outDF$value, 
-                                 probs = seq(0, 1, 100/11/100)), 2)
+                                 probs = seq(0, 1, 100/9/100)), 2)
     
     value_brks <- unique(value_brks)
     
@@ -139,11 +142,11 @@ plot_total_rainfall_for_a_year <- function(sourceDir, destDir,
                           values=rev(rain.color),
                           labels=value_lab)+
         guides(color = guide_legend(nrow=5, byrow = T))+
-        ggtitle(paste0("Year ", user.defined.year, " total rainfall"))
+        ggtitle(paste0("Year ", user.defined.year, " daily Tmax"))
     
     ### save image
     jpeg(paste0(destDir, "/Australia_Year_", user.defined.year,
-                "_rainfall.jpg"), units="in", res=150,width = 6, height=6)
+                "_vp3pm.jpg"), units="in", res=150,width = 6, height=6)
     plot(p1)
     dev.off()
     
