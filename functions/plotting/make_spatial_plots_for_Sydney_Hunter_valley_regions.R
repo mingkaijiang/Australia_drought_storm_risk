@@ -153,9 +153,9 @@ make_spatial_plots_for_Sydney_Hunter_valley_regions <- function(sourceDir,
     
     
     #################################### plotting ######################################    
-    ### >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  
-    ### >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-    
+    ### >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>           <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< ###
+    ### >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>           <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< ###
+    ### >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>           <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< ###
     ############################### 1-day rainfall ####################################
     #### ploting storm severity
     p1 <- ggplot(aus.poly) +
@@ -264,13 +264,13 @@ make_spatial_plots_for_Sydney_Hunter_valley_regions <- function(sourceDir,
     jpeg(paste0(destDir, "/Sydney_Hunter_Valley_", date.of.interest,
                 "_storm_5-day.jpg"), units="in", res=150,
          width = 16, height=10)
-    grid.arrange(p1, p2, nrow = 1)
+    grid.arrange(p3, p4, nrow = 1)
     dev.off()
     
     
     #################### antecedent 1-year water availability ########################
     #### ploting drought severity
-    p3 <- ggplot(aus.poly) +
+    p5 <- ggplot(aus.poly) +
         geom_tile(drought.severity.long, mapping=aes(lon, lat, fill=as.character(value)))+
         geom_sf(fill=NA) +
         geom_point(aes(x=151.2093, y=-33.8688), col="red")+  # sydney
@@ -315,7 +315,7 @@ make_spatial_plots_for_Sydney_Hunter_valley_regions <- function(sourceDir,
     
     
     ### plot drought intensity (mm/yr)
-    p4 <- ggplot(aus.poly) +
+    p6 <- ggplot(aus.poly) +
         geom_tile(drought.intensity.long, mapping=aes(lon, lat, fill=value_cat))+
         geom_sf(fill=NA) +
         geom_point(aes(x=151.2093, y=-33.8688), col="red")+  # sydney
@@ -361,7 +361,7 @@ make_spatial_plots_for_Sydney_Hunter_valley_regions <- function(sourceDir,
     jpeg(paste0(destDir, "/Sydney_Hunter_Valley_", date.of.interest,
                 "_antecedent_water_availability_1-year.jpg"), units="in", res=150,
          width = 16, height=10)
-    grid.arrange(p1, p2, nrow = 1)
+    grid.arrange(p5, p6, nrow = 1)
     dev.off()
     
     
@@ -376,14 +376,14 @@ make_spatial_plots_for_Sydney_Hunter_valley_regions <- function(sourceDir,
     jpeg(paste0(destDir, "/Sydney_Hunter_Valley_", date.of.interest,
                 "_antecedent_water_availability_2-year.jpg"), units="in", res=150,
          width = 16, height=10)
-    grid.arrange(p1, p2, nrow = 1)
+    grid.arrange(p7, p8, nrow = 1)
     dev.off()
     
     
     
     ################################### wind speed ####################################
     ### wind severity percentile
-    p5 <- ggplot(aus.poly) +
+    p9 <- ggplot(aus.poly) +
         geom_point(wind.severity, mapping=aes(lon, lat, 
                                               fill=as.character(wind.severity.percentile)), 
                    pch = 21, size = 5)+
@@ -429,7 +429,7 @@ make_spatial_plots_for_Sydney_Hunter_valley_regions <- function(sourceDir,
         ylim(user.lat.min, user.lat.max)
     
     ### wind speed intensity (m/s)
-    p6 <- ggplot(aus.poly) +
+    p10 <- ggplot(aus.poly) +
         geom_point(wind.severity, mapping=aes(lon, lat, fill=selected.wind.speed*0.51), 
                    pch = 21, size = 5)+
         geom_sf(fill=NA) +
@@ -475,7 +475,7 @@ make_spatial_plots_for_Sydney_Hunter_valley_regions <- function(sourceDir,
     jpeg(paste0(destDir, "/Sydney_Hunter_Valley_", date.of.interest,
                 "_max_wind_speed.jpg"), units="in", res=150,
          width = 16, height=10)
-    grid.arrange(p1, p2, nrow = 1)
+    grid.arrange(p9, p10, nrow = 1)
     dev.off()
     
     
@@ -488,7 +488,7 @@ make_spatial_plots_for_Sydney_Hunter_valley_regions <- function(sourceDir,
     jpeg(paste0(destDir, "/Sydney_Hunter_Valley_", date.of.interest,
                 "_antecedent_atmospheric_dryness_1-year.jpg"), units="in", res=150,
          width = 16, height=10)
-    grid.arrange(p1, p2, nrow = 1)
+    grid.arrange(p11, p12, nrow = 1)
     dev.off()
     
     ######################## antecedent 2-year atmospheric dryness ######################
@@ -501,7 +501,7 @@ make_spatial_plots_for_Sydney_Hunter_valley_regions <- function(sourceDir,
     jpeg(paste0(destDir, "/Sydney_Hunter_Valley_", date.of.interest,
                 "_antecedent_atmospheric_dryness_2-year.jpg"), units="in", res=150,
          width = 16, height=10)
-    grid.arrange(p1, p2, nrow = 1)
+    grid.arrange(p13, p14, nrow = 1)
     dev.off()
     
     ######################## antecedent 1-year water deficit ######################
@@ -515,7 +515,7 @@ make_spatial_plots_for_Sydney_Hunter_valley_regions <- function(sourceDir,
     jpeg(paste0(destDir, "/Sydney_Hunter_Valley_", date.of.interest,
                 "_antecedent_water_deficit_1-year.jpg"), units="in", res=150,
          width = 16, height=10)
-    grid.arrange(p1, p2, nrow = 1)
+    grid.arrange(p15, p16, nrow = 1)
     dev.off()
     
     
@@ -530,7 +530,7 @@ make_spatial_plots_for_Sydney_Hunter_valley_regions <- function(sourceDir,
     jpeg(paste0(destDir, "/Sydney_Hunter_Valley_", date.of.interest,
                 "_antecedent_water_deficit_2-year.jpg"), units="in", res=150,
          width = 16, height=10)
-    grid.arrange(p1, p2, nrow = 1)
+    grid.arrange(p17, p18, nrow = 1)
     dev.off()
     
 }

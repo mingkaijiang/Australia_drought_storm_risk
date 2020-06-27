@@ -42,7 +42,7 @@ source("prepare.R")
 #download_AWAP_temperature_data(destDir="/Volumes/TOSHIBAEXT/AWAP/tmax/")
 
 ### 1.3. Vapor pressure at 3 pm - from 1971 to 2020 (march 31st)
-download_AWAP_vp3pm_data(destDir="/Volumes/TOSHIBAEXT/AWAP/vp3pm/")
+#download_AWAP_vp3pm_data(destDir="/Volumes/TOSHIBAEXT/AWAP/vp3pm/")
 
 
 
@@ -52,7 +52,7 @@ download_AWAP_vp3pm_data(destDir="/Volumes/TOSHIBAEXT/AWAP/vp3pm/")
 
 #unzip_all_z_files(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/tmax/", s.yr = 1911, e.yr = 2020)
 
-unzip_all_z_files(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/vp3pm/", s.yr = 1971, e.yr = 2020)
+#unzip_all_z_files(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/vp3pm/", s.yr = 1971, e.yr = 2020)
 
 
 #### 3. Data quality check: Plot one-year total rainfall to check rmatches with BOM observations

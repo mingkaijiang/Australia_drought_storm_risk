@@ -2,8 +2,8 @@ plot_total_rainfall_for_a_year <- function(sourceDir, destDir,
                                            user.defined.year) {
     
     ### create storage directory
-    if(!dir.exists(paste0(destDir, "Australia/"))) {
-        dir.create(paste0(destDir, "Australia/"), showWarnings = FALSE)
+    if(!dir.exists(paste0(destDir, "/Australia/"))) {
+        dir.create(paste0(destDir, "/Australia/"), showWarnings = FALSE)
     }
     
     ### grid information
@@ -55,7 +55,7 @@ plot_total_rainfall_for_a_year <- function(sourceDir, destDir,
     }
     
     ### save output
-    saveRDS(out, file=paste0(destDir, "/Australia_total_rainfall_year_",
+    saveRDS(out, file=paste0(destDir, "/Australia/Australia_total_rainfall_year_",
                              user.defined.year, ".rds"))
     
     ### read in data
@@ -142,7 +142,7 @@ plot_total_rainfall_for_a_year <- function(sourceDir, destDir,
         ggtitle(paste0("Year ", user.defined.year, " total rainfall"))
     
     ### save image
-    jpeg(paste0(destDir, "/Australia_Year_", user.defined.year,
+    jpeg(paste0(destDir, "/Australia/Australia_Year_", user.defined.year,
                 "_rainfall.jpg"), units="in", res=150,width = 6, height=6)
     plot(p1)
     dev.off()
