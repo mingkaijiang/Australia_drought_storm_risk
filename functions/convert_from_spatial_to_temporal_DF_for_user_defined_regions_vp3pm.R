@@ -1,10 +1,10 @@
-convert_from_spatial_to_temporal_DF_for_user_defined_regions <- function(sourceDir, destDir,
-                                                                         varName,
-                                                                         user.lat.min,
-                                                                         user.lat.max,
-                                                                         user.lon.min,
-                                                                         user.lon.max,
-                                                                         user.region.name) {
+convert_from_spatial_to_temporal_DF_for_user_defined_regions_vp3pm <- function(sourceDir, destDir,
+                                                                               varName,
+                                                                               user.lat.min,
+                                                                               user.lat.max,
+                                                                               user.lon.min,
+                                                                               user.lon.max,
+                                                                               user.region.name) {
     
     #### Create output folder
     if(!dir.exists(destDir)) {
@@ -12,12 +12,12 @@ convert_from_spatial_to_temporal_DF_for_user_defined_regions <- function(sourceD
     }
     
     ### prepare year DFs
-    yr.list <- c(1900:2019)
+    yr.list <- c(1971:2019)
     n.yr <- length(yr.list)
     
     ### number of leap years
-    lp.year <- 29
-    n.days <- 29 + n.yr * 365 + 31 + 29 + 31
+    lp.year <- 12
+    n.days <- 12 + n.yr * 365 + 31 + 29 + 31
     
     ### grid information
     lat.id <- c(1:691)
@@ -41,7 +41,7 @@ convert_from_spatial_to_temporal_DF_for_user_defined_regions <- function(sourceD
                                  latlonDF$lon <= user.lon.max & latlonDF$lon>=user.lon.min,]
     
     ### prepare all input file path
-    dayDF <- data.frame(seq.Date(as.Date("1900/01/01"), 
+    dayDF <- data.frame(seq.Date(as.Date("1971/01/01"), 
                                  as.Date("2020/03/31"), 
                                  by="day"),
                         NA, NA, NA)
@@ -53,6 +53,9 @@ convert_from_spatial_to_temporal_DF_for_user_defined_regions <- function(sourceD
         dayDF$Path <- paste0(sourceDir, dayDF$Year, "/rain_", 
                              dayDF$Lab, ".grid")
     } else if (varName == "tmax") {
+        dayDF$Path <- paste0(sourceDir, dayDF$Year, "/", dayDF$Lab,
+                             dayDF$Lab, ".grid")
+    } else if (varName == "vp3pm") {
         dayDF$Path <- paste0(sourceDir, dayDF$Year, "/", dayDF$Lab,
                              dayDF$Lab, ".grid")
     } else {

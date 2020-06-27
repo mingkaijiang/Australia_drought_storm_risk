@@ -83,34 +83,34 @@ plot_daily_vp3pm_for_a_year(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/vp3pm/",
 #### Only need to run once, takes long to run (2 hour)
 
 #### 5.1 daily rainfall
-#convert_from_spatial_to_temporal_DF_for_user_defined_regions(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/rain/", 
-#                                                             destDir = "input",
-#                                                             varName = "rain",
-#                                                             user.lat.max = -28,
-#                                                             user.lat.min = -36,
-#                                                             user.lon.max = 155,
-#                                                             user.lon.min = 145,
-#                                                             user.region.name = "Larger_Sydney")
+#convert_from_spatial_to_temporal_DF_for_user_defined_regions_rain(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/rain/", 
+#                                                                  destDir = "input",
+#                                                                  varName = "rain",
+#                                                                  user.lat.max = -28,
+#                                                                  user.lat.min = -36,
+#                                                                  user.lon.max = 155,
+#                                                                  user.lon.min = 145,
+#                                                                  user.region.name = "Larger_Sydney")
 
 #### 5.2. daily Tmax
-convert_from_spatial_to_temporal_DF_for_user_defined_regions(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/tmax/", 
-                                                             destDir = "input",
-                                                             varName = "tmax",
-                                                             user.lat.max = -28,
-                                                             user.lat.min = -36,
-                                                             user.lon.max = 155,
-                                                             user.lon.min = 145,
-                                                             user.region.name = "Larger_Sydney")
+convert_from_spatial_to_temporal_DF_for_user_defined_regions_tmax(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/tmax/", 
+                                                                  destDir = "input",
+                                                                  varName = "tmax",
+                                                                  user.lat.max = -28,
+                                                                  user.lat.min = -36,
+                                                                  user.lon.max = 155,
+                                                                  user.lon.min = 145,
+                                                                  user.region.name = "Larger_Sydney")
 
 ### 5.3 daily vapor pressure at 3 pm
-convert_from_spatial_to_temporal_DF_for_user_defined_regions(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/vp3pm/", 
-                                                             destDir = "input",
-                                                             varName = "vp3pm",
-                                                             user.lat.max = -28,
-                                                             user.lat.min = -36,
-                                                             user.lon.max = 155,
-                                                             user.lon.min = 145,
-                                                             user.region.name = "Larger_Sydney")
+convert_from_spatial_to_temporal_DF_for_user_defined_regions_vp3pm(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/vp3pm/", 
+                                                                   destDir = "input",
+                                                                   varName = "vp3pm",
+                                                                   user.lat.max = -28,
+                                                                   user.lat.min = -36,
+                                                                   user.lon.max = 155,
+                                                                   user.lon.min = 145,
+                                                                   user.region.name = "Larger_Sydney")
 
 
 #### 6. Calculate VPD based on Tmax and vp3pm
