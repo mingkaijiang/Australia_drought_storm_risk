@@ -64,9 +64,9 @@ source("prepare.R")
 #                           destDir = "plots",
 #                           user.defined.year = 2019)
 
-plot_daily_vp3pm_for_a_year(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/vp3pm/", 
-                           destDir = "plots",
-                           user.defined.year = 2019)
+#plot_daily_vp3pm_for_a_year(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/vp3pm/", 
+#                           destDir = "plots",
+#                           user.defined.year = 2019)
 
 
 #### 4. Convert from per day to per grid
@@ -80,7 +80,7 @@ plot_daily_vp3pm_for_a_year(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/vp3pm/",
 #### 5. make user specified selection of spatial range
 #### Note that, region has to be small (i.e. ~ 10 by 10 degree) to not exceed memory limit
 #### User also need to specify region name.
-#### Only need to run once, takes long to run (2 hour)
+#### Only need to run once, takes long to run (2 hour for 10 by 10)
 
 #### 5.1 daily rainfall
 convert_from_spatial_to_temporal_DF_for_user_defined_regions_rain(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/rain/", 

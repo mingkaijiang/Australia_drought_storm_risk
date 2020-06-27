@@ -142,7 +142,7 @@ plot_daily_vp3pm_for_a_year <- function(sourceDir, destDir,
                           values=rev(rain.color),
                           labels=value_lab)+
         guides(color = guide_legend(nrow=5, byrow = T))+
-        ggtitle(paste0("Year ", user.defined.year, " daily Tmax"))
+        ggtitle(paste0("Year ", user.defined.year, " daily vapor pressure at 3pm"))
     
     ### save image
     jpeg(paste0(destDir, "/Australia/Australia_Year_", user.defined.year,
