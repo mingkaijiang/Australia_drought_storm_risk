@@ -7,12 +7,27 @@ calculate_VPD_based_on_es_and_vp3pm <- function (sourceDir,
     es <- readRDS(paste0(sourceDir, "/es_", user.region.name, "_regions.rds"))
     vp3pm <- readRDS(paste0(sourceDir, "/vp3pm_", user.region.name, "_regions.rds"))
     
+    
+    ### dataset es has temporal coverage: 19110101 to 20200331
+    ### dataset vp3pm has temporal coverage: 19710101 to 20200331
+    vp.length <- dim(vp3pm)[3]
+    es.length <- dim(es)[3]
+    
+    s.pos <- es.length - vp.length + 1
+    e.pos <- es.length
+    
+    ### subset
+    es.sub <- es[,,s.pos:e.pos]
+    
     ### matrix deletion
     ### following Monteith and Unsworth (1990):
     ### D (kPa) = es - ea
-    out <- es - vp3pm
+    out <- es.sub - vp3pm
     
     ### save output
     saveRDS(out, file=paste0(destDir, "/", varName, "_", user.region.name, "_regions.rds"))
+    
+    
+    
     
 }

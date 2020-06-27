@@ -115,16 +115,13 @@ source("prepare.R")
 
 #### 6. Calculate VPD based on Tmax and vp3pm
 ### 6.1. Calculate saturated vapor pressure based on Tmax
-sourceDir = "input"
-destDir = "input"
-varName = "es"
-user.region.name = "SydneyHunter"
-calculate_saturated_vapor_pressure_based_on_Tmax(sourceDir = "input",
-                                                 destDir = "input",
-                                                 varName = "es",
-                                                 user.region.name = "SydneyHunter")
+#calculate_saturated_vapor_pressure_based_on_Tmax(sourceDir = "input",
+#                                                 destDir = "input",
+#                                                 varName = "es",
+#                                                 user.region.name = "SydneyHunter")
 
 ### 6.2. Calculate VPD based on ES and EA
+####     Note: check back - VPD range - 30 to + 6, possibly not right !!!!
 calculate_VPD_based_on_es_and_vp3pm(sourceDir = "input",
                                     destDir = "input",
                                     varName = "vpd",
@@ -603,19 +600,38 @@ compute_antecedent_water_deficit_severity_for_user_defined_regions(sourceDir = "
 
 #### B. Plot selected region (i.e. Sydney and Hunter Valley) extreme severity and intensity maps
 
-#### B.1. Sydney and Hunter valley region only
+#### B.1. 20191126
 sourceDir = "output"
 destDir = "plots"
 user.region.name = "SydneyHunter"
 date.of.interest = "20191126"
-storm.duration = "1-day"
-drought.duration = "1-year"
 make_spatial_plots_for_Sydney_Hunter_valley_regions(sourceDir = "output",
                                                     destDir = "plots",
                                                     user.region.name = "SydneyHunter",
-                                                    date.of.interest = "20191126",
-                                                    storm.duration = "1-day",
-                                                    drought.duration = "1-year")
+                                                    date.of.interest = "20191126")
+
+#### B.2. 20200208
+sourceDir = "output"
+destDir = "plots"
+user.region.name = "SydneyHunter"
+date.of.interest = "20200208"
+make_spatial_plots_for_Sydney_Hunter_valley_regions(sourceDir = "output",
+                                                    destDir = "plots",
+                                                    user.region.name = "SydneyHunter",
+                                                    date.of.interest = "20200208")
+
+
+#### B.3. 20200218
+sourceDir = "output"
+destDir = "plots"
+user.region.name = "SydneyHunter"
+date.of.interest = "20200218"
+make_spatial_plots_for_Sydney_Hunter_valley_regions(sourceDir = "output",
+                                                    destDir = "plots",
+                                                    user.region.name = "SydneyHunter",
+                                                    date.of.interest = "20200218")
+
+
 
 
 ### ++++++++++++++++++++++++++++++++++++ End plotting +++++++++++++++++++++++++++++++++ ####
