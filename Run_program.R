@@ -145,6 +145,7 @@ calculate_PET_based_on_Tmax(sourceDir = "input",
                             user.lon.min = 149,
                             user.region.name = "SydneyHunter")
 
+#### Note: the station-based wind speed data is processed later in the next section
 
 ### +++++++++++++++++++++ End basic code to process the raw data +++++++++++++++++++++ ####
 ###########################################################################################
@@ -181,6 +182,8 @@ calculate_PET_based_on_Tmax(sourceDir = "input",
 #                                          duration = "1-year")
 
 
+
+
 #### B. User selected region (i.e. Larger sydney regions)
 #### B1. Calculate storm index, based on Sydney region daily data;
 ####     Storm index has duration options of 1 - 5 days
@@ -189,6 +192,7 @@ calculate_PET_based_on_Tmax(sourceDir = "input",
 ####     Generate storm index for user defined region, 
 ####     based on user defined duration - 1 day storm intensity.
 ####     No plot generated.
+
 #### B1.1. 1-day storm intensity
 #compute_storm_index_for_user_defined_regions(sourceDir = "input", 
 #                                             destDir = "output",
