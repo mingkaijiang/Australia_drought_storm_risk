@@ -18,11 +18,10 @@ make_spatial_plots_for_Sydney_Hunter_valley_regions <- function(sourceDir,
     user.lon.min = 149
     
     #### read in data
-    storm.intensity <- readRDS(paste0(sourceDir, 
-                                      "/storm_intensity_", 
-                                      date.of.interest, "_",
-                                      storm.duration, "_",
-                                      user.region.name, "_regions.rds"))
+    storm.intensity.1day <- readRDS(paste0(sourceDir, "/storm",
+                                           "/storm_intensity_", 
+                                           date.of.interest, "_1-day_",
+                                           user.region.name, "_regions.rds"))
     
     drought.intensity <- readRDS(paste0(sourceDir, 
                                       "/drought_intensity_", 

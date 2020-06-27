@@ -308,6 +308,17 @@ compute_antecedent_water_deficit_for_user_defined_regions(sourceDir = "input",
 
 ###########################################################################################
 #### ++++++++++ Investigate climate extreme severity for date of interest ++++++++++++ ####
+####    For each user specified date, obtain the historic extreme percentile information
+####    User can specify a particular date.of.interest,
+####    the script will calculate the short-term rainfall storm intensity, wind speed, 
+####    long-term antecedent water availability, antecedent atmospheric dryness, antecedent
+####    water deficit, based on user-defined duration.
+####    The script will then compare against the all-time percentile,
+####    to indicate the severity of the current event on the given date.
+####    User-defined storm.duration can be: 1 or 5 days
+####    User-defined drought.duration can be: 1 or 2 years
+####    The script will run over the selected region.
+
 #### Structure: 
 #### A. date of interest: 20191126
 ####    region affected: Hornsby Shire, Ku-ring-gai, Lane Cove, 
@@ -316,23 +327,19 @@ compute_antecedent_water_deficit_for_user_defined_regions(sourceDir = "input",
 #### A1.1. storm intensity over 1-day period
 #### A1.2. storm intensity over 5-day period
 
-#### A2. check storm intensity severity in terms of return interval for date of selection over the user defined region
-#### A2.1. storm intensity return interval for 1-day rainfall event
-#### A2.2. storm intensity return interval for 5-day rainfall event
+#### A2. check wind intensity severity for date of selection over the user defined region
 
-#### A3. check wind intensity severity for date of selection over the user defined region
+#### A3. check antecedent water availability for date of selection over the user defined region
+#### A3.1. antecedent 1-year water availability
+#### A3.2. antecedent 2-year water availability
 
-#### A4. check antecedent water availability for date of selection over the user defined region
-#### A4.1. antecedent 1-year water availability
-#### A4.2. antecedent 2-year water availability
+#### A4. check antecedent atmospheric dryness (VPD) for date of selection over the user defined region
+#### A4.1. antecedent 1-year atmospheric dryness
+#### A4.2. antecedent 2-year atmospheric dryness
 
-#### A5. check antecedent atmospheric dryness (VPD) for date of selection over the user defined region
-#### A5.1. antecedent 1-year atmospheric dryness
-#### A5.2. antecedent 2-year atmospheric dryness
-
-#### A6. check antecedent water deficit (PET - P) for date of selection over the user defined region
-#### A6.1. antecedent 1-year water deficit
-#### A6.2. antecedent 2-year water deficit
+#### A5. check antecedent water deficit (PET - P) for date of selection over the user defined region
+#### A5.1. antecedent 1-year water deficit
+#### A5.2. antecedent 2-year water deficit
 
 #### B. date of interest: 20200208
 ####    region affected: Burwood, Canada Bay, Central Coast, Cessnock, Georges River, 
@@ -347,28 +354,151 @@ compute_antecedent_water_deficit_for_user_defined_regions(sourceDir = "input",
 ####                     Lane Cove, Maitland, Mosman, Newcastle, North Sydney, Northern Beaches,
 ####                     Port Stephens, Randwick, Ryde, Stathfield, Sutherland, Sydney City, 
 ####                     Waverly, Willoughby, Woollahra)
+########################################################
 
-#### D. Storm season: 20191001 to 20200331
-#### ???
+#### A. date of interest: 20191126
+####    region affected: Hornsby Shire, Ku-ring-gai, Lane Cove, 
+####                     Northern Beaches, Sutherland Shire, Willoughby
+#### A1. check storm intensity severity for date of selection over the user defined region
+#### A1.1. storm intensity over 1-day period, 
+#### and storm intensity expressed by return intervals
+compute_storm_severity_for_user_defined_regions(sourceDir = "input", 
+                                                destDir = "output/storm",
+                                                user.region.name = "SydneyHunter",
+                                                date.of.interest = "20191126",
+                                                storm.duration = "1-day")
+
+#### A1.2. storm intensity over 5-day period
+#### and storm intensity expressed by return intervals
+compute_storm_severity_for_user_defined_regions(sourceDir = "input", 
+                                                destDir = "output/storm",
+                                                user.region.name = "SydneyHunter",
+                                                date.of.interest = "20191126",
+                                                storm.duration = "5-day")
+
+
+#### B1.1 and 1.2
+compute_storm_severity_for_user_defined_regions(sourceDir = "input", 
+                                                destDir = "output/storm",
+                                                user.region.name = "SydneyHunter",
+                                                date.of.interest = "20200208",
+                                                storm.duration = "1-day")
+
+compute_storm_severity_for_user_defined_regions(sourceDir = "input", 
+                                                destDir = "output/storm",
+                                                user.region.name = "SydneyHunter",
+                                                date.of.interest = "20200208",
+                                                storm.duration = "5-day")
+
+
+#### C1.1 and 1.2
+compute_storm_severity_for_user_defined_regions(sourceDir = "input", 
+                                                destDir = "output/storm",
+                                                user.region.name = "SydneyHunter",
+                                                date.of.interest = "20200218",
+                                                storm.duration = "1-day")
+
+compute_storm_severity_for_user_defined_regions(sourceDir = "input", 
+                                                destDir = "output/storm",
+                                                user.region.name = "SydneyHunter",
+                                                date.of.interest = "20200218",
+                                                storm.duration = "5-day")
 
 
 
 
-#### 1. compute drought and storm severity for a selected region and date
-#### 2. compute wind severity for a selected region and date
-#### 3 and so on: repeat 1 and 2 for different region/date
 
-#### 1. For each extreme rainfall event, obtain the drought severity information
-####    User can specify a particular date.of.interest,
-####    the script will calculate the short storm and aggregated rainfall data 
-####    based on user-defined storm and drought duration,
-####    then compare against the all-time extreme
-####    to indicate the severity of the storm and drought event.
-####    User-defined storm.duration can be: 1 - 5 days
-####    User-defined drought.duration can be: 1 and 2 years
-####    The script will run over the region defined in the inFile file.
-####    Output includes: table of short-term rainfall and long-term rainfall intensity
-####                     table of storm and drought severity
+#### A2. check wind intensity severity for date of selection over the user defined region
+compute_wind_event_severity_for_user_defined_regions(sourceDir1 = "/Volumes/TOSHIBAEXT/gsod/",
+                                                     sourceDir2 = "input",
+                                                     destDir = "output/wind",
+                                                     user.region.name = "SydneyHunter",
+                                                     date.of.interest = "20191126")
+
+### B2. 
+compute_wind_event_severity_for_user_defined_regions(sourceDir1 = "/Volumes/TOSHIBAEXT/gsod/",
+                                                     sourceDir2 = "input",
+                                                     destDir = "output/wind",
+                                                     user.region.name = "SydneyHunter",
+                                                     date.of.interest = "20200208")
+
+#### C2. 
+compute_wind_event_severity_for_user_defined_regions(sourceDir1 = "/Volumes/TOSHIBAEXT/gsod/",
+                                                     sourceDir2 = "input",
+                                                     destDir = "output/wind",
+                                                     user.region.name = "SydneyHunter",
+                                                     date.of.interest = "20200208")
+
+
+
+
+#### A3. check antecedent water availability for date of selection over the user defined region
+#### A3.1. antecedent 1-year water availability
+compute_antecedent_water_availability_severity_for_user_defined_regions(sourceDir = "input", 
+                                                                        destDir = "output/antecedent_water_availability",
+                                                                        user.region.name = "SydneyHunter",
+                                                                        date.of.interest = "20191126",
+                                                                        drought.duration = "1-year")
+
+#### A3.2. antecedent 2-year water availability
+compute_antecedent_water_availability_severity_for_user_defined_regions(sourceDir = "input", 
+                                                                        destDir = "output/antecedent_water_availability",
+                                                                        user.region.name = "SydneyHunter",
+                                                                        date.of.interest = "20191126",
+                                                                        drought.duration = "2-year")
+
+#### B3
+compute_antecedent_water_availability_severity_for_user_defined_regions(sourceDir = "input", 
+                                                                        destDir = "output/antecedent_water_availability",
+                                                                        user.region.name = "SydneyHunter",
+                                                                        date.of.interest = "20200208",
+                                                                        drought.duration = "1-year")
+
+compute_antecedent_water_availability_severity_for_user_defined_regions(sourceDir = "input", 
+                                                                        destDir = "output/antecedent_water_availability",
+                                                                        user.region.name = "SydneyHunter",
+                                                                        date.of.interest = "20200208",
+                                                                        drought.duration = "2-year")
+
+#### C3
+compute_antecedent_water_availability_severity_for_user_defined_regions(sourceDir = "input", 
+                                                                        destDir = "output/antecedent_water_availability",
+                                                                        user.region.name = "SydneyHunter",
+                                                                        date.of.interest = "20200218",
+                                                                        drought.duration = "1-year")
+
+compute_antecedent_water_availability_severity_for_user_defined_regions(sourceDir = "input", 
+                                                                        destDir = "output/antecedent_water_availability",
+                                                                        user.region.name = "SydneyHunter",
+                                                                        date.of.interest = "20200218",
+                                                                        drought.duration = "2-year")
+
+
+
+#### A4. check antecedent atmospheric dryness (VPD) for date of selection over the user defined region
+#### A4.1. antecedent 1-year atmospheric dryness
+
+
+#### A4.2. antecedent 2-year atmospheric dryness
+
+
+#### B4
+
+
+
+#### C4
+
+
+
+#### A5. check antecedent water deficit (PET - P) for date of selection over the user defined region
+#### A5.1. antecedent 1-year water deficit
+#### A5.2. antecedent 2-year water deficit
+
+#### B5.
+
+#### C5. 
+
+
 compute_drought_and_storm_event_severity_for_user_defined_regions(sourceDir = "input", 
                                                                   destDir = "output",
                                                                   user.region.name = "SydneyHunter",
@@ -376,29 +506,6 @@ compute_drought_and_storm_event_severity_for_user_defined_regions(sourceDir = "i
                                                                   storm.duration = "1-day",
                                                                   drought.duration = "1-year")
 
-
-compute_wind_event_severity_for_user_defined_regions(sourceDir = "/Volumes/TOSHIBAEXT/gsod/",
-                                                     destDir = "output",
-                                                     user.region.name = "SydneyHunter",
-                                                     date.of.interest = "20191126")
-
-
-#### Repeat for different duration/region option
-compute_drought_and_storm_event_severity_for_user_defined_regions(sourceDir = "input", 
-                                                                  destDir = "output",
-                                                                  user.region.name = "SydneyHunter",
-                                                                  date.of.interest = "20191126",
-                                                                  storm.duration = "5-day",
-                                                                  drought.duration = "1-year")
-
-
-#### Repeat for different duration/region option
-compute_drought_and_storm_event_severity_for_user_defined_regions(sourceDir = "input", 
-                                                                  destDir = "output",
-                                                                  user.region.name = "SydneyHunter",
-                                                                  date.of.interest = "20191126",
-                                                                  storm.duration = "5-day",
-                                                                  drought.duration = "2-year")
 
 
 #### ++++++++++ End investigate climate extreme severity for date of interest +++++++++ ####
