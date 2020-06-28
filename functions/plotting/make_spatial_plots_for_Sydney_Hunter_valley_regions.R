@@ -931,10 +931,95 @@ make_spatial_plots_for_Sydney_Hunter_valley_regions <- function(sourceDir,
     grid.arrange(p11, p12, nrow = 1)
     dev.off()
     
-    ######################## antecedent 2-year atmospheric dryness ######################
-    #### place holder
     
-    #### place holder
+    
+    ######################## antecedent 2-year atmospheric dryness ######################
+    p13 <- ggplot(aus.poly) +
+        geom_tile(dryness.severity.2yr.long, mapping=aes(lon, lat, fill=as.character(value)))+
+        geom_sf(fill=NA) +
+        geom_point(aes(x=151.2093, y=-33.8688), col="red")+  # sydney
+        annotate("text", x=151.2093, y=-33.9688, label = "Sydney", col="brown")+
+        geom_point(aes(x=150.8595, y=-32.0546), col="red")+    # canberra
+        annotate("text", x=150.8595, y=-32.1546, label = "Scone", col="brown")+
+        geom_point(aes(x=151.7817, y=-32.9283), col="red")+    # new castle
+        annotate("text", x=151.7817, y=-33.0, label = "Newcastle", col="brown")+
+        geom_point(aes(x=150.3557, y=-32.1393), col="red")+    # Merriwa
+        annotate("text", x=150.3557, y=-32.2393, label = "Merriwa", col="brown")+
+        geom_point(aes(x=151.3624, y=-32.8345), col="red")+    # Cessnock
+        annotate("text", x=151.3624, y=-32.9345, label = "Cessnock", col="brown")+
+        geom_point(aes(x=150.75, y=-33.6), col="red")+    # Richmond
+        annotate("text", x=150.75, y=-33.7, label = "Richmond", col="brown")+
+        geom_point(aes(x=151.1788, y=-32.5695), col="red")+    # Singleton
+        annotate("text", x=151.1788, y=-32.6695, label = "Singleton", col="brown")+
+        geom_point(aes(x=151.3417, y=-33.4267), col="red")+    # Gosford
+        annotate("text", x=151.3417, y=-33.5267, label = "Gosford", col="brown")+
+        annotate("text", x=150.9190, y=-33.0482, label = "Yengo NF")+
+        annotate("text", x=150.3765, y=-33.0174, label = "Wollemi NF")+
+        annotate("text", x=151.6632, y=-32.0671, label = "Barrington Tops NF")+
+        theme_linedraw() +
+        theme(panel.grid.minor=element_blank(),
+              axis.text.x=element_text(size=12),
+              axis.title.x=element_text(size=14),
+              axis.text.y=element_text(size=12),
+              axis.title.y=element_text(size=14),
+              legend.text=element_text(size=12),
+              legend.title=element_text(size=14),
+              panel.grid.major=element_blank(),
+              legend.position="bottom",
+              legend.box = 'vertical',
+              legend.box.just = 'left')+
+        scale_fill_manual(name="percentile",
+                          limits=c("99.9", "99", "95", "90", "80", "70", "60", "50", "40"),
+                          values=heat.color,
+                          labels=c("99.9", "99", "95", "90", "80", "70", "60", "50", "40"))+
+        ggtitle(paste0("Antecedent 2-year atmospheric dryness severity (%)"))+
+        guides(color = guide_legend(nrow=5, byrow = T))+
+        xlim(user.lon.min, user.lon.max)+
+        ylim(user.lat.min, user.lat.max)
+    
+    
+    ### plot dryness intensity (mm/yr)
+    p14 <- ggplot(aus.poly) +
+        geom_tile(dryness.intensity.2yr.long, mapping=aes(lon, lat, fill=value_cat))+
+        geom_sf(fill=NA) +
+        geom_point(aes(x=151.2093, y=-33.8688), col="red")+  # sydney
+        annotate("text", x=151.2093, y=-33.9688, label = "Sydney", col="brown")+
+        geom_point(aes(x=150.8595, y=-32.0546), col="red")+    # canberra
+        annotate("text", x=150.8595, y=-32.1546, label = "Scone", col="brown")+
+        geom_point(aes(x=151.7817, y=-32.9283), col="red")+    # new castle
+        annotate("text", x=151.7817, y=-33.0, label = "Newcastle", col="brown")+
+        geom_point(aes(x=150.3557, y=-32.1393), col="red")+    # Merriwa
+        annotate("text", x=150.3557, y=-32.2393, label = "Merriwa", col="brown")+
+        geom_point(aes(x=151.3624, y=-32.8345), col="red")+    # Cessnock
+        annotate("text", x=151.3624, y=-32.9345, label = "Cessnock", col="brown")+
+        geom_point(aes(x=150.75, y=-33.6), col="red")+    # Richmond
+        annotate("text", x=150.75, y=-33.7, label = "Richmond", col="brown")+
+        geom_point(aes(x=151.1788, y=-32.5695), col="red")+    # Singleton
+        annotate("text", x=151.1788, y=-32.6695, label = "Singleton", col="brown")+
+        geom_point(aes(x=151.3417, y=-33.4267), col="red")+    # Gosford
+        annotate("text", x=151.3417, y=-33.5267, label = "Gosford", col="brown")+
+        annotate("text", x=150.9190, y=-33.0482, label = "Yengo NF")+
+        annotate("text", x=150.3765, y=-33.0174, label = "Wollemi NF")+
+        annotate("text", x=151.6632, y=-32.0671, label = "Barrington Tops NF")+
+        theme_linedraw() +
+        theme(panel.grid.minor=element_blank(),
+              axis.text.x=element_text(size=12),
+              axis.title.x=element_text(size=14),
+              axis.text.y=element_text(size=12),
+              axis.title.y=element_text(size=14),
+              legend.text=element_text(size=12),
+              legend.title=element_text(size=14),
+              panel.grid.major=element_blank(),
+              legend.position="bottom",
+              legend.box = 'vertical',
+              legend.box.just = 'left')+
+        scale_fill_manual(name="value",
+                          values=rev(heat.color.dryness.2yr),
+                          labels=dryness.intensity.2yr.long.lab)+
+        ggtitle(paste0("Antecedent 2-year atmospheric dryness (kPa)"))+
+        guides(color = guide_legend(nrow=5, byrow = T))+
+        xlim(user.lon.min, user.lon.max)+
+        ylim(user.lat.min, user.lat.max)
     
     
     #### save plot
@@ -945,10 +1030,92 @@ make_spatial_plots_for_Sydney_Hunter_valley_regions <- function(sourceDir,
     dev.off()
     
     ######################## antecedent 1-year water deficit ######################
-    #### place holder
+    p15 <- ggplot(aus.poly) +
+        geom_tile(deficit.1yr, mapping=aes(lon, lat, fill=as.character(severity)))+
+        geom_sf(fill=NA) +
+        geom_point(aes(x=151.2093, y=-33.8688), col="red")+  # sydney
+        annotate("text", x=151.2093, y=-33.9688, label = "Sydney", col="brown")+
+        geom_point(aes(x=150.8595, y=-32.0546), col="red")+    # canberra
+        annotate("text", x=150.8595, y=-32.1546, label = "Scone", col="brown")+
+        geom_point(aes(x=151.7817, y=-32.9283), col="red")+    # new castle
+        annotate("text", x=151.7817, y=-33.0, label = "Newcastle", col="brown")+
+        geom_point(aes(x=150.3557, y=-32.1393), col="red")+    # Merriwa
+        annotate("text", x=150.3557, y=-32.2393, label = "Merriwa", col="brown")+
+        geom_point(aes(x=151.3624, y=-32.8345), col="red")+    # Cessnock
+        annotate("text", x=151.3624, y=-32.9345, label = "Cessnock", col="brown")+
+        geom_point(aes(x=150.75, y=-33.6), col="red")+    # Richmond
+        annotate("text", x=150.75, y=-33.7, label = "Richmond", col="brown")+
+        geom_point(aes(x=151.1788, y=-32.5695), col="red")+    # Singleton
+        annotate("text", x=151.1788, y=-32.6695, label = "Singleton", col="brown")+
+        geom_point(aes(x=151.3417, y=-33.4267), col="red")+    # Gosford
+        annotate("text", x=151.3417, y=-33.5267, label = "Gosford", col="brown")+
+        annotate("text", x=150.9190, y=-33.0482, label = "Yengo NF")+
+        annotate("text", x=150.3765, y=-33.0174, label = "Wollemi NF")+
+        annotate("text", x=151.6632, y=-32.0671, label = "Barrington Tops NF")+
+        theme_linedraw() +
+        theme(panel.grid.minor=element_blank(),
+              axis.text.x=element_text(size=12),
+              axis.title.x=element_text(size=14),
+              axis.text.y=element_text(size=12),
+              axis.title.y=element_text(size=14),
+              legend.text=element_text(size=12),
+              legend.title=element_text(size=14),
+              panel.grid.major=element_blank(),
+              legend.position="bottom",
+              legend.box = 'vertical',
+              legend.box.just = 'left')+
+        scale_fill_manual(name="percentile",
+                          limits=c("99.9", "99", "95", "90", "80", "70", "60", "50", "40"),
+                          values=heat.color,
+                          labels=c("99.9", "99", "95", "90", "80", "70", "60", "50", "40"))+
+        ggtitle(paste0("Antecedent 1-year water deficit severity (%)"))+
+        guides(color = guide_legend(nrow=5, byrow = T))+
+        xlim(user.lon.min, user.lon.max)+
+        ylim(user.lat.min, user.lat.max)
     
     
-    #### place holder
+    ### plot dryness intensity (mm/yr)
+    p16 <- ggplot(aus.poly) +
+        geom_tile(deficit.1yr, mapping=aes(lon, lat, fill=value_cat))+
+        geom_sf(fill=NA) +
+        geom_point(aes(x=151.2093, y=-33.8688), col="red")+  # sydney
+        annotate("text", x=151.2093, y=-33.9688, label = "Sydney", col="brown")+
+        geom_point(aes(x=150.8595, y=-32.0546), col="red")+    # canberra
+        annotate("text", x=150.8595, y=-32.1546, label = "Scone", col="brown")+
+        geom_point(aes(x=151.7817, y=-32.9283), col="red")+    # new castle
+        annotate("text", x=151.7817, y=-33.0, label = "Newcastle", col="brown")+
+        geom_point(aes(x=150.3557, y=-32.1393), col="red")+    # Merriwa
+        annotate("text", x=150.3557, y=-32.2393, label = "Merriwa", col="brown")+
+        geom_point(aes(x=151.3624, y=-32.8345), col="red")+    # Cessnock
+        annotate("text", x=151.3624, y=-32.9345, label = "Cessnock", col="brown")+
+        geom_point(aes(x=150.75, y=-33.6), col="red")+    # Richmond
+        annotate("text", x=150.75, y=-33.7, label = "Richmond", col="brown")+
+        geom_point(aes(x=151.1788, y=-32.5695), col="red")+    # Singleton
+        annotate("text", x=151.1788, y=-32.6695, label = "Singleton", col="brown")+
+        geom_point(aes(x=151.3417, y=-33.4267), col="red")+    # Gosford
+        annotate("text", x=151.3417, y=-33.5267, label = "Gosford", col="brown")+
+        annotate("text", x=150.9190, y=-33.0482, label = "Yengo NF")+
+        annotate("text", x=150.3765, y=-33.0174, label = "Wollemi NF")+
+        annotate("text", x=151.6632, y=-32.0671, label = "Barrington Tops NF")+
+        theme_linedraw() +
+        theme(panel.grid.minor=element_blank(),
+              axis.text.x=element_text(size=12),
+              axis.title.x=element_text(size=14),
+              axis.text.y=element_text(size=12),
+              axis.title.y=element_text(size=14),
+              legend.text=element_text(size=12),
+              legend.title=element_text(size=14),
+              panel.grid.major=element_blank(),
+              legend.position="bottom",
+              legend.box = 'vertical',
+              legend.box.just = 'left')+
+        scale_fill_manual(name="value",
+                          values=heat.color.deficit.1yr,
+                          labels=deficit.1yr.lab)+
+        ggtitle(paste0("Antecedent 1-year water deficit (mm/yr)"))+
+        guides(color = guide_legend(nrow=5, byrow = T))+
+        xlim(user.lon.min, user.lon.max)+
+        ylim(user.lat.min, user.lat.max)
     
     
     #### save plot
@@ -960,10 +1127,92 @@ make_spatial_plots_for_Sydney_Hunter_valley_regions <- function(sourceDir,
     
     
     ######################## antecedent 2-year water deficit ######################
-    #### place holder
+    p17 <- ggplot(aus.poly) +
+        geom_tile(deficit.2yr, mapping=aes(lon, lat, fill=as.character(severity)))+
+        geom_sf(fill=NA) +
+        geom_point(aes(x=151.2093, y=-33.8688), col="red")+  # sydney
+        annotate("text", x=151.2093, y=-33.9688, label = "Sydney", col="brown")+
+        geom_point(aes(x=150.8595, y=-32.0546), col="red")+    # canberra
+        annotate("text", x=150.8595, y=-32.1546, label = "Scone", col="brown")+
+        geom_point(aes(x=151.7817, y=-32.9283), col="red")+    # new castle
+        annotate("text", x=151.7817, y=-33.0, label = "Newcastle", col="brown")+
+        geom_point(aes(x=150.3557, y=-32.1393), col="red")+    # Merriwa
+        annotate("text", x=150.3557, y=-32.2393, label = "Merriwa", col="brown")+
+        geom_point(aes(x=151.3624, y=-32.8345), col="red")+    # Cessnock
+        annotate("text", x=151.3624, y=-32.9345, label = "Cessnock", col="brown")+
+        geom_point(aes(x=150.75, y=-33.6), col="red")+    # Richmond
+        annotate("text", x=150.75, y=-33.7, label = "Richmond", col="brown")+
+        geom_point(aes(x=151.1788, y=-32.5695), col="red")+    # Singleton
+        annotate("text", x=151.1788, y=-32.6695, label = "Singleton", col="brown")+
+        geom_point(aes(x=151.3417, y=-33.4267), col="red")+    # Gosford
+        annotate("text", x=151.3417, y=-33.5267, label = "Gosford", col="brown")+
+        annotate("text", x=150.9190, y=-33.0482, label = "Yengo NF")+
+        annotate("text", x=150.3765, y=-33.0174, label = "Wollemi NF")+
+        annotate("text", x=151.6632, y=-32.0671, label = "Barrington Tops NF")+
+        theme_linedraw() +
+        theme(panel.grid.minor=element_blank(),
+              axis.text.x=element_text(size=12),
+              axis.title.x=element_text(size=14),
+              axis.text.y=element_text(size=12),
+              axis.title.y=element_text(size=14),
+              legend.text=element_text(size=12),
+              legend.title=element_text(size=14),
+              panel.grid.major=element_blank(),
+              legend.position="bottom",
+              legend.box = 'vertical',
+              legend.box.just = 'left')+
+        scale_fill_manual(name="percentile",
+                          limits=c("99.9", "99", "95", "90", "80", "70", "60", "50", "40"),
+                          values=heat.color,
+                          labels=c("99.9", "99", "95", "90", "80", "70", "60", "50", "40"))+
+        ggtitle(paste0("Antecedent 2-year water deficit severity (%)"))+
+        guides(color = guide_legend(nrow=5, byrow = T))+
+        xlim(user.lon.min, user.lon.max)+
+        ylim(user.lat.min, user.lat.max)
     
     
-    #### place holder
+    ### plot dryness intensity (mm/yr)
+    p18 <- ggplot(aus.poly) +
+        geom_tile(deficit.2yr, mapping=aes(lon, lat, fill=value_cat))+
+        geom_sf(fill=NA) +
+        geom_point(aes(x=151.2093, y=-33.8688), col="red")+  # sydney
+        annotate("text", x=151.2093, y=-33.9688, label = "Sydney", col="brown")+
+        geom_point(aes(x=150.8595, y=-32.0546), col="red")+    # canberra
+        annotate("text", x=150.8595, y=-32.1546, label = "Scone", col="brown")+
+        geom_point(aes(x=151.7817, y=-32.9283), col="red")+    # new castle
+        annotate("text", x=151.7817, y=-33.0, label = "Newcastle", col="brown")+
+        geom_point(aes(x=150.3557, y=-32.1393), col="red")+    # Merriwa
+        annotate("text", x=150.3557, y=-32.2393, label = "Merriwa", col="brown")+
+        geom_point(aes(x=151.3624, y=-32.8345), col="red")+    # Cessnock
+        annotate("text", x=151.3624, y=-32.9345, label = "Cessnock", col="brown")+
+        geom_point(aes(x=150.75, y=-33.6), col="red")+    # Richmond
+        annotate("text", x=150.75, y=-33.7, label = "Richmond", col="brown")+
+        geom_point(aes(x=151.1788, y=-32.5695), col="red")+    # Singleton
+        annotate("text", x=151.1788, y=-32.6695, label = "Singleton", col="brown")+
+        geom_point(aes(x=151.3417, y=-33.4267), col="red")+    # Gosford
+        annotate("text", x=151.3417, y=-33.5267, label = "Gosford", col="brown")+
+        annotate("text", x=150.9190, y=-33.0482, label = "Yengo NF")+
+        annotate("text", x=150.3765, y=-33.0174, label = "Wollemi NF")+
+        annotate("text", x=151.6632, y=-32.0671, label = "Barrington Tops NF")+
+        theme_linedraw() +
+        theme(panel.grid.minor=element_blank(),
+              axis.text.x=element_text(size=12),
+              axis.title.x=element_text(size=14),
+              axis.text.y=element_text(size=12),
+              axis.title.y=element_text(size=14),
+              legend.text=element_text(size=12),
+              legend.title=element_text(size=14),
+              panel.grid.major=element_blank(),
+              legend.position="bottom",
+              legend.box = 'vertical',
+              legend.box.just = 'left')+
+        scale_fill_manual(name="value",
+                          values=heat.color.deficit.2yr,
+                          labels=deficit.2yr.lab)+
+        ggtitle(paste0("Antecedent 2-year water deficit (mm/yr)"))+
+        guides(color = guide_legend(nrow=5, byrow = T))+
+        xlim(user.lon.min, user.lon.max)+
+        ylim(user.lat.min, user.lat.max)
     
     
     #### save plot

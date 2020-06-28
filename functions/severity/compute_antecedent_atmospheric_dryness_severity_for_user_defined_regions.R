@@ -56,7 +56,7 @@ compute_antecedent_atmospheric_dryness_severity_for_user_defined_regions <- func
                 
                 ## calculate 1-year running total
                 for (k in c(366:dim3)) {
-                    DF2[k] <- sum(all[(k-365):k], na.rm=T)
+                    DF2[k] <- mean(all[(k-365):k], na.rm=T)
                 }
                 
                 ## obtain 1-year rainfall before the date of interest
@@ -73,7 +73,7 @@ compute_antecedent_atmospheric_dryness_severity_for_user_defined_regions <- func
                 
                 ## calculate 1-year running total
                 for (k in c(731:dim3)) {
-                    DF2[k] <- sum(all[(k-730):k], na.rm=T)
+                    DF2[k] <- mean(all[(k-730):k], na.rm=T)
                 }
                 
                 ## obtain 1-year rainfall before the date of interest

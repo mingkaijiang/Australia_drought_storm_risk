@@ -35,7 +35,7 @@ compute_antecedent_atmospheric_dryness_for_user_defined_regions <- function(sour
 
                 ## calculate 1-year running total
                 for (k in c(366:dim3)) {
-                    DF2[k] <- sum(all[(k-365):k], na.rm=T)
+                    DF2[k] <- mean(all[(k-365):k], na.rm=T)
                     k <- k+1
                 }
                 
@@ -70,7 +70,7 @@ compute_antecedent_atmospheric_dryness_for_user_defined_regions <- function(sour
                 
                 ## calculate 1-year running total
                 for (k in c(731:dim3)) {
-                    DF2[k] <- sum(all[(k-730):k], na.rm=T)
+                    DF2[k] <- mean(all[(k-730):k], na.rm=T)
                     k <- k+1
                 }
                 
