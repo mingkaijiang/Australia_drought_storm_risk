@@ -357,9 +357,9 @@ make_spatial_plots_for_Sydney_Hunter_valley_regions <- function(sourceDir,
     
     ### create smaller sydney region extent
     syd.lon.min <- 150.8
-    syd.lon.max <- 151.6
-    syd.lat.min <- -34.5
-    syd.lat.max <- -33.5
+    syd.lon.max <- 151.4
+    syd.lat.min <- -34.2
+    syd.lat.max <- -33.4
     
     e2 <- extent(syd.lon.min, syd.lon.max,
                  syd.lat.min, syd.lat.max)
@@ -367,7 +367,7 @@ make_spatial_plots_for_Sydney_Hunter_valley_regions <- function(sourceDir,
     crp2 <- crop(shp, e2)
     
     simp2 <- gSimplify(crp2, 
-                      tol = 0.01, 
+                      tol = 0.001, 
                       topologyPreserve = TRUE)
     
     
@@ -472,18 +472,24 @@ make_spatial_plots_for_Sydney_Hunter_valley_regions <- function(sourceDir,
                      aes(x = long, y = lat, group = group), 
                      colour = "black", fill = NA)+
         geom_sf(fill=NA) +
-        geom_point(aes(x=151.2093, y=-33.8688), col="red")+  # Lane Cove
-        annotate("text", x=151.5093, y=-33.9688, label = "Lane Cove")+
-        geom_point(aes(x=150.8931, y=-34.4278), col="red")+    # Hornsby 
-        annotate("text", x=150.8931, y=-34.4478, label = "Hornsby Shire")+
-        geom_point(aes(x=150.8931, y=-34.4278), col="red")+    # Ku-ring-gai
-        annotate("text", x=150.8931, y=-34.4478, label = "Ku-ring-gai")+
-        geom_point(aes(x=150.8931, y=-34.4278), col="red")+    # Northern Beaches 
-        annotate("text", x=150.8931, y=-34.4478, label = "Northern Beaches")+
-        geom_point(aes(x=150.8931, y=-34.4278), col="red")+    # Sutherland 
-        annotate("text", x=150.8931, y=-34.4478, label = "Sutherland Shire")+
-        geom_point(aes(x=150.8931, y=-34.4278), col="red")+    # Willoughby
-        annotate("text", x=150.8931, y=-34.4478, label = "Willoughby")+
+        #geom_point(aes(x=151.1664, y=-33.8148), col="red")+  # Lane Cove
+        #annotate("text", x=151.1664, y=-33.8148, label = "Lane Cove")+
+        geom_point(aes(x=151.0987, y=-33.7046), col="red")+    # Hornsby 
+        annotate("text", x=151.0987, y=-33.6846, label = "Hornsby Shire")+
+        geom_point(aes(x=151.152, y=-33.7416), col="red")+    # Ku-ring-gai
+        annotate("text", x=151.152, y=-33.7516, label = "Ku-ring-gai")+
+        geom_point(aes(x=151.2569, y=-33.676), col="red")+    # Northern Beaches 
+        annotate("text", x=151.2569, y=-33.656, label = "Northern Beaches")+
+        geom_point(aes(x=151.0593, y=-34.0297), col="red")+    # Sutherland 
+        annotate("text", x=151.0593, y=-34.0397, label = "Sutherland Shire")+
+        #geom_point(aes(x=151.1994, y=-33.8071), col="red")+    # Willoughby
+        #annotate("text", x=151.1994, y=-33.8071, label = "Willoughby")+
+        #geom_point(aes(x=151.1437, y=-33.8337), col="red")+    # Hunters hill
+        #annotate("text", x=151.1437, y=-33.8337, label = "Hunters Hill")+
+        #geom_point(aes(x=151.2422, y=-33.8865), col="red")+    # woollahra
+        #annotate("text", x=151.2422, y=-33.8865, label = "Woollahra")+
+        #geom_point(aes(x=151.5603, y=-33.0311), col="red")+    # Lake Macquarie
+        #annotate("text", x=151.5603, y=-33.0311, label = "Lake Macquarie")+
         theme_linedraw() +
         theme(panel.grid.minor=element_blank(),
               axis.text.x=element_text(size=12),
@@ -505,7 +511,51 @@ make_spatial_plots_for_Sydney_Hunter_valley_regions <- function(sourceDir,
         xlim(syd.lon.min, syd.lon.max)+
         ylim(syd.lat.min, syd.lat.max)
     
-    plot(p1.syd)
+    
+    
+    p2.syd <- ggplot() +
+        geom_tile(storm.intensity.1day.long, mapping=aes(lon, lat, fill=value_cat))+
+        geom_polygon(data = simp, 
+                     aes(x = long, y = lat, group = group), 
+                     colour = "black", fill = NA)+
+        geom_sf(fill=NA) +
+        #geom_point(aes(x=151.1664, y=-33.8148), col="red")+  # Lane Cove
+        #annotate("text", x=151.1664, y=-33.8148, label = "Lane Cove")+
+        geom_point(aes(x=151.0987, y=-33.7046), col="red")+    # Hornsby 
+        annotate("text", x=151.0987, y=-33.6846, label = "Hornsby Shire")+
+        geom_point(aes(x=151.152, y=-33.7416), col="red")+    # Ku-ring-gai
+        annotate("text", x=151.152, y=-33.7516, label = "Ku-ring-gai")+
+        geom_point(aes(x=151.2569, y=-33.676), col="red")+    # Northern Beaches 
+        annotate("text", x=151.2569, y=-33.656, label = "Northern Beaches")+
+        geom_point(aes(x=151.0593, y=-34.0297), col="red")+    # Sutherland 
+        annotate("text", x=151.0593, y=-34.0397, label = "Sutherland Shire")+
+        #geom_point(aes(x=151.1994, y=-33.8071), col="red")+    # Willoughby
+        #annotate("text", x=151.1994, y=-33.8071, label = "Willoughby")+
+        #geom_point(aes(x=151.1437, y=-33.8337), col="red")+    # Hunters hill
+        #annotate("text", x=151.1437, y=-33.8337, label = "Hunters Hill")+
+        #geom_point(aes(x=151.2422, y=-33.8865), col="red")+    # woollahra
+        #annotate("text", x=151.2422, y=-33.8865, label = "Woollahra")+
+        #geom_point(aes(x=151.5603, y=-33.0311), col="red")+    # Lake Macquarie
+        #annotate("text", x=151.5603, y=-33.0311, label = "Lake Macquarie")+
+        theme_linedraw() +
+        theme(panel.grid.minor=element_blank(),
+              axis.text.x=element_text(size=12),
+              axis.title.x=element_text(size=14),
+              axis.text.y=element_text(size=12),
+              axis.title.y=element_text(size=14),
+              legend.text=element_text(size=12),
+              legend.title=element_text(size=14),
+              panel.grid.major=element_blank(),
+              legend.position="bottom",
+              legend.box = 'vertical',
+              legend.box.just = 'left')+
+        ggtitle(paste0("1-day storm intensity (mm/d)"))+
+        scale_fill_manual(name="value",
+                          values=rev(rain.color.storm.1day),
+                          labels=storm.intensity.1day.long.lab)+
+        guides(color = guide_legend(nrow=5, byrow = T))+
+        xlim(syd.lon.min, syd.lon.max)+
+        ylim(syd.lat.min, syd.lat.max)
     
     
     #### save plot
