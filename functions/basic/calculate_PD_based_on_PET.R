@@ -7,8 +7,21 @@ calculate_PD_based_on_PET <- function (sourceDir,
                                        user.lon.min,
                                        user.region.name) {
     
-    ### read in the R database
+    
+    sourceDir = "input"
+    destDir = "input"
+    varName = "pd"
+    user.lat.max = -31
+    user.lat.min = -35
+    user.lon.max = 153
+    user.lon.min = 149
+    user.region.name = "SydneyHunter"
+    
+    
+    ### read in the PET monthly dataframe
     pet <- readRDS(paste0(sourceDir, "/pet_", user.region.name, "_regions.rds"))
+    
+    ### read in rain daily
     rain <- readRDS(paste0(sourceDir, "/rain_", user.region.name, "_regions.rds"))
     
     

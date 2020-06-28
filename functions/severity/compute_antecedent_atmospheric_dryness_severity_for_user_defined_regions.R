@@ -88,42 +88,18 @@ compute_antecedent_atmospheric_dryness_severity_for_user_defined_regions <- func
             
             
             ### get drought extreme information
-            drought.P001 <- droughtData[i,j,1]
-            drought.P01 <- droughtData[i,j,2]
-            drought.P05 <- droughtData[i,j,3]
-            drought.P10 <- droughtData[i,j,4]
-            drought.P20 <- droughtData[i,j,5]
-            drought.P30 <- droughtData[i,j,6]
-            drought.P40 <- droughtData[i,j,7]
+            drought.P999 <- droughtData[i,j,1]
+            drought.P99 <- droughtData[i,j,2]
+            drought.P95 <- droughtData[i,j,3]
+            drought.P90 <- droughtData[i,j,4]
+            drought.P80 <- droughtData[i,j,5]
+            drought.P70 <- droughtData[i,j,6]
+            drought.P60 <- droughtData[i,j,7]
             drought.P50 <- droughtData[i,j,8]
-            drought.P60 <- droughtData[i,j,9]
+            drought.P40 <- droughtData[i,j,9]
             
             ### checking drought severity
-            if (drought.on.date.of.interest[i,j]<=drought.P001) {
-                
-                drought.severity.on.date.of.interest[i,j] <- 0.1
-                
-            } else if (drought.on.date.of.interest[i,j]<=drought.P01 & drought.on.date.of.interest[i,j]>drought.P001) {
-                
-                drought.severity.on.date.of.interest[i,j] <- 1.0
-                
-            } else if (drought.on.date.of.interest[i,j]<=drought.P05 & drought.on.date.of.interest[i,j]>drought.P01) {
-                
-                drought.severity.on.date.of.interest[i,j] <- 5.0
-                
-            } else if (drought.on.date.of.interest[i,j]<=drought.P10 & drought.on.date.of.interest[i,j]>drought.P05) {
-                
-                drought.severity.on.date.of.interest[i,j] <- 10.0
-                
-            } else if (drought.on.date.of.interest[i,j]<=drought.P20 & drought.on.date.of.interest[i,j]>drought.P10) {
-                
-                drought.severity.on.date.of.interest[i,j] <- 20.0
-                
-            } else if (drought.on.date.of.interest[i,j]<=drought.P30 & drought.on.date.of.interest[i,j]>drought.P20) {
-                
-                drought.severity.on.date.of.interest[i,j] <- 30.0
-                
-            } else if (drought.on.date.of.interest[i,j]<=drought.P40 & drought.on.date.of.interest[i,j]>drought.P30) {
+            if (drought.on.date.of.interest[i,j]<=drought.P40) {
                 
                 drought.severity.on.date.of.interest[i,j] <- 40.0
                 
@@ -131,8 +107,32 @@ compute_antecedent_atmospheric_dryness_severity_for_user_defined_regions <- func
                 
                 drought.severity.on.date.of.interest[i,j] <- 50.0
                 
-            } else {
+            } else if (drought.on.date.of.interest[i,j]<=drought.P60 & drought.on.date.of.interest[i,j]>drought.P50) {
+                
                 drought.severity.on.date.of.interest[i,j] <- 60.0
+                
+            } else if (drought.on.date.of.interest[i,j]<=drought.P70 & drought.on.date.of.interest[i,j]>drought.P60) {
+                
+                drought.severity.on.date.of.interest[i,j] <- 70.0
+                
+            } else if (drought.on.date.of.interest[i,j]<=drought.P80 & drought.on.date.of.interest[i,j]>drought.P70) {
+                
+                drought.severity.on.date.of.interest[i,j] <- 80.0
+                
+            } else if (drought.on.date.of.interest[i,j]<=drought.P90 & drought.on.date.of.interest[i,j]>drought.P80) {
+                
+                drought.severity.on.date.of.interest[i,j] <- 90.0
+                
+            } else if (drought.on.date.of.interest[i,j]<=drought.P95 & drought.on.date.of.interest[i,j]>drought.P90) {
+                
+                drought.severity.on.date.of.interest[i,j] <- 95.0
+                
+            } else if (drought.on.date.of.interest[i,j]<=drought.P99 & drought.on.date.of.interest[i,j]>drought.P95) {
+                
+                drought.severity.on.date.of.interest[i,j] <- 99.0
+                
+            } else {
+                drought.severity.on.date.of.interest[i,j] <- 99.9
             }
             
             

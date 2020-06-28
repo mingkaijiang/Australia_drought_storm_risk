@@ -296,12 +296,12 @@ make_spatial_plots_for_Sydney_Hunter_valley_regions <- function(sourceDir,
     n.discrete.colors.dryness.intensity.1yr <- length(dryness.intensity.1yr.long.lab)
     heat.color.dryness.1yr <- rev(brewer.pal(n = n.discrete.colors.dryness.intensity.1yr, name = "YlOrRd"))
     
-    #List2 <- convert_continuous_to_discrete_bins(inDF=dryness.intensity.2yr.long, 
-    #                                             n.discrete.colors=n.discrete.colors)
-    #dryness.intensity.2yr.long <- List2$outDF
-    #dryness.intensity.2yr.long.lab <- List2$lab
-    #n.discrete.colors.dryness.intensity.2yr <- length(dryness.intensity.2yr.long.lab)
-    #heat.color.dryness.2yr <- rev(brewer.pal(n = n.discrete.colors.dryness.intensity.2yr, name = "YlOrRd"))
+    List2 <- convert_continuous_to_discrete_bins(inDF=dryness.intensity.2yr.long, 
+                                                 n.discrete.colors=n.discrete.colors)
+    dryness.intensity.2yr.long <- List2$outDF
+    dryness.intensity.2yr.long.lab <- List2$lab
+    n.discrete.colors.dryness.intensity.2yr <- length(dryness.intensity.2yr.long.lab)
+    heat.color.dryness.2yr <- rev(brewer.pal(n = n.discrete.colors.dryness.intensity.2yr, name = "YlOrRd"))
     
     ### australia polygon
     aus.poly <- ne_countries(scale = "medium", country = "Australia", returnclass = "sf")
@@ -835,9 +835,9 @@ make_spatial_plots_for_Sydney_Hunter_valley_regions <- function(sourceDir,
               legend.box = 'vertical',
               legend.box.just = 'left')+
         scale_fill_manual(name="percentile",
-                          limits=c("0.1", "1", "5", "10", "20", "30", "40", "50", "60"),
+                          limits=c("99.9", "99", "95", "90", "80", "70", "60", "50", "40"),
                           values=heat.color,
-                          labels=c("0.1", "1", "5", "10", "20", "30", "40", "50", ">60"))+
+                          labels=c("99.9", "99", "95", "90", "80", "70", "60", "50", "40"))+
         ggtitle(paste0("Antecedent 1-year atmospheric dryness severity (%)"))+
         guides(color = guide_legend(nrow=5, byrow = T))+
         xlim(user.lon.min, user.lon.max)+
@@ -879,9 +879,9 @@ make_spatial_plots_for_Sydney_Hunter_valley_regions <- function(sourceDir,
               legend.position="bottom",
               legend.box = 'vertical',
               legend.box.just = 'left')+
-        #scale_fill_manual(name="value",
-        #                  values=rev(heat.color.dryness.1yr),
-        #                  labels=dryness.intensity.1yr.long.lab)+
+        scale_fill_manual(name="value",
+                          values=rev(heat.color.dryness.1yr),
+                          labels=dryness.intensity.1yr.long.lab)+
         ggtitle(paste0("Antecedent 1-year atmospheric dryness (kPa)"))+
         guides(color = guide_legend(nrow=5, byrow = T))+
         xlim(user.lon.min, user.lon.max)+

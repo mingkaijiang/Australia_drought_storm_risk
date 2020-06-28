@@ -293,16 +293,16 @@ compute_antecedent_atmospheric_dryness_for_user_defined_regions(sourceDir = "inp
 #### B6. calculate water deficit (PET - P) drought intex for antecedent 1 and 2 year period
 
 #### B6.1. water deficit for 1-year period
-compute_antecedent_water_deficit_for_user_defined_regions(sourceDir = "input", 
-                                                          destDir = "output/antecedent_water_deficit",
-                                                          user.region.name = "SydneyHunter",
-                                                          duration = "1-year")
-
-#### B6.2. water deficit for 2-year period
-compute_antecedent_water_deficit_for_user_defined_regions(sourceDir = "input", 
-                                                          destDir = "output/antecedent_water_deficit",
-                                                          user.region.name = "SydneyHunter",
-                                                          duration = "2-year")
+#compute_antecedent_water_deficit_for_user_defined_regions(sourceDir = "input", 
+#                                                          destDir = "output/antecedent_water_deficit",
+#                                                          user.region.name = "SydneyHunter",
+#                                                          duration = "1-year")
+#
+##### B6.2. water deficit for 2-year period
+#compute_antecedent_water_deficit_for_user_defined_regions(sourceDir = "input", 
+#                                                          destDir = "output/antecedent_water_deficit",
+#                                                          user.region.name = "SydneyHunter",
+#                                                          duration = "2-year")
 
 
 ### ++++++++++++++++++++++ End generate climate extreme index +++++++++++++++++++++++++ ####

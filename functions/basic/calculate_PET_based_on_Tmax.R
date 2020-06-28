@@ -7,15 +7,6 @@ calculate_PET_based_on_Tmax <- function (sourceDir,
                                          user.lon.min,
                                          user.region.name) {
     
-    sourceDir = "input"
-    destDir = "input"
-    varName = "pet"
-    user.lat.max = -31
-    user.lat.min = -35
-    user.lon.max = 153
-    user.lon.min = 149
-    user.region.name = "SydneyHunter"
-    
     ### read in the R database
     myData <- readRDS(paste0(sourceDir, "/tmax_", user.region.name, "_regions.rds"))
     

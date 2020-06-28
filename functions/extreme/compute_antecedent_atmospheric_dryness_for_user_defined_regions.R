@@ -41,15 +41,15 @@ compute_antecedent_atmospheric_dryness_for_user_defined_regions <- function(sour
                 
                 
                 ## obtain statistics
-                P999 <- quantile(DF2, 0.001, na.rm=T)
-                P99 <- quantile(DF2, 0.01, na.rm=T)
-                P95 <- quantile(DF2, 0.05, na.rm=T)
-                P90 <- quantile(DF2, 0.1, na.rm=T)
-                P80 <- quantile(DF2, 0.2, na.rm=T)
-                P70 <- quantile(DF2, 0.3, na.rm=T)
-                P60 <- quantile(DF2, 0.4, na.rm=T)
+                P999 <- quantile(DF2, 0.999, na.rm=T)
+                P99 <- quantile(DF2, 0.99, na.rm=T)
+                P95 <- quantile(DF2, 0.96, na.rm=T)
+                P90 <- quantile(DF2, 0.90, na.rm=T)
+                P80 <- quantile(DF2, 0.80, na.rm=T)
+                P70 <- quantile(DF2, 0.7, na.rm=T)
+                P60 <- quantile(DF2, 0.6, na.rm=T)
                 P50 <- quantile(DF2, 0.5, na.rm=T)
-                P40 <- quantile(DF2, 0.6, na.rm=T)
+                P40 <- quantile(DF2, 0.4, na.rm=T)
                 
                 ### assign value
                 out_percentile[i,j, 1] <- P999
@@ -76,15 +76,15 @@ compute_antecedent_atmospheric_dryness_for_user_defined_regions <- function(sour
                 
                 
                 ## obtain statistics
-                P999 <- quantile(DF2, 0.001, na.rm=T)
-                P99 <- quantile(DF2, 0.01, na.rm=T)
-                P95 <- quantile(DF2, 0.05, na.rm=T)
-                P90 <- quantile(DF2, 0.1, na.rm=T)
-                P80 <- quantile(DF2, 0.2, na.rm=T)
-                P70 <- quantile(DF2, 0.3, na.rm=T)
-                P60 <- quantile(DF2, 0.4, na.rm=T)
+                P999 <- quantile(DF2, 0.999, na.rm=T)
+                P99 <- quantile(DF2, 0.99, na.rm=T)
+                P95 <- quantile(DF2, 0.95, na.rm=T)
+                P90 <- quantile(DF2, 0.9, na.rm=T)
+                P80 <- quantile(DF2, 0.8, na.rm=T)
+                P70 <- quantile(DF2, 0.7, na.rm=T)
+                P60 <- quantile(DF2, 0.6, na.rm=T)
                 P50 <- quantile(DF2, 0.5, na.rm=T)
-                P40 <- quantile(DF2, 0.6, na.rm=T)
+                P40 <- quantile(DF2, 0.4, na.rm=T)
                 
                 ### assign value
                 out_percentile[i,j, 1] <- P999
