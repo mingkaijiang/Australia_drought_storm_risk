@@ -122,32 +122,34 @@ source("prepare.R")
 
 ### 6.2. Calculate VPD based on ES and EA
 ####     Note: check back - VPD range - 30 to + 6, possibly not right !!!!
-calculate_VPD_based_on_es_and_vp3pm(sourceDir = "input",
-                                    destDir = "input",
-                                    varName = "vpd",
-                                    user.region.name = "SydneyHunter")
-
-
-#### 7. Calculate PET minus P
-#### 7.1. Calculate PET based on Tmax
-calculate_PET_based_on_Tmax(sourceDir = "input",
-                            destDir = "input",
-                            varName = "pet",
-                            user.lat.max = -31,
-                            user.lat.min = -35,
-                            user.lon.max = 153,
-                            user.lon.min = 149,
-                            user.region.name = "SydneyHunter")
-
-#### 7.2 Calculate PET minus P
-calculate_PD_based_on_PET(sourceDir = "input",
-                          destDir = "input",
-                          varName = "pd",
-                          user.lat.max = -31,
-                          user.lat.min = -35,
-                          user.lon.max = 153,
-                          user.lon.min = 149,
-                          user.region.name = "SydneyHunter")
+#calculate_VPD_based_on_es_and_vp3pm(sourceDir = "input",
+#                                    destDir = "input",
+#                                    varName = "vpd",
+#                                    user.region.name = "SydneyHunter")
+#
+#
+##### 7. Calculate PET minus P
+##### 7.1. Calculate PET based on Tmax
+#####      return monthly DF
+#calculate_PET_based_on_Tmax(sourceDir = "input",
+#                            destDir = "input",
+#                            varName = "pet",
+#                            user.lat.max = -31,
+#                            user.lat.min = -35,
+#                            user.lon.max = 153,
+#                            user.lon.min = 149,
+#                            user.region.name = "SydneyHunter")
+#
+##### 7.2 Calculate PET minus P
+#####     return monthly DF 
+#calculate_PD_based_on_PET(sourceDir = "input",
+#                          destDir = "input",
+#                          varName = "pd",
+#                          user.lat.max = -31,
+#                          user.lat.min = -35,
+#                          user.lon.max = 153,
+#                          user.lon.min = 149,
+#                          user.region.name = "SydneyHunter")
 
 #### Note: the station-based wind speed data is processed later in the next section
 
@@ -278,31 +280,31 @@ calculate_PD_based_on_PET(sourceDir = "input",
 
 #### B5. calculate atmospheric dryness (VPD) for antecedent 1 and 2-year period
 #### B5.1. atmospheric dryness for antecendent 1-year period
-compute_antecedent_atmospheric_dryness_for_user_defined_regions(sourceDir = "input", 
-                                                               destDir = "output/antecedent_atmospheric_dryness",
-                                                               user.region.name = "SydneyHunter",
-                                                               duration = "1-year")
-### B5.2. atmospheric dryness for antecedent 2-year period
-compute_antecedent_atmospheric_dryness_for_user_defined_regions(sourceDir = "input", 
-                                                                destDir = "output/antecedent_atmospheric_dryness",
-                                                                user.region.name = "SydneyHunter",
-                                                                duration = "2-year")
+#compute_antecedent_atmospheric_dryness_for_user_defined_regions(sourceDir = "input", 
+#                                                               destDir = "output/antecedent_atmospheric_dryness",
+#                                                               user.region.name = "SydneyHunter",
+#                                                               duration = "1-year")
+#### B5.2. atmospheric dryness for antecedent 2-year period
+#compute_antecedent_atmospheric_dryness_for_user_defined_regions(sourceDir = "input", 
+#                                                                destDir = "output/antecedent_atmospheric_dryness",
+#                                                                user.region.name = "SydneyHunter",
+#                                                                duration = "2-year")
 
 
 
 #### B6. calculate water deficit (PET - P) drought intex for antecedent 1 and 2 year period
 
 #### B6.1. water deficit for 1-year period
-#compute_antecedent_water_deficit_for_user_defined_regions(sourceDir = "input", 
-#                                                          destDir = "output/antecedent_water_deficit",
-#                                                          user.region.name = "SydneyHunter",
-#                                                          duration = "1-year")
-#
-##### B6.2. water deficit for 2-year period
-#compute_antecedent_water_deficit_for_user_defined_regions(sourceDir = "input", 
-#                                                          destDir = "output/antecedent_water_deficit",
-#                                                          user.region.name = "SydneyHunter",
-#                                                          duration = "2-year")
+compute_antecedent_water_deficit_for_user_defined_regions(sourceDir = "input", 
+                                                          destDir = "output/antecedent_water_deficit",
+                                                          user.region.name = "SydneyHunter",
+                                                          duration = "1-year")
+
+#### B6.2. water deficit for 2-year period
+compute_antecedent_water_deficit_for_user_defined_regions(sourceDir = "input", 
+                                                          destDir = "output/antecedent_water_deficit",
+                                                          user.region.name = "SydneyHunter",
+                                                          duration = "2-year")
 
 
 ### ++++++++++++++++++++++ End generate climate extreme index +++++++++++++++++++++++++ ####

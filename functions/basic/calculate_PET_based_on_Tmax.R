@@ -17,7 +17,7 @@ calculate_PET_based_on_Tmax <- function (sourceDir,
     
     ### prepare all input file path
     dayDF <- data.frame(seq.Date(as.Date("1911/01/01"), 
-                                 as.Date("2020/03/30"), 
+                                 as.Date("2020/03/31"), 
                                  by="day"),
                         NA, NA, NA, NA)
     colnames(dayDF) <- c("Date", "Year", "Month", "YearMonth", "loc")
