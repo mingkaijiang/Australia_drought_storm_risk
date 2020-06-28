@@ -16,8 +16,8 @@ convert_from_spatial_to_temporal_DF_for_user_defined_regions_tmax <- function(so
     n.yr <- length(yr.list)
     
     ### number of leap years
-    lp.year <- 26
-    n.days <- 26 + n.yr * 365 + 31 + 29 + 31
+    lp.year <- 27
+    n.days <- 27 + n.yr * 365 + 31 + 29 + 31
     
     ### grid information
     lat.id <- c(1:691)

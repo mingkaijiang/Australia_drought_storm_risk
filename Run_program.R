@@ -143,6 +143,10 @@ calculate_PET_based_on_Tmax(sourceDir = "input",
 calculate_PD_based_on_PET(sourceDir = "input",
                           destDir = "input",
                           varName = "pd",
+                          user.lat.max = -31,
+                          user.lat.min = -35,
+                          user.lon.max = 153,
+                          user.lon.min = 149,
                           user.region.name = "SydneyHunter")
 
 #### Note: the station-based wind speed data is processed later in the next section
