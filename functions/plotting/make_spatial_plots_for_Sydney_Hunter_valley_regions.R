@@ -91,6 +91,17 @@ make_spatial_plots_for_Sydney_Hunter_valley_regions <- function(sourceDir,
                                      date.of.interest, "_", user.region.name,
                                      "_regions.csv"))
     
+    ### antecedent water deficit intensity and severity
+    deficit.1yr <- readRDS(paste0(sourceDir, 
+                                   "/antecedent_water_deficit/antecedent_water_deficit_severity_and_intensity_", 
+                                   date.of.interest, "_1-year_", user.region.name,
+                                   "_regions.rds"))
+    
+    deficit.2yr <- readRDS(paste0(sourceDir, 
+                                  "/antecedent_water_deficit/antecedent_water_deficit_severity_and_intensity_", 
+                                  date.of.interest, "_2-year_", user.region.name,
+                                  "_regions.rds"))
+    
     
     ### prepare lat and lon real information
     ### grid information
@@ -251,6 +262,14 @@ make_spatial_plots_for_Sydney_Hunter_valley_regions <- function(sourceDir,
     storm.intensity.5day.long <- subset(storm.intensity.5day.long, value != "NA")
     
     
+    deficit.1yr <- merge(deficit.1yr, ausDF, by=c("lon", "lat"), all=T)
+    deficit.1yr <- subset(deficit.1yr, layer == 1)
+    deficit.1yr <- subset(deficit.1yr, intensity != "NA")
+    
+    deficit.2yr <- merge(deficit.2yr, ausDF, by=c("lon", "lat"), all=T)
+    deficit.2yr <- subset(deficit.2yr, layer == 1)
+    deficit.2yr <- subset(deficit.2yr, intensity != "NA")
+    
     #################################### prepare plot input ######################################    
     ### prepare color palette
     n.discrete.colors <- 9
@@ -289,19 +308,37 @@ make_spatial_plots_for_Sydney_Hunter_valley_regions <- function(sourceDir,
     
     
     
-    List2 <- convert_continuous_to_discrete_bins(inDF=dryness.intensity.1yr.long, 
+    List3 <- convert_continuous_to_discrete_bins(inDF=dryness.intensity.1yr.long, 
                                                  n.discrete.colors=n.discrete.colors)
-    dryness.intensity.1yr.long <- List2$outDF
-    dryness.intensity.1yr.long.lab <- List2$lab
+    dryness.intensity.1yr.long <- List3$outDF
+    dryness.intensity.1yr.long.lab <- List3$lab
     n.discrete.colors.dryness.intensity.1yr <- length(dryness.intensity.1yr.long.lab)
     heat.color.dryness.1yr <- rev(brewer.pal(n = n.discrete.colors.dryness.intensity.1yr, name = "YlOrRd"))
     
-    List2 <- convert_continuous_to_discrete_bins(inDF=dryness.intensity.2yr.long, 
+    List3 <- convert_continuous_to_discrete_bins(inDF=dryness.intensity.2yr.long, 
                                                  n.discrete.colors=n.discrete.colors)
-    dryness.intensity.2yr.long <- List2$outDF
-    dryness.intensity.2yr.long.lab <- List2$lab
+    dryness.intensity.2yr.long <- List3$outDF
+    dryness.intensity.2yr.long.lab <- List3$lab
     n.discrete.colors.dryness.intensity.2yr <- length(dryness.intensity.2yr.long.lab)
     heat.color.dryness.2yr <- rev(brewer.pal(n = n.discrete.colors.dryness.intensity.2yr, name = "YlOrRd"))
+    
+    
+    
+    List4 <- convert_continuous_to_discrete_bins_for_deficit(inDF=deficit.1yr, 
+                                                             n.discrete.colors=n.discrete.colors)
+    deficit.1yr <- List4$outDF
+    deficit.1yr.lab <- List4$lab
+    n.discrete.colors.deficit.intensity.1yr <- length(deficit.1yr.lab)
+    heat.color.deficit.1yr <- rev(brewer.pal(n = n.discrete.colors.deficit.intensity.1yr, name = "YlOrRd"))
+    
+    
+    List4 <- convert_continuous_to_discrete_bins_for_deficit(inDF=deficit.2yr, 
+                                                             n.discrete.colors=n.discrete.colors)
+    deficit.2yr <- List4$outDF
+    deficit.2yr.lab <- List4$lab
+    n.discrete.colors.deficit.intensity.2yr <- length(deficit.2yr.lab)
+    heat.color.deficit.2yr <- rev(brewer.pal(n = n.discrete.colors.deficit.intensity.2yr, name = "YlOrRd"))
+    
     
     ### australia polygon
     aus.poly <- ne_countries(scale = "medium", country = "Australia", returnclass = "sf")
