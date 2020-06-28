@@ -280,15 +280,15 @@ source("prepare.R")
 
 #### B5. calculate atmospheric dryness (VPD) for antecedent 1 and 2-year period
 #### B5.1. atmospheric dryness for antecendent 1-year period
-compute_antecedent_atmospheric_dryness_for_user_defined_regions(sourceDir = "input", 
-                                                               destDir = "output/antecedent_atmospheric_dryness",
-                                                               user.region.name = "SydneyHunter",
-                                                               duration = "1-year")
-### B5.2. atmospheric dryness for antecedent 2-year period
-compute_antecedent_atmospheric_dryness_for_user_defined_regions(sourceDir = "input", 
-                                                                destDir = "output/antecedent_atmospheric_dryness",
-                                                                user.region.name = "SydneyHunter",
-                                                                duration = "2-year")
+#compute_antecedent_atmospheric_dryness_for_user_defined_regions(sourceDir = "input", 
+#                                                               destDir = "output/antecedent_atmospheric_dryness",
+#                                                               user.region.name = "SydneyHunter",
+#                                                               duration = "1-year")
+#### B5.2. atmospheric dryness for antecedent 2-year period
+#compute_antecedent_atmospheric_dryness_for_user_defined_regions(sourceDir = "input", 
+#                                                                destDir = "output/antecedent_atmospheric_dryness",
+#                                                                user.region.name = "SydneyHunter",
+#                                                                duration = "2-year")
 
 
 
@@ -678,8 +678,5 @@ make_spatial_plots_for_Sydney_Hunter_valley_regions(sourceDir = "output",
 ### 1. VPD bug fixed (mean, not sum), checking results and unit and spatial pattern. 
 ### 2. Check P - PET spatial pattern
 ### 3. Update VPD unit (currently all positive, convert to negative)
-### 4. Improve plot:
-###          a) add all variables to plotting scheme
-###          b) make nicer plots (add DEM? add cities and borders, forest cover?)
 
 
