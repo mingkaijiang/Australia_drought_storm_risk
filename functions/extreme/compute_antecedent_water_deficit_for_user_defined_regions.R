@@ -3,11 +3,6 @@ compute_antecedent_water_deficit_for_user_defined_regions <- function(sourceDir,
                                                                       user.region.name, 
                                                                       duration) {
     
-    sourceDir = "input"
-    destDir = "output/antecedent_water_deficit"
-    user.region.name = "SydneyHunter"
-    duration = "1-year"
-    
     #### Create output folder
     if(!dir.exists(destDir)) {
         dir.create(destDir, showWarnings = FALSE)
@@ -71,7 +66,7 @@ compute_antecedent_water_deficit_for_user_defined_regions <- function(sourceDir,
                 DF2[1:23] <- NA
                 
                 ## calculate 1-year running total
-                for (k in c(24:dim3)) {
+                for (k in c(24:dim2)) {
                     DF2[k] <- sum(all[(k-23):k], na.rm=T)
                 }
                 
@@ -105,7 +100,7 @@ compute_antecedent_water_deficit_for_user_defined_regions <- function(sourceDir,
             
     } # i loop
     
-    saveRDS(out_percentile, file=paste0(destDir, "/antecedent_atmospheric_dryness_percentile_", duration,
+    saveRDS(out_percentile, file=paste0(destDir, "/antecedent_water_deficit_percentile_", duration,
                                         "_", user.region.name, "_regions.rds"))
     
     
