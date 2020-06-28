@@ -274,16 +274,15 @@ calculate_PD_based_on_PET(sourceDir = "input",
 
 #### B5. calculate atmospheric dryness (VPD) for antecedent 1 and 2-year period
 #### B5.1. atmospheric dryness for antecendent 1-year period
-#compute_antecedent_atmospheric_dryness_for_user_defined_regions(sourceDir = "input", 
-#                                                               destDir = "output/antecedent_atmospheric_dryness",
-#                                                               user.region.name = "SydneyHunter",
-#                                                               duration = "1-year")
-
-#### B5.2. atmospheric dryness for antecedent 2-year period
-#compute_antecedent_atmospheric_dryness_for_user_defined_regions(sourceDir = "input", 
-#                                                                destDir = "output/antecedent_atmospheric_dryness",
-#                                                                user.region.name = "SydneyHunter",
-#                                                                duration = "2-year")
+compute_antecedent_atmospheric_dryness_for_user_defined_regions(sourceDir = "input", 
+                                                               destDir = "output/antecedent_atmospheric_dryness",
+                                                               user.region.name = "SydneyHunter",
+                                                               duration = "1-year")
+### B5.2. atmospheric dryness for antecedent 2-year period
+compute_antecedent_atmospheric_dryness_for_user_defined_regions(sourceDir = "input", 
+                                                                destDir = "output/antecedent_atmospheric_dryness",
+                                                                user.region.name = "SydneyHunter",
+                                                                duration = "2-year")
 
 
 
@@ -419,23 +418,23 @@ compute_antecedent_water_deficit_for_user_defined_regions(sourceDir = "input",
 #                                                     user.region.name = "SydneyHunter",
 #                                                     date.of.interest = "20191126")
 #
-#### B2. 
-compute_wind_event_severity_for_user_defined_regions(sourceDir1 = "/Volumes/TOSHIBAEXT/gsod/",
-                                                     sourceDir2 = "input",
-                                                     destDir = "output/wind",
-                                                     user.region.name = "SydneyHunter",
-                                                     date.of.interest = "20200208")
-
-#### C2. 
-compute_wind_event_severity_for_user_defined_regions(sourceDir1 = "/Volumes/TOSHIBAEXT/gsod/",
-                                                     sourceDir2 = "input",
-                                                     destDir = "output/wind",
-                                                     user.region.name = "SydneyHunter",
-                                                     date.of.interest = "20200218")
-
-
-
-
+##### B2. 
+#compute_wind_event_severity_for_user_defined_regions(sourceDir1 = "/Volumes/TOSHIBAEXT/gsod/",
+#                                                     sourceDir2 = "input",
+#                                                     destDir = "output/wind",
+#                                                     user.region.name = "SydneyHunter",
+#                                                     date.of.interest = "20200208")
+#
+##### C2. 
+#compute_wind_event_severity_for_user_defined_regions(sourceDir1 = "/Volumes/TOSHIBAEXT/gsod/",
+#                                                     sourceDir2 = "input",
+#                                                     destDir = "output/wind",
+#                                                     user.region.name = "SydneyHunter",
+#                                                     date.of.interest = "20200218")
+#
+#
+#
+#
 ##### A3. check antecedent water availability for date of selection over the user defined region
 ##### A3.1. antecedent 1-year water availability
 #compute_antecedent_water_availability_severity_for_user_defined_regions(sourceDir = "input", 
@@ -479,48 +478,48 @@ compute_wind_event_severity_for_user_defined_regions(sourceDir1 = "/Volumes/TOSH
 #
 #
 #
-##### A4. check antecedent atmospheric dryness (VPD) for date of selection over the user defined region
-##### A4.1. antecedent 1-year atmospheric dryness
-#compute_antecedent_atmospheric_dryness_severity_for_user_defined_regions(sourceDir = "input", 
-#                                                                         destDir = "output/antecedent_atmospheric_dryness",
-#                                                                         user.region.name = "SydneyHunter",
-#                                                                         date.of.interest = "20191126",
-#                                                                         duration = "1-year")
-#
-##### A4.2. antecedent 2-year atmospheric dryness
-#compute_antecedent_atmospheric_dryness_severity_for_user_defined_regions(sourceDir = "input", 
-#                                                                         destDir = "output/antecedent_atmospheric_dryness",
-#                                                                         user.region.name = "SydneyHunter",
-#                                                                         date.of.interest = "20191126",
-#                                                                         duration = "2-year")
-#
-##### B4
-#compute_antecedent_atmospheric_dryness_severity_for_user_defined_regions(sourceDir = "input", 
-#                                                                         destDir = "output/antecedent_atmospheric_dryness",
-#                                                                         user.region.name = "SydneyHunter",
-#                                                                         date.of.interest = "20200208",
-#                                                                         duration = "1-year")
-#
-#compute_antecedent_atmospheric_dryness_severity_for_user_defined_regions(sourceDir = "input", 
-#                                                                         destDir = "output/antecedent_atmospheric_dryness",
-#                                                                         user.region.name = "SydneyHunter",
-#                                                                         date.of.interest = "20200208",
-#                                                                         duration = "2-year")
-#
-#
-##### C4
-#compute_antecedent_atmospheric_dryness_severity_for_user_defined_regions(sourceDir = "input", 
-#                                                                         destDir = "output/antecedent_atmospheric_dryness",
-#                                                                         user.region.name = "SydneyHunter",
-#                                                                         date.of.interest = "20200218",
-#                                                                         duration = "1-year")
-#
-#compute_antecedent_atmospheric_dryness_severity_for_user_defined_regions(sourceDir = "input", 
-#                                                                         destDir = "output/antecedent_atmospheric_dryness",
-#                                                                         user.region.name = "SydneyHunter",
-#                                                                         date.of.interest = "20200218",
-#                                                                         duration = "2-year")
-#
+#### A4. check antecedent atmospheric dryness (VPD) for date of selection over the user defined region
+#### A4.1. antecedent 1-year atmospheric dryness
+compute_antecedent_atmospheric_dryness_severity_for_user_defined_regions(sourceDir = "input", 
+                                                                         destDir = "output/antecedent_atmospheric_dryness",
+                                                                         user.region.name = "SydneyHunter",
+                                                                         date.of.interest = "20191126",
+                                                                         duration = "1-year")
+
+#### A4.2. antecedent 2-year atmospheric dryness
+compute_antecedent_atmospheric_dryness_severity_for_user_defined_regions(sourceDir = "input", 
+                                                                         destDir = "output/antecedent_atmospheric_dryness",
+                                                                         user.region.name = "SydneyHunter",
+                                                                         date.of.interest = "20191126",
+                                                                         duration = "2-year")
+
+#### B4
+compute_antecedent_atmospheric_dryness_severity_for_user_defined_regions(sourceDir = "input", 
+                                                                         destDir = "output/antecedent_atmospheric_dryness",
+                                                                         user.region.name = "SydneyHunter",
+                                                                         date.of.interest = "20200208",
+                                                                         duration = "1-year")
+
+compute_antecedent_atmospheric_dryness_severity_for_user_defined_regions(sourceDir = "input", 
+                                                                         destDir = "output/antecedent_atmospheric_dryness",
+                                                                         user.region.name = "SydneyHunter",
+                                                                         date.of.interest = "20200208",
+                                                                         duration = "2-year")
+
+
+#### C4
+compute_antecedent_atmospheric_dryness_severity_for_user_defined_regions(sourceDir = "input", 
+                                                                         destDir = "output/antecedent_atmospheric_dryness",
+                                                                         user.region.name = "SydneyHunter",
+                                                                         date.of.interest = "20200218",
+                                                                         duration = "1-year")
+
+compute_antecedent_atmospheric_dryness_severity_for_user_defined_regions(sourceDir = "input", 
+                                                                         destDir = "output/antecedent_atmospheric_dryness",
+                                                                         user.region.name = "SydneyHunter",
+                                                                         date.of.interest = "20200218",
+                                                                         duration = "2-year")
+
 
 
 

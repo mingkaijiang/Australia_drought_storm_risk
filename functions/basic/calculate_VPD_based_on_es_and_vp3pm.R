@@ -22,7 +22,9 @@ calculate_VPD_based_on_es_and_vp3pm <- function (sourceDir,
     ### matrix deletion
     ### following Monteith and Unsworth (1990):
     ### D (kPa) = es - ea
-    out <- es.sub - vp3pm
+    ### But for ease of plotting purpose, calculate ea - es so that there is no negative values
+    #out <- es.sub - vp3pm
+    out <- vp3pm - es.sub
     
     ### save output
     saveRDS(out, file=paste0(destDir, "/", varName, "_", user.region.name, "_regions.rds"))

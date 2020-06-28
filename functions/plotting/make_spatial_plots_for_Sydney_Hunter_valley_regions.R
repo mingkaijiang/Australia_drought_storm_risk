@@ -128,25 +128,71 @@ make_spatial_plots_for_Sydney_Hunter_valley_regions <- function(sourceDir,
     latlonDF.sub$lonID <- latlonDF.sub$lonID - (min(latlonDF.sub$lonID) - 1)
     
     ### Make spatial plot DFs
-    drought.severity.long <- melt(drought.severity)
-    colnames(drought.severity.long) <- c("latID", "lonID", "value")
-    drought.severity.long <- merge(drought.severity.long, latlonDF.sub,
-                                   by=c("latID", "lonID"))
+    storm.intensity.1day.long <- melt(storm.intensity.1day)
+    colnames(storm.intensity.1day.long) <- c("latID", "lonID", "value")
+    storm.intensity.1day.long <- merge(storm.intensity.1day.long, latlonDF.sub,
+                                       by=c("latID", "lonID"))
     
-    storm.severity.long <- melt(storm.severity)
-    colnames(storm.severity.long) <- c("latID", "lonID", "value")
-    storm.severity.long <- merge(storm.severity.long, latlonDF.sub,
-                                   by=c("latID", "lonID"))
+    storm.intensity.5day.long <- melt(storm.intensity.5day)
+    colnames(storm.intensity.5day.long) <- c("latID", "lonID", "value")
+    storm.intensity.5day.long <- merge(storm.intensity.5day.long, latlonDF.sub,
+                                       by=c("latID", "lonID"))
     
-    drought.intensity.long <- melt(drought.intensity)
-    colnames(drought.intensity.long) <- c("latID", "lonID", "value")
-    drought.intensity.long <- merge(drought.intensity.long, latlonDF.sub,
-                                   by=c("latID", "lonID"))
+    drought.intensity.1yr.long <- melt(drought.intensity.1yr)
+    colnames(drought.intensity.1yr.long) <- c("latID", "lonID", "value")
+    drought.intensity.1yr.long <- merge(drought.intensity.1yr.long, latlonDF.sub,
+                                        by=c("latID", "lonID"))
     
-    storm.intensity.long <- melt(storm.intensity)
-    colnames(storm.intensity.long) <- c("latID", "lonID", "value")
-    storm.intensity.long <- merge(storm.intensity.long, latlonDF.sub,
-                                    by=c("latID", "lonID"))
+    drought.intensity.2yr.long <- melt(drought.intensity.2yr)
+    colnames(drought.intensity.2yr.long) <- c("latID", "lonID", "value")
+    drought.intensity.2yr.long <- merge(drought.intensity.2yr.long, latlonDF.sub,
+                                        by=c("latID", "lonID"))
+    
+    dryness.intensity.1yr.long <- melt(dryness.intensity.1yr)
+    colnames(dryness.intensity.1yr.long) <- c("latID", "lonID", "value")
+    dryness.intensity.1yr.long <- merge(dryness.intensity.1yr.long, latlonDF.sub,
+                                        by=c("latID", "lonID"))
+    
+    dryness.intensity.2yr.long <- melt(dryness.intensity.2yr)
+    colnames(dryness.intensity.2yr.long) <- c("latID", "lonID", "value")
+    dryness.intensity.2yr.long <- merge(dryness.intensity.2yr.long, latlonDF.sub,
+                                        by=c("latID", "lonID"))
+    
+    ## convert unit from Pa to kPa
+    dryness.intensity.1yr.long$value <- dryness.intensity.1yr.long$value / 1000
+    dryness.intensity.2yr.long$value <- dryness.intensity.2yr.long$value / 1000
+    
+    
+    storm.severity.1day.long <- melt(storm.severity.1day)
+    colnames(storm.severity.1day.long) <- c("latID", "lonID", "value")
+    storm.severity.1day.long <- merge(storm.severity.1day.long, latlonDF.sub,
+                                      by=c("latID", "lonID"))
+    
+    storm.severity.5day.long <- melt(storm.severity.5day)
+    colnames(storm.severity.5day.long) <- c("latID", "lonID", "value")
+    storm.severity.5day.long <- merge(storm.severity.5day.long, latlonDF.sub,
+                                      by=c("latID", "lonID"))
+    
+    drought.severity.1yr.long <- melt(drought.severity.1yr)
+    colnames(drought.severity.1yr.long) <- c("latID", "lonID", "value")
+    drought.severity.1yr.long <- merge(drought.severity.1yr.long, latlonDF.sub,
+                                       by=c("latID", "lonID"))
+    
+    drought.severity.2yr.long <- melt(drought.severity.2yr)
+    colnames(drought.severity.2yr.long) <- c("latID", "lonID", "value")
+    drought.severity.2yr.long <- merge(drought.severity.2yr.long, latlonDF.sub,
+                                       by=c("latID", "lonID"))
+    
+    dryness.severity.1yr.long <- melt(dryness.severity.1yr)
+    colnames(dryness.severity.1yr.long) <- c("latID", "lonID", "value")
+    dryness.severity.1yr.long <- merge(dryness.severity.1yr.long, latlonDF.sub,
+                                       by=c("latID", "lonID"))
+    
+    dryness.severity.2yr.long <- melt(dryness.severity.2yr)
+    colnames(dryness.severity.2yr.long) <- c("latID", "lonID", "value")
+    dryness.severity.2yr.long <- merge(dryness.severity.2yr.long, latlonDF.sub,
+                                       by=c("latID", "lonID"))
+    
     
     ### read in Australia
     aus <- read_Australia_polygon()
@@ -154,21 +200,55 @@ make_spatial_plots_for_Sydney_Hunter_valley_regions <- function(sourceDir,
     ausDF <- cbind(DF1, extract(aus, DF1, df=T))
     
     ### merge australia raster and input DF and then remove sea surface
-    drought.severity.long <- merge(drought.severity.long, ausDF, by=c("lon", "lat"), all=T)
-    drought.severity.long <- subset(drought.severity.long, layer == 1)
-    drought.severity.long <- subset(drought.severity.long, value != "NA")
+    drought.severity.1yr.long <- merge(drought.severity.1yr.long, ausDF, by=c("lon", "lat"), all=T)
+    drought.severity.1yr.long <- subset(drought.severity.1yr.long, layer == 1)
+    drought.severity.1yr.long <- subset(drought.severity.1yr.long, value != "NA")
     
-    storm.severity.long <- merge(storm.severity.long, ausDF, by=c("lon", "lat"), all=T)
-    storm.severity.long <- subset(storm.severity.long, layer == 1)
-    storm.severity.long <- subset(storm.severity.long, value != "NA")
+    dryness.severity.1yr.long <- merge(dryness.severity.1yr.long, ausDF, by=c("lon", "lat"), all=T)
+    dryness.severity.1yr.long <- subset(dryness.severity.1yr.long, layer == 1)
+    dryness.severity.1yr.long <- subset(dryness.severity.1yr.long, value != "NA")
     
-    drought.intensity.long <- merge(drought.intensity.long, ausDF, by=c("lon", "lat"), all=T)
-    drought.intensity.long <- subset(drought.intensity.long, layer == 1)
-    drought.intensity.long <- subset(drought.intensity.long, value != "NA")
+    drought.severity.2yr.long <- merge(drought.severity.2yr.long, ausDF, by=c("lon", "lat"), all=T)
+    drought.severity.2yr.long <- subset(drought.severity.2yr.long, layer == 1)
+    drought.severity.2yr.long <- subset(drought.severity.2yr.long, value != "NA")
     
-    storm.intensity.long <- merge(storm.intensity.long, ausDF, by=c("lon", "lat"), all=T)
-    storm.intensity.long <- subset(storm.intensity.long, layer == 1)
-    storm.intensity.long <- subset(storm.intensity.long, value != "NA")
+    dryness.severity.2yr.long <- merge(dryness.severity.2yr.long, ausDF, by=c("lon", "lat"), all=T)
+    dryness.severity.2yr.long <- subset(dryness.severity.2yr.long, layer == 1)
+    dryness.severity.2yr.long <- subset(dryness.severity.2yr.long, value != "NA")
+    
+    storm.severity.1day.long <- merge(storm.severity.1day.long, ausDF, by=c("lon", "lat"), all=T)
+    storm.severity.1day.long <- subset(storm.severity.1day.long, layer == 1)
+    storm.severity.1day.long <- subset(storm.severity.1day.long, value != "NA")
+    
+    storm.severity.5day.long <- merge(storm.severity.5day.long, ausDF, by=c("lon", "lat"), all=T)
+    storm.severity.5day.long <- subset(storm.severity.5day.long, layer == 1)
+    storm.severity.5day.long <- subset(storm.severity.5day.long, value != "NA")
+    
+    
+    
+    drought.intensity.1yr.long <- merge(drought.intensity.1yr.long, ausDF, by=c("lon", "lat"), all=T)
+    drought.intensity.1yr.long <- subset(drought.intensity.1yr.long, layer == 1)
+    drought.intensity.1yr.long <- subset(drought.intensity.1yr.long, value != "NA")
+    
+    dryness.intensity.1yr.long <- merge(dryness.intensity.1yr.long, ausDF, by=c("lon", "lat"), all=T)
+    dryness.intensity.1yr.long <- subset(dryness.intensity.1yr.long, layer == 1)
+    dryness.intensity.1yr.long <- subset(dryness.intensity.1yr.long, value != "NA")
+    
+    drought.intensity.2yr.long <- merge(drought.intensity.2yr.long, ausDF, by=c("lon", "lat"), all=T)
+    drought.intensity.2yr.long <- subset(drought.intensity.2yr.long, layer == 1)
+    drought.intensity.2yr.long <- subset(drought.intensity.2yr.long, value != "NA")
+    
+    dryness.intensity.2yr.long <- merge(dryness.intensity.2yr.long, ausDF, by=c("lon", "lat"), all=T)
+    dryness.intensity.2yr.long <- subset(dryness.intensity.2yr.long, layer == 1)
+    dryness.intensity.2yr.long <- subset(dryness.intensity.2yr.long, value != "NA")
+    
+    storm.intensity.1day.long <- merge(storm.intensity.1day.long, ausDF, by=c("lon", "lat"), all=T)
+    storm.intensity.1day.long <- subset(storm.intensity.1day.long, layer == 1)
+    storm.intensity.1day.long <- subset(storm.intensity.1day.long, value != "NA")
+    
+    storm.intensity.5day.long <- merge(storm.intensity.5day.long, ausDF, by=c("lon", "lat"), all=T)
+    storm.intensity.5day.long <- subset(storm.intensity.5day.long, layer == 1)
+    storm.intensity.5day.long <- subset(storm.intensity.5day.long, value != "NA")
     
     
     #################################### prepare plot input ######################################    
@@ -178,19 +258,50 @@ make_spatial_plots_for_Sydney_Hunter_valley_regions <- function(sourceDir,
     rain.color <- rev(brewer.pal(n = n.discrete.colors, name = "Blues"))
     
     ### make categorical bins for the rainfall intensity datasets
-    List1 <- convert_continuous_to_discrete_bins(inDF=storm.intensity.long, 
+    List1 <- convert_continuous_to_discrete_bins(inDF=storm.intensity.1day.long, 
                                                  n.discrete.colors=n.discrete.colors)
-    storm.intensity.long <- List1$outDF
-    storm.intensity.long.lab <- List1$lab
-    n.discrete.colors.storm.intensity <- length(storm.intensity.long.lab)
-    rain.color.storm <- rev(brewer.pal(n = n.discrete.colors.storm.intensity, name = "Blues"))
+    storm.intensity.1day.long <- List1$outDF
+    storm.intensity.1day.long.lab <- List1$lab
+    n.discrete.colors.storm.intensity.1day <- length(storm.intensity.1day.long.lab)
+    rain.color.storm.1day <- rev(brewer.pal(n = n.discrete.colors.storm.intensity.1day, name = "Blues"))
     
-    List2 <- convert_continuous_to_discrete_bins(inDF=drought.intensity.long, 
+    List1 <- convert_continuous_to_discrete_bins(inDF=storm.intensity.5day.long, 
                                                  n.discrete.colors=n.discrete.colors)
-    drought.intensity.long <- List2$outDF
-    drought.intensity.long.lab <- List2$lab
-    n.discrete.colors.drought.intensity <- length(drought.intensity.long.lab)
-    rain.color.drought <- rev(brewer.pal(n = n.discrete.colors.drought.intensity, name = "Blues"))
+    storm.intensity.5day.long <- List1$outDF
+    storm.intensity.5day.long.lab <- List1$lab
+    n.discrete.colors.storm.intensity.5day <- length(storm.intensity.5day.long.lab)
+    rain.color.storm.5day <- rev(brewer.pal(n = n.discrete.colors.storm.intensity.5day, name = "Blues"))
+    
+    
+    List2 <- convert_continuous_to_discrete_bins(inDF=drought.intensity.1yr.long, 
+                                                 n.discrete.colors=n.discrete.colors)
+    drought.intensity.1yr.long <- List2$outDF
+    drought.intensity.1yr.long.lab <- List2$lab
+    n.discrete.colors.drought.intensity.1yr <- length(drought.intensity.1yr.long.lab)
+    rain.color.drought.1yr <- rev(brewer.pal(n = n.discrete.colors.drought.intensity.1yr, name = "Blues"))
+    
+    List2 <- convert_continuous_to_discrete_bins(inDF=drought.intensity.2yr.long, 
+                                                 n.discrete.colors=n.discrete.colors)
+    drought.intensity.2yr.long <- List2$outDF
+    drought.intensity.2yr.long.lab <- List2$lab
+    n.discrete.colors.drought.intensity.2yr <- length(drought.intensity.2yr.long.lab)
+    rain.color.drought.2yr <- rev(brewer.pal(n = n.discrete.colors.drought.intensity.2yr, name = "Blues"))
+    
+    
+    
+    List2 <- convert_continuous_to_discrete_bins(inDF=dryness.intensity.1yr.long, 
+                                                 n.discrete.colors=n.discrete.colors)
+    dryness.intensity.1yr.long <- List2$outDF
+    dryness.intensity.1yr.long.lab <- List2$lab
+    n.discrete.colors.dryness.intensity.1yr <- length(dryness.intensity.1yr.long.lab)
+    heat.color.dryness.1yr <- rev(brewer.pal(n = n.discrete.colors.dryness.intensity.1yr, name = "YlOrRd"))
+    
+    #List2 <- convert_continuous_to_discrete_bins(inDF=dryness.intensity.2yr.long, 
+    #                                             n.discrete.colors=n.discrete.colors)
+    #dryness.intensity.2yr.long <- List2$outDF
+    #dryness.intensity.2yr.long.lab <- List2$lab
+    #n.discrete.colors.dryness.intensity.2yr <- length(dryness.intensity.2yr.long.lab)
+    #heat.color.dryness.2yr <- rev(brewer.pal(n = n.discrete.colors.dryness.intensity.2yr, name = "YlOrRd"))
     
     ### australia polygon
     aus.poly <- ne_countries(scale = "medium", country = "Australia", returnclass = "sf")
@@ -204,7 +315,7 @@ make_spatial_plots_for_Sydney_Hunter_valley_regions <- function(sourceDir,
     ############################### 1-day rainfall ####################################
     #### ploting storm severity
     p1 <- ggplot(aus.poly) +
-        geom_raster(storm.severity.long, mapping=aes(lon, lat, fill=as.character(value)))+
+        geom_raster(storm.severity.1day.long, mapping=aes(lon, lat, fill=as.character(value)))+
         geom_sf(fill=NA) +
         geom_point(aes(x=151.2093, y=-33.8688), col="red")+  # sydney
         annotate("text", x=151.2093, y=-33.9688, label = "Sydney", col="brown")+
@@ -237,18 +348,18 @@ make_spatial_plots_for_Sydney_Hunter_valley_regions <- function(sourceDir,
               legend.position="bottom",
               legend.box = 'vertical',
               legend.box.just = 'left')+
-        scale_fill_manual(name="percentile",
-                          limits=c("99.9", "99", "95", "90", "80", "70", "60", "50", "40"),
+        scale_fill_manual(name="return interval",
+                          limits=c("100", "50", "20", "10", "5", "3.3", "2.5", "2", "1.67"),
                           values=rain.color,
-                          labels=c("99.9", "99", "95", "90", "80", "70", "60", "50", "40"))+
-        ggtitle(paste0("Storm ", storm.duration, " severity percentile"))+
+                          labels=c("100", "50", "20", "10", "5", "3.3", "2.5", "2", "<=1.67"))+
+        ggtitle(paste0("1-day storm severity (yr-1)"))+
         guides(color = guide_legend(nrow=5, byrow = T))+
         xlim(user.lon.min, user.lon.max)+
         ylim(user.lat.min, user.lat.max)
     
     ### plot storm intensity (mm/d)
     p2 <- ggplot(aus.poly) +
-        geom_tile(storm.intensity.long, mapping=aes(lon, lat, fill=value_cat))+
+        geom_tile(storm.intensity.1day.long, mapping=aes(lon, lat, fill=value_cat))+
         geom_sf(fill=NA) +
         geom_point(aes(x=151.2093, y=-33.8688), col="red")+  # sydney
         annotate("text", x=151.2093, y=-33.9688, label = "Sydney", col="brown")+
@@ -281,10 +392,10 @@ make_spatial_plots_for_Sydney_Hunter_valley_regions <- function(sourceDir,
               legend.position="bottom",
               legend.box = 'vertical',
               legend.box.just = 'left')+
-        ggtitle(paste0("Storm ", storm.duration, " intensity (mm/d)"))+
+        ggtitle(paste0("1-day storm intensity (mm/d)"))+
         scale_fill_manual(name="value",
-                          values=rev(rain.color.storm),
-                          labels=storm.intensity.long.lab)+
+                          values=rev(rain.color.storm.1day),
+                          labels=storm.intensity.1day.long.lab)+
         guides(color = guide_legend(nrow=5, byrow = T))+
         xlim(user.lon.min, user.lon.max)+
         ylim(user.lat.min, user.lat.max)
@@ -299,10 +410,91 @@ make_spatial_plots_for_Sydney_Hunter_valley_regions <- function(sourceDir,
     
     
     ############################### 5-day rainfall ####################################
-    #### place holder
+    p3 <- ggplot(aus.poly) +
+        geom_raster(storm.severity.5day.long, mapping=aes(lon, lat, fill=as.character(value)))+
+        geom_sf(fill=NA) +
+        geom_point(aes(x=151.2093, y=-33.8688), col="red")+  # sydney
+        annotate("text", x=151.2093, y=-33.9688, label = "Sydney", col="brown")+
+        geom_point(aes(x=150.8595, y=-32.0546), col="red")+    # canberra
+        annotate("text", x=150.8595, y=-32.1546, label = "Scone", col="brown")+
+        geom_point(aes(x=151.7817, y=-32.9283), col="red")+    # new castle
+        annotate("text", x=151.7817, y=-33.0, label = "Newcastle", col="brown")+
+        geom_point(aes(x=150.3557, y=-32.1393), col="red")+    # Merriwa
+        annotate("text", x=150.3557, y=-32.2393, label = "Merriwa", col="brown")+
+        geom_point(aes(x=151.3624, y=-32.8345), col="red")+    # Cessnock
+        annotate("text", x=151.3624, y=-32.9345, label = "Cessnock", col="brown")+
+        geom_point(aes(x=150.75, y=-33.6), col="red")+    # Richmond
+        annotate("text", x=150.75, y=-33.7, label = "Richmond", col="brown")+
+        geom_point(aes(x=151.1788, y=-32.5695), col="red")+    # Singleton
+        annotate("text", x=151.1788, y=-32.6695, label = "Singleton", col="brown")+
+        geom_point(aes(x=151.3417, y=-33.4267), col="red")+    # Gosford
+        annotate("text", x=151.3417, y=-33.5267, label = "Gosford", col="brown")+
+        annotate("text", x=150.9190, y=-33.0482, label = "Yengo NF")+
+        annotate("text", x=150.3765, y=-33.0174, label = "Wollemi NF")+
+        annotate("text", x=151.6632, y=-32.0671, label = "Barrington Tops NF")+
+        theme_linedraw() +
+        theme(panel.grid.minor=element_blank(),
+              axis.text.x=element_text(size=12),
+              axis.title.x=element_text(size=14),
+              axis.text.y=element_text(size=12),
+              axis.title.y=element_text(size=14),
+              legend.text=element_text(size=12),
+              legend.title=element_text(size=14),
+              panel.grid.major=element_blank(),
+              legend.position="bottom",
+              legend.box = 'vertical',
+              legend.box.just = 'left')+
+        scale_fill_manual(name="return interval",
+                          limits=c("100", "50", "20", "10", "5", "3.3", "2.5", "2", "1.67"),
+                          values=rain.color,
+                          labels=c("100", "50", "20", "10", "5", "3.3", "2.5", "2", "<=1.67"))+
+        ggtitle(paste0("1-day storm severity (yr1)"))+
+        guides(color = guide_legend(nrow=5, byrow = T))+
+        xlim(user.lon.min, user.lon.max)+
+        ylim(user.lat.min, user.lat.max)
     
-    
-    #### place holder
+    ### plot storm intensity (mm/d)
+    p4 <- ggplot(aus.poly) +
+        geom_tile(storm.intensity.5day.long, mapping=aes(lon, lat, fill=value_cat))+
+        geom_sf(fill=NA) +
+        geom_point(aes(x=151.2093, y=-33.8688), col="red")+  # sydney
+        annotate("text", x=151.2093, y=-33.9688, label = "Sydney", col="brown")+
+        geom_point(aes(x=150.8595, y=-32.0546), col="red")+    # canberra
+        annotate("text", x=150.8595, y=-32.1546, label = "Scone", col="brown")+
+        geom_point(aes(x=151.7817, y=-32.9283), col="red")+    # new castle
+        annotate("text", x=151.7817, y=-33.0, label = "Newcastle", col="brown")+
+        geom_point(aes(x=150.3557, y=-32.1393), col="red")+    # Merriwa
+        annotate("text", x=150.3557, y=-32.2393, label = "Merriwa", col="brown")+
+        geom_point(aes(x=151.3624, y=-32.8345), col="red")+    # Cessnock
+        annotate("text", x=151.3624, y=-32.9345, label = "Cessnock", col="brown")+
+        geom_point(aes(x=150.75, y=-33.6), col="red")+    # Richmond
+        annotate("text", x=150.75, y=-33.7, label = "Richmond", col="brown")+
+        geom_point(aes(x=151.1788, y=-32.5695), col="red")+    # Singleton
+        annotate("text", x=151.1788, y=-32.6695, label = "Singleton", col="brown")+
+        geom_point(aes(x=151.3417, y=-33.4267), col="red")+    # Gosford
+        annotate("text", x=151.3417, y=-33.5267, label = "Gosford", col="brown")+
+        annotate("text", x=150.9190, y=-33.0482, label = "Yengo NF")+
+        annotate("text", x=150.3765, y=-33.0174, label = "Wollemi NF")+
+        annotate("text", x=151.6632, y=-32.0671, label = "Barrington Tops NF")+
+        theme_linedraw() +
+        theme(panel.grid.minor=element_blank(),
+              axis.text.x=element_text(size=12),
+              axis.title.x=element_text(size=14),
+              axis.text.y=element_text(size=12),
+              axis.title.y=element_text(size=14),
+              legend.text=element_text(size=12),
+              legend.title=element_text(size=14),
+              panel.grid.major=element_blank(),
+              legend.position="bottom",
+              legend.box = 'vertical',
+              legend.box.just = 'left')+
+        ggtitle(paste0("5-day storm intensity (mm/d)"))+
+        scale_fill_manual(name="value",
+                          values=rev(rain.color.storm.5day),
+                          labels=storm.intensity.5day.long.lab)+
+        guides(color = guide_legend(nrow=5, byrow = T))+
+        xlim(user.lon.min, user.lon.max)+
+        ylim(user.lat.min, user.lat.max)
     
     
     #### save plot
@@ -316,7 +508,7 @@ make_spatial_plots_for_Sydney_Hunter_valley_regions <- function(sourceDir,
     #################### antecedent 1-year water availability ########################
     #### ploting drought severity
     p5 <- ggplot(aus.poly) +
-        geom_tile(drought.severity.long, mapping=aes(lon, lat, fill=as.character(value)))+
+        geom_tile(drought.severity.1yr.long, mapping=aes(lon, lat, fill=as.character(value)))+
         geom_sf(fill=NA) +
         geom_point(aes(x=151.2093, y=-33.8688), col="red")+  # sydney
         annotate("text", x=151.2093, y=-33.9688, label = "Sydney", col="brown")+
@@ -352,8 +544,8 @@ make_spatial_plots_for_Sydney_Hunter_valley_regions <- function(sourceDir,
         scale_fill_manual(name="percentile",
                           limits=c("0.1", "1", "5", "10", "20", "30", "40", "50", "60"),
                           values=heat.color,
-                          labels=c("0.1", "1", "5", "10", "20", "30", "40", "50", "60"))+
-        ggtitle(paste0("Antecedent ", drought.duration, " rainfall severity percentile"))+
+                          labels=c("0.1", "1", "5", "10", "20", "30", "40", "50", ">60"))+
+        ggtitle(paste0("Antecedent 1-year water availability severity (%)"))+
         guides(color = guide_legend(nrow=5, byrow = T))+
         xlim(user.lon.min, user.lon.max)+
         ylim(user.lat.min, user.lat.max)
@@ -361,7 +553,7 @@ make_spatial_plots_for_Sydney_Hunter_valley_regions <- function(sourceDir,
     
     ### plot drought intensity (mm/yr)
     p6 <- ggplot(aus.poly) +
-        geom_tile(drought.intensity.long, mapping=aes(lon, lat, fill=value_cat))+
+        geom_tile(drought.intensity.1yr.long, mapping=aes(lon, lat, fill=value_cat))+
         geom_sf(fill=NA) +
         geom_point(aes(x=151.2093, y=-33.8688), col="red")+  # sydney
         annotate("text", x=151.2093, y=-33.9688, label = "Sydney", col="brown")+
@@ -395,9 +587,9 @@ make_spatial_plots_for_Sydney_Hunter_valley_regions <- function(sourceDir,
               legend.box = 'vertical',
               legend.box.just = 'left')+
         scale_fill_manual(name="value",
-                          values=rev(rain.color.drought),
-                          labels=drought.intensity.long.lab)+
-        ggtitle(paste0("Antecedent ", drought.duration, " rainfall (mm/yr)"))+
+                          values=rev(rain.color.drought.1yr),
+                          labels=drought.intensity.1yr.long.lab)+
+        ggtitle(paste0("Antecedent 1-year water availability (mm/yr)"))+
         guides(color = guide_legend(nrow=5, byrow = T))+
         xlim(user.lon.min, user.lon.max)+
         ylim(user.lat.min, user.lat.max)
@@ -411,9 +603,92 @@ make_spatial_plots_for_Sydney_Hunter_valley_regions <- function(sourceDir,
     
     
     #################### antecedent 2-year water availability ########################
-    #### place holder
+    p7 <- ggplot(aus.poly) +
+        geom_tile(drought.severity.2yr.long, mapping=aes(lon, lat, fill=as.character(value)))+
+        geom_sf(fill=NA) +
+        geom_point(aes(x=151.2093, y=-33.8688), col="red")+  # sydney
+        annotate("text", x=151.2093, y=-33.9688, label = "Sydney", col="brown")+
+        geom_point(aes(x=150.8595, y=-32.0546), col="red")+    # canberra
+        annotate("text", x=150.8595, y=-32.1546, label = "Scone", col="brown")+
+        geom_point(aes(x=151.7817, y=-32.9283), col="red")+    # new castle
+        annotate("text", x=151.7817, y=-33.0, label = "Newcastle", col="brown")+
+        geom_point(aes(x=150.3557, y=-32.1393), col="red")+    # Merriwa
+        annotate("text", x=150.3557, y=-32.2393, label = "Merriwa", col="brown")+
+        geom_point(aes(x=151.3624, y=-32.8345), col="red")+    # Cessnock
+        annotate("text", x=151.3624, y=-32.9345, label = "Cessnock", col="brown")+
+        geom_point(aes(x=150.75, y=-33.6), col="red")+    # Richmond
+        annotate("text", x=150.75, y=-33.7, label = "Richmond", col="brown")+
+        geom_point(aes(x=151.1788, y=-32.5695), col="red")+    # Singleton
+        annotate("text", x=151.1788, y=-32.6695, label = "Singleton", col="brown")+
+        geom_point(aes(x=151.3417, y=-33.4267), col="red")+    # Gosford
+        annotate("text", x=151.3417, y=-33.5267, label = "Gosford", col="brown")+
+        annotate("text", x=150.9190, y=-33.0482, label = "Yengo NF")+
+        annotate("text", x=150.3765, y=-33.0174, label = "Wollemi NF")+
+        annotate("text", x=151.6632, y=-32.0671, label = "Barrington Tops NF")+
+        theme_linedraw() +
+        theme(panel.grid.minor=element_blank(),
+              axis.text.x=element_text(size=12),
+              axis.title.x=element_text(size=14),
+              axis.text.y=element_text(size=12),
+              axis.title.y=element_text(size=14),
+              legend.text=element_text(size=12),
+              legend.title=element_text(size=14),
+              panel.grid.major=element_blank(),
+              legend.position="bottom",
+              legend.box = 'vertical',
+              legend.box.just = 'left')+
+        scale_fill_manual(name="percentile",
+                          limits=c("0.1", "1", "5", "10", "20", "30", "40", "50", "60"),
+                          values=heat.color,
+                          labels=c("0.1", "1", "5", "10", "20", "30", "40", "50", ">60"))+
+        ggtitle(paste0("Antecedent 2-year water availability severity (%)"))+
+        guides(color = guide_legend(nrow=5, byrow = T))+
+        xlim(user.lon.min, user.lon.max)+
+        ylim(user.lat.min, user.lat.max)
     
-    #### place holder
+    
+    ### plot drought intensity (mm/yr)
+    p8 <- ggplot(aus.poly) +
+        geom_tile(drought.intensity.2yr.long, mapping=aes(lon, lat, fill=value_cat))+
+        geom_sf(fill=NA) +
+        geom_point(aes(x=151.2093, y=-33.8688), col="red")+  # sydney
+        annotate("text", x=151.2093, y=-33.9688, label = "Sydney", col="brown")+
+        geom_point(aes(x=150.8595, y=-32.0546), col="red")+    # canberra
+        annotate("text", x=150.8595, y=-32.1546, label = "Scone", col="brown")+
+        geom_point(aes(x=151.7817, y=-32.9283), col="red")+    # new castle
+        annotate("text", x=151.7817, y=-33.0, label = "Newcastle", col="brown")+
+        geom_point(aes(x=150.3557, y=-32.1393), col="red")+    # Merriwa
+        annotate("text", x=150.3557, y=-32.2393, label = "Merriwa", col="brown")+
+        geom_point(aes(x=151.3624, y=-32.8345), col="red")+    # Cessnock
+        annotate("text", x=151.3624, y=-32.9345, label = "Cessnock", col="brown")+
+        geom_point(aes(x=150.75, y=-33.6), col="red")+    # Richmond
+        annotate("text", x=150.75, y=-33.7, label = "Richmond", col="brown")+
+        geom_point(aes(x=151.1788, y=-32.5695), col="red")+    # Singleton
+        annotate("text", x=151.1788, y=-32.6695, label = "Singleton", col="brown")+
+        geom_point(aes(x=151.3417, y=-33.4267), col="red")+    # Gosford
+        annotate("text", x=151.3417, y=-33.5267, label = "Gosford", col="brown")+
+        annotate("text", x=150.9190, y=-33.0482, label = "Yengo NF")+
+        annotate("text", x=150.3765, y=-33.0174, label = "Wollemi NF")+
+        annotate("text", x=151.6632, y=-32.0671, label = "Barrington Tops NF")+
+        theme_linedraw() +
+        theme(panel.grid.minor=element_blank(),
+              axis.text.x=element_text(size=12),
+              axis.title.x=element_text(size=14),
+              axis.text.y=element_text(size=12),
+              axis.title.y=element_text(size=14),
+              legend.text=element_text(size=12),
+              legend.title=element_text(size=14),
+              panel.grid.major=element_blank(),
+              legend.position="bottom",
+              legend.box = 'vertical',
+              legend.box.just = 'left')+
+        scale_fill_manual(name="value",
+                          values=rev(rain.color.drought.2yr),
+                          labels=drought.intensity.2yr.long.lab)+
+        ggtitle(paste0("Antecedent 2-year water availability (mm/yr)"))+
+        guides(color = guide_legend(nrow=5, byrow = T))+
+        xlim(user.lon.min, user.lon.max)+
+        ylim(user.lat.min, user.lat.max)
     
     
     
@@ -469,7 +744,7 @@ make_spatial_plots_for_Sydney_Hunter_valley_regions <- function(sourceDir,
                           values=rain.color,
                           labels=c("99.9", "99", "95", "90", "80", "70", "60", "50", "40"))+
         guides(color = guide_legend(nrow=5, byrow = T))+
-        ggtitle(paste0("Max. wind severity percentile"))+
+        ggtitle(paste0("Maximum daily wind severity percentile"))+
         xlim(user.lon.min, user.lon.max)+
         ylim(user.lat.min, user.lat.max)
     
@@ -511,7 +786,7 @@ make_spatial_plots_for_Sydney_Hunter_valley_regions <- function(sourceDir,
               legend.box.just = 'left')+
         scale_fill_viridis_b(name="value")+
         guides(color = guide_legend(nrow=5, byrow = T))+
-        ggtitle(paste0("Max. wind speed (m/s)"))+
+        ggtitle(paste0("Maximum daily wind speed (m/s)"))+
         xlim(user.lon.min, user.lon.max)+
         ylim(user.lat.min, user.lat.max)
     
@@ -525,9 +800,92 @@ make_spatial_plots_for_Sydney_Hunter_valley_regions <- function(sourceDir,
     
     
     ######################## antecedent 1-year atmospheric dryness ######################
-    #### place holder
+    p11 <- ggplot(aus.poly) +
+        geom_tile(dryness.severity.1yr.long, mapping=aes(lon, lat, fill=as.character(value)))+
+        geom_sf(fill=NA) +
+        geom_point(aes(x=151.2093, y=-33.8688), col="red")+  # sydney
+        annotate("text", x=151.2093, y=-33.9688, label = "Sydney", col="brown")+
+        geom_point(aes(x=150.8595, y=-32.0546), col="red")+    # canberra
+        annotate("text", x=150.8595, y=-32.1546, label = "Scone", col="brown")+
+        geom_point(aes(x=151.7817, y=-32.9283), col="red")+    # new castle
+        annotate("text", x=151.7817, y=-33.0, label = "Newcastle", col="brown")+
+        geom_point(aes(x=150.3557, y=-32.1393), col="red")+    # Merriwa
+        annotate("text", x=150.3557, y=-32.2393, label = "Merriwa", col="brown")+
+        geom_point(aes(x=151.3624, y=-32.8345), col="red")+    # Cessnock
+        annotate("text", x=151.3624, y=-32.9345, label = "Cessnock", col="brown")+
+        geom_point(aes(x=150.75, y=-33.6), col="red")+    # Richmond
+        annotate("text", x=150.75, y=-33.7, label = "Richmond", col="brown")+
+        geom_point(aes(x=151.1788, y=-32.5695), col="red")+    # Singleton
+        annotate("text", x=151.1788, y=-32.6695, label = "Singleton", col="brown")+
+        geom_point(aes(x=151.3417, y=-33.4267), col="red")+    # Gosford
+        annotate("text", x=151.3417, y=-33.5267, label = "Gosford", col="brown")+
+        annotate("text", x=150.9190, y=-33.0482, label = "Yengo NF")+
+        annotate("text", x=150.3765, y=-33.0174, label = "Wollemi NF")+
+        annotate("text", x=151.6632, y=-32.0671, label = "Barrington Tops NF")+
+        theme_linedraw() +
+        theme(panel.grid.minor=element_blank(),
+              axis.text.x=element_text(size=12),
+              axis.title.x=element_text(size=14),
+              axis.text.y=element_text(size=12),
+              axis.title.y=element_text(size=14),
+              legend.text=element_text(size=12),
+              legend.title=element_text(size=14),
+              panel.grid.major=element_blank(),
+              legend.position="bottom",
+              legend.box = 'vertical',
+              legend.box.just = 'left')+
+        scale_fill_manual(name="percentile",
+                          limits=c("0.1", "1", "5", "10", "20", "30", "40", "50", "60"),
+                          values=heat.color,
+                          labels=c("0.1", "1", "5", "10", "20", "30", "40", "50", ">60"))+
+        ggtitle(paste0("Antecedent 1-year atmospheric dryness severity (%)"))+
+        guides(color = guide_legend(nrow=5, byrow = T))+
+        xlim(user.lon.min, user.lon.max)+
+        ylim(user.lat.min, user.lat.max)
     
-    #### place holder
+    
+    ### plot dryness intensity (mm/yr)
+    p12 <- ggplot(aus.poly) +
+        geom_tile(dryness.intensity.1yr.long, mapping=aes(lon, lat, fill=value_cat))+
+        geom_sf(fill=NA) +
+        geom_point(aes(x=151.2093, y=-33.8688), col="red")+  # sydney
+        annotate("text", x=151.2093, y=-33.9688, label = "Sydney", col="brown")+
+        geom_point(aes(x=150.8595, y=-32.0546), col="red")+    # canberra
+        annotate("text", x=150.8595, y=-32.1546, label = "Scone", col="brown")+
+        geom_point(aes(x=151.7817, y=-32.9283), col="red")+    # new castle
+        annotate("text", x=151.7817, y=-33.0, label = "Newcastle", col="brown")+
+        geom_point(aes(x=150.3557, y=-32.1393), col="red")+    # Merriwa
+        annotate("text", x=150.3557, y=-32.2393, label = "Merriwa", col="brown")+
+        geom_point(aes(x=151.3624, y=-32.8345), col="red")+    # Cessnock
+        annotate("text", x=151.3624, y=-32.9345, label = "Cessnock", col="brown")+
+        geom_point(aes(x=150.75, y=-33.6), col="red")+    # Richmond
+        annotate("text", x=150.75, y=-33.7, label = "Richmond", col="brown")+
+        geom_point(aes(x=151.1788, y=-32.5695), col="red")+    # Singleton
+        annotate("text", x=151.1788, y=-32.6695, label = "Singleton", col="brown")+
+        geom_point(aes(x=151.3417, y=-33.4267), col="red")+    # Gosford
+        annotate("text", x=151.3417, y=-33.5267, label = "Gosford", col="brown")+
+        annotate("text", x=150.9190, y=-33.0482, label = "Yengo NF")+
+        annotate("text", x=150.3765, y=-33.0174, label = "Wollemi NF")+
+        annotate("text", x=151.6632, y=-32.0671, label = "Barrington Tops NF")+
+        theme_linedraw() +
+        theme(panel.grid.minor=element_blank(),
+              axis.text.x=element_text(size=12),
+              axis.title.x=element_text(size=14),
+              axis.text.y=element_text(size=12),
+              axis.title.y=element_text(size=14),
+              legend.text=element_text(size=12),
+              legend.title=element_text(size=14),
+              panel.grid.major=element_blank(),
+              legend.position="bottom",
+              legend.box = 'vertical',
+              legend.box.just = 'left')+
+        #scale_fill_manual(name="value",
+        #                  values=rev(heat.color.dryness.1yr),
+        #                  labels=dryness.intensity.1yr.long.lab)+
+        ggtitle(paste0("Antecedent 1-year atmospheric dryness (kPa)"))+
+        guides(color = guide_legend(nrow=5, byrow = T))+
+        xlim(user.lon.min, user.lon.max)+
+        ylim(user.lat.min, user.lat.max)
     
     #### save plot
     jpeg(paste0(destDir, "/Sydney_Hunter_Valley_", date.of.interest,

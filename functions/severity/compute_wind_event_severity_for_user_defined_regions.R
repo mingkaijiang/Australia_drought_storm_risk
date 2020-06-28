@@ -56,7 +56,8 @@ compute_wind_event_severity_for_user_defined_regions <- function(sourceDir1,
                                strip.white=TRUE, skip=1)
             
             ### extract data based on date.of.interest
-            gsodDF$selected.wind.speed[i] <- myData$MXSPD[myData$YEARMODA == date.of.interest] 
+            gsodDF$selected.wind.speed[i] <- ifelse(length(myData$MXSPD[myData$YEARMODA == date.of.interest]) == 0, NA, 
+                                                    myData$MXSPD[myData$YEARMODA == date.of.interest])
             
             
         } else {
