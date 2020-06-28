@@ -40,5 +40,9 @@ vignettes/*.pdf
 *.txt
 *.gz
 *.op
+*.shp
+*.dbf
+*.prj
+*.shx
 =======
 .Rproj.user

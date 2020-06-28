@@ -675,10 +675,11 @@ make_spatial_plots_for_Sydney_Hunter_valley_regions(sourceDir = "output",
 
 #######################
 ### to do list:
-### 1. VPD - value ranges between -30 to +6. Seems to be too low, and can't be positive.
-### 2. PET - more efficient way to compute PET based on SPEI package (or write your own function).
-### 3. Check results on extreme severity and intensity, all indices and dates
-### 4. Plot: a) add all variables to plotting scheme
+### 1. VPD bug fixed (mean, not sum), checking results and unit and spatial pattern. 
+### 2. Check P - PET spatial pattern
+### 3. Update VPD unit (currently all positive, convert to negative)
+### 4. Improve plot:
+###          a) add all variables to plotting scheme
 ###          b) make nicer plots (add DEM? add cities and borders, forest cover?)
 
 
