@@ -23,10 +23,10 @@ compute_antecedent_atmospheric_dryness_for_user_defined_regions <- function(sour
     ### loop each grid
     for (i in 1:dim1) {
         for (j in 1:dim2) {
-            ### get the rainfall data for each grid
+            ### get the VPD data for each grid
             all <- myData[i,j,]
             
-            ### get precipitation percentile
+            ### get VPD percentile
             if (duration == "1-year") {
                 
                 ### assign NA to first two days
@@ -105,6 +105,7 @@ compute_antecedent_atmospheric_dryness_for_user_defined_regions <- function(sour
         } # j loop
     } # i loop
     
+    # These are the percentiles for VPD for each grid point
     saveRDS(out_percentile, file=paste0(destDir, "/antecedent_atmospheric_dryness_percentile_", duration,
                                         "_", user.region.name, "_regions.rds"))
     
