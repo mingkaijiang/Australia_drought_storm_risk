@@ -54,30 +54,34 @@ compute_antecedent_atmospheric_dryness_severity_for_user_defined_regions <- func
                 DF2 <- c()
                 DF2[1:365] <- NA
                 
+                ## BM: Seems to me that this is unnecessary
+                ## BM: Calculating 1-year running total for all days? 
+                ## BM: Only need for day of interest
                 ## calculate 1-year running total
-                for (k in c(366:dim3)) {
-                    DF2[k] <- mean(all[(k-365):k], na.rm=T)
-                }
+                # for (k in c(366:dim3)) {
+                #    DF2[k] <- mean(all[(k-365):k], na.rm=T)
+                # }
                 
                 ## obtain 1-year rainfall before the date of interest
-                total.rainfall <- DF2[nday]
+                total.rainfall <- mean(all[(nday-365):nday], na.rm=T)
                 
             } else if (duration == "2-year") {
                 
                 ### get the rainfall data for each grid
                 all <- myData[i,j,]
                 
+                ### BM: This is unnecessary
                 ### assign NA to first two days
-                DF2 <- c()
-                DF2[1:730] <- NA
+                #DF2 <- c()
+                #DF2[1:730] <- NA
                 
                 ## calculate 1-year running total
-                for (k in c(731:dim3)) {
-                    DF2[k] <- mean(all[(k-730):k], na.rm=T)
-                }
+                #for (k in c(731:dim3)) {
+                #    DF2[k] <- mean(all[(k-730):k], na.rm=T)
+                #}
                 
                 ## obtain 1-year rainfall before the date of interest
-                total.rainfall <- DF2[nday]
+                total.rainfall <- mean(all[(nday-730):nday], na.rm=T)
                 
             } else {
                 print("no calculation option")
