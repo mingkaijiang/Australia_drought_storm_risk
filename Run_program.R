@@ -126,8 +126,8 @@ source("prepare.R")
 #                                    destDir = "input",
 #                                    varName = "vpd",
 #                                    user.region.name = "SydneyHunter")
-#
-#
+
+
 ##### 7. Calculate PET minus P
 ##### 7.1. Calculate PET based on Tmax
 #####      return monthly DF
@@ -280,15 +280,15 @@ source("prepare.R")
 
 #### B5. calculate atmospheric dryness (VPD) for antecedent 1 and 2-year period
 #### B5.1. atmospheric dryness for antecendent 1-year period
-#compute_antecedent_atmospheric_dryness_for_user_defined_regions(sourceDir = "input", 
-#                                                               destDir = "output/antecedent_atmospheric_dryness",
-#                                                               user.region.name = "SydneyHunter",
-#                                                               duration = "1-year")
-#### B5.2. atmospheric dryness for antecedent 2-year period
-#compute_antecedent_atmospheric_dryness_for_user_defined_regions(sourceDir = "input", 
-#                                                                destDir = "output/antecedent_atmospheric_dryness",
-#                                                                user.region.name = "SydneyHunter",
-#                                                                duration = "2-year")
+compute_antecedent_atmospheric_dryness_for_user_defined_regions(sourceDir = "input", 
+                                                               destDir = "output/antecedent_atmospheric_dryness",
+                                                               user.region.name = "SydneyHunter",
+                                                               duration = "1-year")
+### B5.2. atmospheric dryness for antecedent 2-year period
+compute_antecedent_atmospheric_dryness_for_user_defined_regions(sourceDir = "input", 
+                                                                destDir = "output/antecedent_atmospheric_dryness",
+                                                                user.region.name = "SydneyHunter",
+                                                                duration = "2-year")
 
 
 
@@ -675,8 +675,6 @@ make_spatial_plots_for_Sydney_Hunter_valley_regions(sourceDir = "output",
 
 #######################
 ### to do list:
-### 1. VPD bug fixed (mean, not sum), checking results and unit and spatial pattern. 
-### 2. Check P - PET spatial pattern
-### 3. Update VPD unit (currently all positive, convert to negative)
-
-
+### 1. updated VPD, rerunning the script asscoiated with antecedent atmospheric dryness
+### 2. Figure 3 - call it rainfall not water availability, and fix unit (mm, not mm/yr)
+### 3. Figure 7 - say 5-day storm severity, not 1-day.

@@ -605,7 +605,7 @@ make_spatial_plots_for_Sydney_Hunter_valley_regions <- function(sourceDir,
                           limits=c("100", "50", "20", "10", "5", "3.3", "2.5", "2", "1.67"),
                           values=rain.color,
                           labels=c("100", "50", "20", "10", "5", "3.3", "2.5", "2", "<=1.67"))+
-        ggtitle(paste0("1-day storm severity (yr1)"))+
+        ggtitle(paste0("5-day storm severity (yr1)"))+
         guides(color = guide_legend(nrow=5, byrow = T))+
         xlim(user.lon.min, user.lon.max)+
         ylim(user.lat.min, user.lat.max)
