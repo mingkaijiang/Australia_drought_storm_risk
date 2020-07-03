@@ -645,7 +645,7 @@ make_spatial_plots_for_Sydney_Hunter_valley_regions <- function(sourceDir,
               legend.position="bottom",
               legend.box = 'vertical',
               legend.box.just = 'left')+
-        ggtitle(paste0("5-day storm intensity (mm/d)"))+
+        ggtitle(paste0("5-day storm intensity (mm)"))+
         scale_fill_manual(name="value",
                           values=rev(rain.color.storm.5day),
                           labels=storm.intensity.5day.long.lab)+
@@ -702,7 +702,7 @@ make_spatial_plots_for_Sydney_Hunter_valley_regions <- function(sourceDir,
                           limits=c("0.1", "1", "5", "10", "20", "30", "40", "50", "60"),
                           values=heat.color,
                           labels=c("0.1", "1", "5", "10", "20", "30", "40", "50", ">60"))+
-        ggtitle(paste0("Antecedent 1-year water availability severity (%)"))+
+        ggtitle(paste0("Antecedent 1-year water availability percentile (%)"))+
         guides(color = guide_legend(nrow=5, byrow = T))+
         xlim(user.lon.min, user.lon.max)+
         ylim(user.lat.min, user.lat.max)
@@ -746,7 +746,7 @@ make_spatial_plots_for_Sydney_Hunter_valley_regions <- function(sourceDir,
         scale_fill_manual(name="value",
                           values=rev(rain.color.drought.1yr),
                           labels=drought.intensity.1yr.long.lab)+
-        ggtitle(paste0("Antecedent 1-year water availability (mm/yr)"))+
+        ggtitle(paste0("Antecedent 1-year water availability (mm)"))+
         guides(color = guide_legend(nrow=5, byrow = T))+
         xlim(user.lon.min, user.lon.max)+
         ylim(user.lat.min, user.lat.max)
@@ -798,7 +798,7 @@ make_spatial_plots_for_Sydney_Hunter_valley_regions <- function(sourceDir,
                           limits=c("0.1", "1", "5", "10", "20", "30", "40", "50", "60"),
                           values=heat.color,
                           labels=c("0.1", "1", "5", "10", "20", "30", "40", "50", ">60"))+
-        ggtitle(paste0("Antecedent 2-year water availability severity (%)"))+
+        ggtitle(paste0("Antecedent 2-year rainfall percentile (%)"))+
         guides(color = guide_legend(nrow=5, byrow = T))+
         xlim(user.lon.min, user.lon.max)+
         ylim(user.lat.min, user.lat.max)
@@ -842,7 +842,7 @@ make_spatial_plots_for_Sydney_Hunter_valley_regions <- function(sourceDir,
         scale_fill_manual(name="value",
                           values=rev(rain.color.drought.2yr),
                           labels=drought.intensity.2yr.long.lab)+
-        ggtitle(paste0("Antecedent 2-year water availability (mm/yr)"))+
+        ggtitle(paste0("Antecedent 2-year rainfall (mm)"))+
         guides(color = guide_legend(nrow=5, byrow = T))+
         xlim(user.lon.min, user.lon.max)+
         ylim(user.lat.min, user.lat.max)
@@ -901,7 +901,7 @@ make_spatial_plots_for_Sydney_Hunter_valley_regions <- function(sourceDir,
                           values=rain.color,
                           labels=c("99.9", "99", "95", "90", "80", "70", "60", "50", "40"))+
         guides(color = guide_legend(nrow=5, byrow = T))+
-        ggtitle(paste0("Maximum daily wind severity percentile"))+
+        ggtitle(paste0("Maximum daily wind percentile (%)"))+
         xlim(user.lon.min, user.lon.max)+
         ylim(user.lat.min, user.lat.max)
     
@@ -995,7 +995,7 @@ make_spatial_plots_for_Sydney_Hunter_valley_regions <- function(sourceDir,
                           limits=c("99.9", "99", "95", "90", "80", "70", "60", "50", "40"),
                           values=heat.color,
                           labels=c("99.9", "99", "95", "90", "80", "70", "60", "50", "40"))+
-        ggtitle(paste0("Antecedent 1-year atmospheric dryness severity (%)"))+
+        ggtitle(paste0("Antecedent 1-year atmospheric dryness percentile (%)"))+
         guides(color = guide_legend(nrow=5, byrow = T))+
         xlim(user.lon.min, user.lon.max)+
         ylim(user.lat.min, user.lat.max)
@@ -1092,7 +1092,7 @@ make_spatial_plots_for_Sydney_Hunter_valley_regions <- function(sourceDir,
                           limits=c("99.9", "99", "95", "90", "80", "70", "60", "50", "40"),
                           values=heat.color,
                           labels=c("99.9", "99", "95", "90", "80", "70", "60", "50", "40"))+
-        ggtitle(paste0("Antecedent 2-year atmospheric dryness severity (%)"))+
+        ggtitle(paste0("Antecedent 2-year atmospheric dryness percentile (%)"))+
         guides(color = guide_legend(nrow=5, byrow = T))+
         xlim(user.lon.min, user.lon.max)+
         ylim(user.lat.min, user.lat.max)
@@ -1188,7 +1188,7 @@ make_spatial_plots_for_Sydney_Hunter_valley_regions <- function(sourceDir,
                           limits=c("99.9", "99", "95", "90", "80", "70", "60", "50", "40"),
                           values=heat.color,
                           labels=c("99.9", "99", "95", "90", "80", "70", "60", "50", "40"))+
-        ggtitle(paste0("Antecedent 1-year water deficit severity (%)"))+
+        ggtitle(paste0("Antecedent 1-year water deficit percentile (%)"))+
         guides(color = guide_legend(nrow=5, byrow = T))+
         xlim(user.lon.min, user.lon.max)+
         ylim(user.lat.min, user.lat.max)
@@ -1232,7 +1232,7 @@ make_spatial_plots_for_Sydney_Hunter_valley_regions <- function(sourceDir,
         scale_fill_manual(name="value",
                           values=heat.color.deficit.1yr,
                           labels=deficit.1yr.lab)+
-        ggtitle(paste0("Antecedent 1-year water deficit (P - PET, unit: mm/yr)"))+
+        ggtitle(paste0("Antecedent 1-year water deficit (P - PET, unit: mm)"))+
         guides(color = guide_legend(nrow=5, byrow = T))+
         xlim(user.lon.min, user.lon.max)+
         ylim(user.lat.min, user.lat.max)
@@ -1285,7 +1285,7 @@ make_spatial_plots_for_Sydney_Hunter_valley_regions <- function(sourceDir,
                           limits=c("99.9", "99", "95", "90", "80", "70", "60", "50", "40"),
                           values=heat.color,
                           labels=c("99.9", "99", "95", "90", "80", "70", "60", "50", "40"))+
-        ggtitle(paste0("Antecedent 2-year water deficit severity (%)"))+
+        ggtitle(paste0("Antecedent 2-year water deficit percentile (%)"))+
         guides(color = guide_legend(nrow=5, byrow = T))+
         xlim(user.lon.min, user.lon.max)+
         ylim(user.lat.min, user.lat.max)
@@ -1329,7 +1329,7 @@ make_spatial_plots_for_Sydney_Hunter_valley_regions <- function(sourceDir,
         scale_fill_manual(name="value",
                           values=heat.color.deficit.2yr,
                           labels=deficit.2yr.lab)+
-        ggtitle(paste0("Antecedent 2-year water deficit (P - PET, unit: mm/yr)"))+
+        ggtitle(paste0("Antecedent 2-year water deficit (P - PET, unit: mm)"))+
         guides(color = guide_legend(nrow=5, byrow = T))+
         xlim(user.lon.min, user.lon.max)+
         ylim(user.lat.min, user.lat.max)

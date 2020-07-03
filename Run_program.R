@@ -280,15 +280,15 @@ source("prepare.R")
 
 #### B5. calculate atmospheric dryness (VPD) for antecedent 1 and 2-year period
 #### B5.1. atmospheric dryness for antecendent 1-year period
-compute_antecedent_atmospheric_dryness_for_user_defined_regions(sourceDir = "input", 
-                                                               destDir = "output/antecedent_atmospheric_dryness",
-                                                               user.region.name = "SydneyHunter",
-                                                               duration = "1-year")
-### B5.2. atmospheric dryness for antecedent 2-year period
-compute_antecedent_atmospheric_dryness_for_user_defined_regions(sourceDir = "input", 
-                                                                destDir = "output/antecedent_atmospheric_dryness",
-                                                                user.region.name = "SydneyHunter",
-                                                                duration = "2-year")
+#compute_antecedent_atmospheric_dryness_for_user_defined_regions(sourceDir = "input", 
+#                                                               destDir = "output/antecedent_atmospheric_dryness",
+#                                                               user.region.name = "SydneyHunter",
+#                                                               duration = "1-year")
+#### B5.2. atmospheric dryness for antecedent 2-year period
+#compute_antecedent_atmospheric_dryness_for_user_defined_regions(sourceDir = "input", 
+#                                                                destDir = "output/antecedent_atmospheric_dryness",
+#                                                                user.region.name = "SydneyHunter",
+#                                                                duration = "2-year")
 
 
 
@@ -371,52 +371,52 @@ compute_antecedent_atmospheric_dryness_for_user_defined_regions(sourceDir = "inp
 #### A1. check storm intensity severity for date of selection over the user defined region
 #### A1.1. storm intensity over 1-day period, 
 #### and storm intensity expressed by return intervals
-#compute_storm_severity_for_user_defined_regions(sourceDir = "input", 
-#                                                destDir = "output/storm",
-#                                                user.region.name = "SydneyHunter",
-#                                                date.of.interest = "20191126",
-#                                                storm.duration = "1-day")
-#
-##### A1.2. storm intensity over 5-day period
-##### and storm intensity expressed by return intervals
-#compute_storm_severity_for_user_defined_regions(sourceDir = "input", 
-#                                                destDir = "output/storm",
-#                                                user.region.name = "SydneyHunter",
-#                                                date.of.interest = "20191126",
-#                                                storm.duration = "5-day")
-#
-#
-##### B1.1 and 1.2
-#compute_storm_severity_for_user_defined_regions(sourceDir = "input", 
-#                                                destDir = "output/storm",
-#                                                user.region.name = "SydneyHunter",
-#                                                date.of.interest = "20200208",
-#                                                storm.duration = "1-day")
-#
-#compute_storm_severity_for_user_defined_regions(sourceDir = "input", 
-#                                                destDir = "output/storm",
-#                                                user.region.name = "SydneyHunter",
-#                                                date.of.interest = "20200208",
-#                                                storm.duration = "5-day")
-#
-#
-##### C1.1 and 1.2
-#compute_storm_severity_for_user_defined_regions(sourceDir = "input", 
-#                                                destDir = "output/storm",
-#                                                user.region.name = "SydneyHunter",
-#                                                date.of.interest = "20200218",
-#                                                storm.duration = "1-day")
-#
-#compute_storm_severity_for_user_defined_regions(sourceDir = "input", 
-#                                                destDir = "output/storm",
-#                                                user.region.name = "SydneyHunter",
-#                                                date.of.interest = "20200218",
-#                                                storm.duration = "5-day")
-#
-#
-#
-#
-#
+compute_storm_severity_for_user_defined_regions(sourceDir = "input", 
+                                                destDir = "output/storm",
+                                                user.region.name = "SydneyHunter",
+                                                date.of.interest = "20191126",
+                                                storm.duration = "1-day")
+
+#### A1.2. storm intensity over 5-day period
+#### and storm intensity expressed by return intervals
+compute_storm_severity_for_user_defined_regions(sourceDir = "input", 
+                                                destDir = "output/storm",
+                                                user.region.name = "SydneyHunter",
+                                                date.of.interest = "20191126",
+                                                storm.duration = "5-day")
+
+
+#### B1.1 and 1.2
+compute_storm_severity_for_user_defined_regions(sourceDir = "input", 
+                                                destDir = "output/storm",
+                                                user.region.name = "SydneyHunter",
+                                                date.of.interest = "20200208",
+                                                storm.duration = "1-day")
+
+compute_storm_severity_for_user_defined_regions(sourceDir = "input", 
+                                                destDir = "output/storm",
+                                                user.region.name = "SydneyHunter",
+                                                date.of.interest = "20200208",
+                                                storm.duration = "5-day")
+
+
+#### C1.1 and 1.2
+compute_storm_severity_for_user_defined_regions(sourceDir = "input", 
+                                                destDir = "output/storm",
+                                                user.region.name = "SydneyHunter",
+                                                date.of.interest = "20200218",
+                                                storm.duration = "1-day")
+
+compute_storm_severity_for_user_defined_regions(sourceDir = "input", 
+                                                destDir = "output/storm",
+                                                user.region.name = "SydneyHunter",
+                                                date.of.interest = "20200218",
+                                                storm.duration = "5-day")
+
+
+
+
+
 ##### A2. check wind intensity severity for date of selection over the user defined region
 #compute_wind_event_severity_for_user_defined_regions(sourceDir1 = "/Volumes/TOSHIBAEXT/gsod/",
 #                                                     sourceDir2 = "input",
