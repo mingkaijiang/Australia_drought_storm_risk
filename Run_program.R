@@ -371,50 +371,50 @@ source("prepare.R")
 #### A1. check storm intensity severity for date of selection over the user defined region
 #### A1.1. storm intensity over 1-day period, 
 #### and storm intensity expressed by return intervals
-compute_storm_severity_for_user_defined_regions(sourceDir = "input", 
-                                                destDir = "output/storm",
-                                                user.region.name = "SydneyHunter",
-                                                date.of.interest = "20191126",
-                                                storm.duration = "1-day")
-
-#### A1.2. storm intensity over 5-day period
-#### and storm intensity expressed by return intervals
-compute_storm_severity_for_user_defined_regions(sourceDir = "input", 
-                                                destDir = "output/storm",
-                                                user.region.name = "SydneyHunter",
-                                                date.of.interest = "20191126",
-                                                storm.duration = "5-day")
-
-
-#### B1.1 and 1.2
-compute_storm_severity_for_user_defined_regions(sourceDir = "input", 
-                                                destDir = "output/storm",
-                                                user.region.name = "SydneyHunter",
-                                                date.of.interest = "20200208",
-                                                storm.duration = "1-day")
-
-compute_storm_severity_for_user_defined_regions(sourceDir = "input", 
-                                                destDir = "output/storm",
-                                                user.region.name = "SydneyHunter",
-                                                date.of.interest = "20200208",
-                                                storm.duration = "5-day")
-
-
-#### C1.1 and 1.2
-compute_storm_severity_for_user_defined_regions(sourceDir = "input", 
-                                                destDir = "output/storm",
-                                                user.region.name = "SydneyHunter",
-                                                date.of.interest = "20200218",
-                                                storm.duration = "1-day")
-
-compute_storm_severity_for_user_defined_regions(sourceDir = "input", 
-                                                destDir = "output/storm",
-                                                user.region.name = "SydneyHunter",
-                                                date.of.interest = "20200218",
-                                                storm.duration = "5-day")
-
-
-
+#compute_storm_severity_for_user_defined_regions(sourceDir = "input", 
+#                                                destDir = "output/storm",
+#                                                user.region.name = "SydneyHunter",
+#                                                date.of.interest = "20191126",
+#                                                storm.duration = "1-day")
+#
+##### A1.2. storm intensity over 5-day period
+##### and storm intensity expressed by return intervals
+#compute_storm_severity_for_user_defined_regions(sourceDir = "input", 
+#                                                destDir = "output/storm",
+#                                                user.region.name = "SydneyHunter",
+#                                                date.of.interest = "20191126",
+#                                                storm.duration = "5-day")
+#
+#
+##### B1.1 and 1.2
+#compute_storm_severity_for_user_defined_regions(sourceDir = "input", 
+#                                                destDir = "output/storm",
+#                                                user.region.name = "SydneyHunter",
+#                                                date.of.interest = "20200208",
+#                                                storm.duration = "1-day")
+#
+#compute_storm_severity_for_user_defined_regions(sourceDir = "input", 
+#                                                destDir = "output/storm",
+#                                                user.region.name = "SydneyHunter",
+#                                                date.of.interest = "20200208",
+#                                                storm.duration = "5-day")
+#
+#
+##### C1.1 and 1.2
+#compute_storm_severity_for_user_defined_regions(sourceDir = "input", 
+#                                                destDir = "output/storm",
+#                                                user.region.name = "SydneyHunter",
+#                                                date.of.interest = "20200218",
+#                                                storm.duration = "1-day")
+#
+#compute_storm_severity_for_user_defined_regions(sourceDir = "input", 
+#                                                destDir = "output/storm",
+#                                                user.region.name = "SydneyHunter",
+#                                                date.of.interest = "20200218",
+#                                                storm.duration = "5-day")
+#
+#
+#
 
 
 ##### A2. check wind intensity severity for date of selection over the user defined region
@@ -486,49 +486,49 @@ compute_storm_severity_for_user_defined_regions(sourceDir = "input",
 #
 #### A4. check antecedent atmospheric dryness (VPD) for date of selection over the user defined region
 #### A4.1. antecedent 1-year atmospheric dryness
-compute_antecedent_atmospheric_dryness_severity_for_user_defined_regions(sourceDir = "input", 
-                                                                         destDir = "output/antecedent_atmospheric_dryness",
-                                                                         user.region.name = "SydneyHunter",
-                                                                         date.of.interest = "20191126",
-                                                                         duration = "1-year")
-
-#### A4.2. antecedent 2-year atmospheric dryness
-compute_antecedent_atmospheric_dryness_severity_for_user_defined_regions(sourceDir = "input", 
-                                                                         destDir = "output/antecedent_atmospheric_dryness",
-                                                                         user.region.name = "SydneyHunter",
-                                                                         date.of.interest = "20191126",
-                                                                         duration = "2-year")
-
-#### B4
-compute_antecedent_atmospheric_dryness_severity_for_user_defined_regions(sourceDir = "input", 
-                                                                         destDir = "output/antecedent_atmospheric_dryness",
-                                                                         user.region.name = "SydneyHunter",
-                                                                         date.of.interest = "20200208",
-                                                                         duration = "1-year")
-
-compute_antecedent_atmospheric_dryness_severity_for_user_defined_regions(sourceDir = "input", 
-                                                                         destDir = "output/antecedent_atmospheric_dryness",
-                                                                         user.region.name = "SydneyHunter",
-                                                                         date.of.interest = "20200208",
-                                                                         duration = "2-year")
-
-
-#### C4
-compute_antecedent_atmospheric_dryness_severity_for_user_defined_regions(sourceDir = "input", 
-                                                                         destDir = "output/antecedent_atmospheric_dryness",
-                                                                         user.region.name = "SydneyHunter",
-                                                                         date.of.interest = "20200218",
-                                                                         duration = "1-year")
-
-compute_antecedent_atmospheric_dryness_severity_for_user_defined_regions(sourceDir = "input", 
-                                                                         destDir = "output/antecedent_atmospheric_dryness",
-                                                                         user.region.name = "SydneyHunter",
-                                                                         date.of.interest = "20200218",
-                                                                         duration = "2-year")
-
-
-
-
+#compute_antecedent_atmospheric_dryness_severity_for_user_defined_regions(sourceDir = "input", 
+#                                                                         destDir = "output/antecedent_atmospheric_dryness",
+#                                                                         user.region.name = "SydneyHunter",
+#                                                                         date.of.interest = "20191126",
+#                                                                         duration = "1-year")
+#
+##### A4.2. antecedent 2-year atmospheric dryness
+#compute_antecedent_atmospheric_dryness_severity_for_user_defined_regions(sourceDir = "input", 
+#                                                                         destDir = "output/antecedent_atmospheric_dryness",
+#                                                                         user.region.name = "SydneyHunter",
+#                                                                         date.of.interest = "20191126",
+#                                                                         duration = "2-year")
+#
+##### B4
+#compute_antecedent_atmospheric_dryness_severity_for_user_defined_regions(sourceDir = "input", 
+#                                                                         destDir = "output/antecedent_atmospheric_dryness",
+#                                                                         user.region.name = "SydneyHunter",
+#                                                                         date.of.interest = "20200208",
+#                                                                         duration = "1-year")
+#
+#compute_antecedent_atmospheric_dryness_severity_for_user_defined_regions(sourceDir = "input", 
+#                                                                         destDir = "output/antecedent_atmospheric_dryness",
+#                                                                         user.region.name = "SydneyHunter",
+#                                                                         date.of.interest = "20200208",
+#                                                                         duration = "2-year")
+#
+#
+##### C4
+#compute_antecedent_atmospheric_dryness_severity_for_user_defined_regions(sourceDir = "input", 
+#                                                                         destDir = "output/antecedent_atmospheric_dryness",
+#                                                                         user.region.name = "SydneyHunter",
+#                                                                         date.of.interest = "20200218",
+#                                                                         duration = "1-year")
+#
+#compute_antecedent_atmospheric_dryness_severity_for_user_defined_regions(sourceDir = "input", 
+#                                                                         destDir = "output/antecedent_atmospheric_dryness",
+#                                                                         user.region.name = "SydneyHunter",
+#                                                                         date.of.interest = "20200218",
+#                                                                         duration = "2-year")
+#
+#
+#
+#
 #### A5. check antecedent water deficit (PET - P) for date of selection over the user defined region
 #### A5.1. antecedent 1-year water deficit
 #compute_antecedent_water_deficit_severity_for_user_defined_regions(sourceDir = "input", 
