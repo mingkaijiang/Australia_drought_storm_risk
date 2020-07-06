@@ -681,6 +681,15 @@ make_spatial_plots_for_Sydney_Hunter_valley_regions(sourceDir = "output",
                                                     date.of.interest = "20200218")
 
 
+#### 20200131
+sourceDir = "output"
+destDir = "plots"
+user.region.name = "SydneyHunter"
+date.of.interest = "20200131"
+make_spatial_plots_for_Sydney_Hunter_valley_regions_20200131(sourceDir = "output",
+                                                             destDir = "plots",
+                                                             user.region.name = "SydneyHunter",
+                                                             date.of.interest = "20200131")
 
 
 ### ++++++++++++++++++++++++++++++++++++ End plotting +++++++++++++++++++++++++++++++++ ####
