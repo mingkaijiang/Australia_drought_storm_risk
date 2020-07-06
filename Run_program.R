@@ -539,10 +539,21 @@ compute_antecedent_water_availability_severity_for_user_defined_regions(sourceDi
 #                                                                         user.region.name = "SydneyHunter",
 #                                                                         date.of.interest = "20200218",
 #                                                                         duration = "2-year")
-#
-#
-#
-#
+
+
+compute_antecedent_atmospheric_dryness_severity_for_user_defined_regions(sourceDir = "input", 
+                                                                         destDir = "output/antecedent_atmospheric_dryness",
+                                                                         user.region.name = "SydneyHunter",
+                                                                         date.of.interest = "20200131",
+                                                                         duration = "1-year")
+
+compute_antecedent_atmospheric_dryness_severity_for_user_defined_regions(sourceDir = "input", 
+                                                                         destDir = "output/antecedent_atmospheric_dryness",
+                                                                         user.region.name = "SydneyHunter",
+                                                                         date.of.interest = "20200131",
+                                                                         duration = "2-year")
+
+
 #### A5. check antecedent water deficit (PET - P) for date of selection over the user defined region
 #### A5.1. antecedent 1-year water deficit
 #compute_antecedent_water_deficit_severity_for_user_defined_regions(sourceDir = "input", 
@@ -608,8 +619,28 @@ compute_antecedent_water_availability_severity_for_user_defined_regions(sourceDi
 #                                                                   user.lon.min = 149,
 #                                                                   date.of.interest = "20200218",
 #                                                                   duration = "2-year")
-#
 
+
+
+compute_antecedent_water_deficit_severity_for_user_defined_regions(sourceDir = "input", 
+                                                                   destDir = "output/antecedent_water_deficit",
+                                                                   user.region.name = "SydneyHunter",
+                                                                   user.lat.max = -31,
+                                                                   user.lat.min = -35,
+                                                                   user.lon.max = 153,
+                                                                   user.lon.min = 149,
+                                                                   date.of.interest = "20200131",
+                                                                   duration = "1-year")
+
+compute_antecedent_water_deficit_severity_for_user_defined_regions(sourceDir = "input", 
+                                                                   destDir = "output/antecedent_water_deficit",
+                                                                   user.region.name = "SydneyHunter",
+                                                                   user.lat.max = -31,
+                                                                   user.lat.min = -35,
+                                                                   user.lon.max = 153,
+                                                                   user.lon.min = 149,
+                                                                   date.of.interest = "20200131",
+                                                                   duration = "2-year")
 
 #### ++++++++++ End investigate climate extreme severity for date of interest +++++++++ ####
 ############################################################################################
