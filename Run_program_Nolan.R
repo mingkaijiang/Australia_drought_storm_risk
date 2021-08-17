@@ -32,63 +32,62 @@ nswDF <- data.frame("lon.start" = rep(nsw.lon.list.s, each=length(nsw.lat.list.s
 
 #### 5.1 daily rainfall
 z=1
-sourceDir = "/Volumes/TOSHIBAEXT/AWAP/rain/"
-destDir = "input"
-varName = "rain"
-user.lat.max = nswDF$lat.start[z]
-user.lat.min = nswDF$lat.end[z]
-user.lon.min = nswDF$lon.start[z]
-user.lon.max = nswDF$lon.end[z]
-user.region.name = paste0("NSW", z)
+#sourceDir = "/Volumes/TOSHIBAEXT/AWAP/rain/"
+#destDir = "input"
+#varName = "rain"
+#user.lat.max = nswDF$lat.start[z]
+#user.lat.min = nswDF$lat.end[z]
+#user.lon.min = nswDF$lon.start[z]
+#user.lon.max = nswDF$lon.end[z]
+#user.region.name = paste0("NSW", z)
 
 for (z in 1:nrow(nswDF)) {
-    convert_from_spatial_to_temporal_DF_for_user_defined_regions_rain_Nolan(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/rain/", 
+    
+    #### 5.1 daily rainfall
+    #convert_from_spatial_to_temporal_DF_for_user_defined_regions_rain_Nolan(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/rain/", 
+    #                                                                        destDir = "input",
+    #                                                                        varName = "rain",
+    #                                                                        user.lat.max = nswDF$lat.start[z],
+    #                                                                        user.lat.min = nswDF$lat.end[z],
+    #                                                                        user.lon.min = nswDF$lon.start[z],
+    #                                                                        user.lon.max = nswDF$lon.end[z],
+    #                                                                        user.region.name = paste0("NSW", z))
+    
+    #### 5.2. daily Tmax
+    convert_from_spatial_to_temporal_DF_for_user_defined_regions_tmax_Nolan(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/tmax/", 
                                                                             destDir = "input",
-                                                                            varName = "rain",
+                                                                            varName = "tmax",
                                                                             user.lat.max = nswDF$lat.start[z],
                                                                             user.lat.min = nswDF$lat.end[z],
                                                                             user.lon.min = nswDF$lon.start[z],
                                                                             user.lon.max = nswDF$lon.end[z],
                                                                             user.region.name = paste0("NSW", z))
+    
+    
+    
+    ##### 7. Calculate PET minus P
+    ##### 7.1. Calculate PET based on Tmax
+    #####      return monthly DF
+    calculate_PET_based_on_Tmax_Nolan(sourceDir = "input",
+                                      destDir = "input",
+                                      varName = "pet",
+                                      user.lat.max = nswDF$lat.start[z],
+                                      user.lat.min = nswDF$lat.end[z],
+                                      user.lon.min = nswDF$lon.start[z],
+                                      user.lon.max = nswDF$lon.end[z],
+                                      user.region.name = paste0("NSW", z))
+    
+    ##### 7.2 Calculate PET minus P
+    #####     return monthly DF 
+    calculate_PD_based_on_PET(sourceDir = "input",
+                              destDir = "input",
+                              varName = "pd",
+                              user.lat.max = nswDF$lat.start[z],
+                              user.lat.min = nswDF$lat.end[z],
+                              user.lon.min = nswDF$lon.start[z],
+                              user.lon.max = nswDF$lon.end[z],
+                              user.region.name = paste0("NSW", z))
 }
 
 
-
-
-#### 5.2. daily Tmax
-convert_from_spatial_to_temporal_DF_for_user_defined_regions_tmax_Nolan(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/tmax/", 
-                                                                        destDir = "input",
-                                                                        varName = "tmax",
-                                                                        user.lat.max = -31,
-                                                                        user.lat.min = -35,
-                                                                        user.lon.max = 153,
-                                                                        user.lon.min = 149,
-                                                                        user.region.name = "SydneyHunter")
-
-
-
-
-
-##### 7. Calculate PET minus P
-##### 7.1. Calculate PET based on Tmax
-#####      return monthly DF
-#calculate_PET_based_on_Tmax(sourceDir = "input",
-#                            destDir = "input",
-#                            varName = "pet",
-#                            user.lat.max = -31,
-#                            user.lat.min = -35,
-#                            user.lon.max = 153,
-#                            user.lon.min = 149,
-#                            user.region.name = "SydneyHunter")
-#
-##### 7.2 Calculate PET minus P
-#####     return monthly DF 
-#calculate_PD_based_on_PET(sourceDir = "input",
-#                          destDir = "input",
-#                          varName = "pd",
-#                          user.lat.max = -31,
-#                          user.lat.min = -35,
-#                          user.lon.max = 153,
-#                          user.lon.min = 149,
-#                          user.region.name = "SydneyHunter")
 
