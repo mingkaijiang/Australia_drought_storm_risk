@@ -19,10 +19,10 @@ nsw.lon.min = 138
 nsw.lat.max = -14
 nsw.lat.min = -38
 
-nsw.lat.list.s <- seq(nsw.lat.max, (nsw.lat.min+2), by=-2)
-nsw.lon.list.s <- seq(nsw.lon.min, (nsw.lon.max-2), by=2)
-nsw.lat.list.e <- seq((nsw.lat.max-2), nsw.lat.min, by=-2)
-nsw.lon.list.e <- seq((nsw.lon.min+2), nsw.lon.max, by=2)
+nsw.lat.list.s <- seq(nsw.lat.max, (nsw.lat.min+4), by=-4)
+nsw.lon.list.s <- seq(nsw.lon.min, (nsw.lon.max-4), by=4)
+nsw.lat.list.e <- seq((nsw.lat.max-4), nsw.lat.min, by=-4)
+nsw.lon.list.e <- seq((nsw.lon.min+4), nsw.lon.max, by=4)
 
 nswDF <- data.frame("lon.start" = rep(nsw.lon.list.s, each=length(nsw.lat.list.s)),
                     "lon.end" = rep(nsw.lon.list.e, each=length(nsw.lat.list.e)),
@@ -31,29 +31,39 @@ nswDF <- data.frame("lon.start" = rep(nsw.lon.list.s, each=length(nsw.lat.list.s
 
 
 #### 5.1 daily rainfall
+z=1
+sourceDir = "/Volumes/TOSHIBAEXT/AWAP/rain/"
+destDir = "input"
+varName = "rain"
+user.lat.max = nswDF$lat.start[z]
+user.lat.min = nswDF$lat.end[z]
+user.lon.min = nswDF$lon.start[z]
+user.lon.max = nswDF$lon.end[z]
+user.region.name = paste0("NSW", z)
+
 for (z in 1:nrow(nswDF)) {
-    convert_from_spatial_to_temporal_DF_for_user_defined_regions_rain(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/rain/", 
-                                                                      destDir = "input",
-                                                                      varName = "rain",
-                                                                      user.lat.max = nswDF$lat.start[z],
-                                                                      user.lat.min = nswDF$lat.end[z],
-                                                                      user.lon.min = nswDF$lon.start[z],
-                                                                      user.lon.max = nswDF$lon.end[z],
-                                                                      user.region.name = paste0("NSW", z))
+    convert_from_spatial_to_temporal_DF_for_user_defined_regions_rain_Nolan(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/rain/", 
+                                                                            destDir = "input",
+                                                                            varName = "rain",
+                                                                            user.lat.max = nswDF$lat.start[z],
+                                                                            user.lat.min = nswDF$lat.end[z],
+                                                                            user.lon.min = nswDF$lon.start[z],
+                                                                            user.lon.max = nswDF$lon.end[z],
+                                                                            user.region.name = paste0("NSW", z))
 }
 
 
 
 
 #### 5.2. daily Tmax
-#convert_from_spatial_to_temporal_DF_for_user_defined_regions_tmax(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/tmax/", 
-#                                                                  destDir = "input",
-#                                                                  varName = "tmax",
-#                                                                  user.lat.max = -31,
-#                                                                  user.lat.min = -35,
-#                                                                  user.lon.max = 153,
-#                                                                  user.lon.min = 149,
-#                                                                  user.region.name = "SydneyHunter")
+convert_from_spatial_to_temporal_DF_for_user_defined_regions_tmax_Nolan(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/tmax/", 
+                                                                        destDir = "input",
+                                                                        varName = "tmax",
+                                                                        user.lat.max = -31,
+                                                                        user.lat.min = -35,
+                                                                        user.lon.max = 153,
+                                                                        user.lon.min = 149,
+                                                                        user.region.name = "SydneyHunter")
 
 
 
