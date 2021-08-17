@@ -76,7 +76,7 @@ convert_from_spatial_to_temporal_DF_for_user_defined_regions_rain_Nolan <- funct
     out <- array(NA, c(lat.length, lon.length, n.days))
     
     ### read in data
-    system.time({
+    #system.time({
         for (i in 1:n.days) {
             
             ## read in data
@@ -92,7 +92,7 @@ convert_from_spatial_to_temporal_DF_for_user_defined_regions_rain_Nolan <- funct
                 } # k loop
             } # j loop
         } # i loop
-    })
+    #})
     
     
     ### save output

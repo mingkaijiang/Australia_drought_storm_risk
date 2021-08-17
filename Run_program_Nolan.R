@@ -19,10 +19,10 @@ nsw.lon.min = 138
 nsw.lat.max = -14
 nsw.lat.min = -38
 
-nsw.lat.list.s <- seq(nsw.lat.max, (nsw.lat.min+4), by=-4)
-nsw.lon.list.s <- seq(nsw.lon.min, (nsw.lon.max-4), by=4)
-nsw.lat.list.e <- seq((nsw.lat.max-4), nsw.lat.min, by=-4)
-nsw.lon.list.e <- seq((nsw.lon.min+4), nsw.lon.max, by=4)
+nsw.lat.list.s <- seq(nsw.lat.max, (nsw.lat.min+8), by=-8)
+nsw.lon.list.s <- seq(nsw.lon.min, (nsw.lon.max-8), by=8)
+nsw.lat.list.e <- seq((nsw.lat.max-8), nsw.lat.min, by=-8)
+nsw.lon.list.e <- seq((nsw.lon.min+8), nsw.lon.max, by=8)
 
 nswDF <- data.frame("lon.start" = rep(nsw.lon.list.s, each=length(nsw.lat.list.s)),
                     "lon.end" = rep(nsw.lon.list.e, each=length(nsw.lat.list.e)),
