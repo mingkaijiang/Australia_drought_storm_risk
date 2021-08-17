@@ -15,9 +15,20 @@ convert_from_spatial_to_temporal_DF_for_user_defined_regions_rain_Nolan <- funct
     yr.list <- c(1950:2019)
     n.yr <- length(yr.list)
     
+    ### prepare all input file path
+    dayDF <- data.frame(seq.Date(as.Date("1950/01/01"), 
+                                 as.Date("2020/03/31"), 
+                                 by="day"),
+                        NA, NA, NA)
+    colnames(dayDF) <- c("Date", "Year", "Lab", "Path")
+    dayDF$Year <- year(dayDF$Date)
+    dayDF$Lab <- gsub("-", "", dayDF$Date)
+    
+    
     ### number of leap years
-    lp.year <- 16
-    n.days <- 16 + n.yr * 365 + 31 + 29 + 31
+    #lp.year <- 16
+    #n.days <- 16 + n.yr * 365 + 31 + 29 + 31
+    n.days <- nrow(dayDF)
     
     ### grid information
     lat.id <- c(1:691)
@@ -40,14 +51,6 @@ convert_from_spatial_to_temporal_DF_for_user_defined_regions_rain_Nolan <- funct
     latlonDF.sub <- latlonDF[latlonDF$lat<=user.lat.max & latlonDF$lat >= user.lat.min & 
                                  latlonDF$lon <= user.lon.max & latlonDF$lon>=user.lon.min,]
     
-    ### prepare all input file path
-    dayDF <- data.frame(seq.Date(as.Date("1950/01/01"), 
-                                 as.Date("2020/03/31"), 
-                                 by="day"),
-                        NA, NA, NA)
-    colnames(dayDF) <- c("Date", "Year", "Lab", "Path")
-    dayDF$Year <- year(dayDF$Date)
-    dayDF$Lab <- gsub("-", "", dayDF$Date)
     
     if (varName == "rain") {
         dayDF$Path <- paste0(sourceDir, dayDF$Year, "/rain_", 
