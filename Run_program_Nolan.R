@@ -79,15 +79,34 @@ for (z in 1:nrow(nswDF)) {
     
     ##### 7.2 Calculate PET minus P
     #####     return monthly DF 
-    calculate_PD_based_on_PET(sourceDir = "input",
-                              destDir = "input",
-                              varName = "pd",
-                              user.lat.max = nswDF$lat.start[z],
-                              user.lat.min = nswDF$lat.end[z],
-                              user.lon.min = nswDF$lon.start[z],
-                              user.lon.max = nswDF$lon.end[z],
-                              user.region.name = paste0("NSW", z))
+    calculate_PD_based_on_PET_Nolan(sourceDir = "input",
+                                    destDir = "input",
+                                    varName = "pd",
+                                    user.lat.max = nswDF$lat.start[z],
+                                    user.lat.min = nswDF$lat.end[z],
+                                    user.lon.min = nswDF$lon.start[z],
+                                    user.lon.max = nswDF$lon.end[z],
+                                    user.region.name = paste0("NSW", z))
 }
 
 
+#### Merge
+merge_and_compute_NSW_P_PET_index(sourceDir = "input",
+                                  destDir = "output",
+                                  duration = "1-year",
+                                  n=nrow(nswDF))
 
+
+#### B6. calculate water deficit (PET - P) drought intex for antecedent 1 and 2 year period
+
+#### B6.1. water deficit for 1-year period
+compute_antecedent_water_deficit_for_user_defined_regions(sourceDir = "input", 
+                                                          destDir = "output/antecedent_water_deficit",
+                                                          user.region.name = "SydneyHunter",
+                                                          duration = "1-year")
+
+##### B6.2. water deficit for 2-year period
+compute_antecedent_water_deficit_for_user_defined_regions(sourceDir = "input", 
+                                                          destDir = "output/antecedent_water_deficit",
+                                                          user.region.name = "SydneyHunter",
+                                                          duration = "2-year")
