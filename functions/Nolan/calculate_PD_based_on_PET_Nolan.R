@@ -14,6 +14,10 @@ calculate_PD_based_on_PET_Nolan <- function (sourceDir,
     ### read in rain daily
     rain <- readRDS(paste0(sourceDir, "/rain_", user.region.name, "_regions.rds"))
     
+    dim1 <- dim(rain)[1]
+    dim2 <- dim(rain)[2]
+    dim3 <- dim(rain)[3]
+    
     ### convert rain daily data into monthly data
     ### prepare all input file path
     dayDF <- data.frame(seq.Date(as.Date("1950/01/01"), 

@@ -41,7 +41,7 @@ user.lon.min = nswDF$lon.start[z]
 user.lon.max = nswDF$lon.end[z]
 user.region.name = paste0("NSW", z)
 
-for (z in 1:nrow(nswDF)) {
+for (z in 2:nrow(nswDF)) {
     
     #### 5.1 daily rainfall
     convert_from_spatial_to_temporal_DF_for_user_defined_regions_rain_Nolan(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/rain/", 
@@ -68,6 +68,14 @@ for (z in 1:nrow(nswDF)) {
     ##### 7. Calculate PET minus P
     ##### 7.1. Calculate PET based on Tmax
     #####      return monthly DF
+    sourceDir = "input"
+    destDir = "input"
+    varName = "pet"
+    user.lat.max = nswDF$lat.start[z]
+    user.lat.min = nswDF$lat.end[z]
+    user.lon.min = nswDF$lon.start[z]
+    user.lon.max = nswDF$lon.end[z]
+    user.region.name = paste0("NSW", z)
     calculate_PET_based_on_Tmax_Nolan(sourceDir = "input",
                                       destDir = "input",
                                       varName = "pet",
@@ -79,6 +87,16 @@ for (z in 1:nrow(nswDF)) {
     
     ##### 7.2 Calculate PET minus P
     #####     return monthly DF 
+    z=1
+    sourceDir = "input"
+    destDir = "input"
+    varName = "pd"
+    user.lat.max = nswDF$lat.start[z]
+    user.lat.min = nswDF$lat.end[z]
+    user.lon.min = nswDF$lon.start[z]
+    user.lon.max = nswDF$lon.end[z]
+    user.region.name = paste0("NSW", z)
+    
     calculate_PD_based_on_PET_Nolan(sourceDir = "input",
                                     destDir = "input",
                                     varName = "pd",
@@ -90,23 +108,21 @@ for (z in 1:nrow(nswDF)) {
 }
 
 
-#### Merge
-merge_and_compute_NSW_P_PET_index(sourceDir = "input",
-                                  destDir = "output",
-                                  duration = "1-year",
-                                  n=nrow(nswDF))
 
+##### Calculate water deficit total over period of interest, and its percentil information
 
-#### B6. calculate water deficit (PET - P) drought intex for antecedent 1 and 2 year period
-
-#### B6.1. water deficit for 1-year period
-compute_antecedent_water_deficit_for_user_defined_regions(sourceDir = "input", 
-                                                          destDir = "output/antecedent_water_deficit",
-                                                          user.region.name = "SydneyHunter",
-                                                          duration = "1-year")
-
+##### B6. calculate water deficit (PET - P) drought intex for 2 year period
 ##### B6.2. water deficit for 2-year period
-compute_antecedent_water_deficit_for_user_defined_regions(sourceDir = "input", 
-                                                          destDir = "output/antecedent_water_deficit",
-                                                          user.region.name = "SydneyHunter",
-                                                          duration = "2-year")
+##### Period of interest: feb-2018 to Jan-2020
+compute_water_deficit_percentile_Nolan(sourceDir = "input", 
+                                       destDir = "output/Nolan",
+                                       duration = "2-year",
+                                       nswDF)
+
+
+### convert into 3d matrix
+#d1 <- sqrt(dim1)
+#test <- array(unlist(myData), dim = c(d1,d1,dim2))
+#test1 <- test[,,1]
+#r1 <- raster(test1)
+#plot(r1)
