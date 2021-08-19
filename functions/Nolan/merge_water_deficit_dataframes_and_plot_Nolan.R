@@ -156,7 +156,7 @@ merge_water_deficit_dataframes_and_plot_Nolan <- function(sourceDir,
 
     
     p7 <- ggplot() +
-        #geom_tile(latlonDF.sub, mapping=aes(lon, lat, fill=PD))+
+        geom_tile(outDF, mapping=aes(lon, lat, fill=PD_percent))+
         geom_polygon(data = simp, 
                      aes(x = long, y = lat, group = group), 
                      colour = "black", fill = NA)+
@@ -174,6 +174,5 @@ merge_water_deficit_dataframes_and_plot_Nolan <- function(sourceDir,
               legend.box = 'vertical',
               legend.box.just = 'left'); p7
     
-    plot(p7)
-    
+
 }  
