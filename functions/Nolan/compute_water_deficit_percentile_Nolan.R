@@ -3,6 +3,7 @@ compute_water_deficit_percentile_Nolan <- function(sourceDir,
                                                    duration, 
                                                    nswDF) {
     
+    
     #### Create output folder
     if(!dir.exists(destDir)) {
         dir.create(destDir, showWarnings = FALSE)

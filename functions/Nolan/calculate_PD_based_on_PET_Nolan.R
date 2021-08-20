@@ -1,11 +1,11 @@
 calculate_PD_based_on_PET_Nolan <- function (sourceDir,
-                                       destDir,
-                                       varName,
-                                       user.lat.max,
-                                       user.lat.min,
-                                       user.lon.max,
-                                       user.lon.min,
-                                       user.region.name) {
+                                             destDir,
+                                             varName,
+                                             user.lat.max,
+                                             user.lat.min,
+                                             user.lon.max,
+                                             user.lon.min,
+                                             user.region.name) {
     
     
     ### read in the PET monthly dataframe
@@ -68,6 +68,8 @@ calculate_PD_based_on_PET_Nolan <- function (sourceDir,
     diff <- act - pet
     
     ### save output
-    saveRDS(diff, file=paste0(destDir, "/", varName, "_", user.region.name, "_regions.rds"))
+    saveRDS(diff, file=paste0(destDir, "/", varName, "_", user.region.name, "_regions_2d.rds"))
+    saveRDS(act, file=paste0(destDir, "/rain_", user.region.name, "_regions_2d.rds"))
+    saveRDS(pet, file=paste0(destDir, "/pet_", user.region.name, "_regions_2d.rds"))
     
 }
