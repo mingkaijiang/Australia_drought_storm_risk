@@ -2,6 +2,7 @@ merge_water_deficit_dataframes_and_plot_Nolan <- function(sourceDir,
                                                           destDir,
                                                           nswDF) {
     
+     
     #### Create output folder
     if(!dir.exists(destDir)) {
         dir.create(destDir, showWarnings = FALSE)
