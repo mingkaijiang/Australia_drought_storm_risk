@@ -13,8 +13,8 @@ calculate_PD_based_on_PET_Adriano <- function (sourceDir,
     
     ### convert rain daily data into monthly data
     ### prepare all input file path
-    dayDF <- data.frame(seq.Date(as.Date("1900/01/01"), 
-                                 as.Date("2020/03/31"), 
+    dayDF <- data.frame(seq.Date(as.Date("1950/01/01"), 
+                                 as.Date("2020/11/30"), 
                                  by="day"),
                         NA, NA, NA, NA)
     colnames(dayDF) <- c("Date", "Year", "Month", "YearMonth", "loc")
@@ -24,7 +24,7 @@ calculate_PD_based_on_PET_Adriano <- function (sourceDir,
     dayDF$loc <- c(1:nrow(dayDF))
     
     ### ignore earlier dates
-    dayDF <- subset(dayDF, Date >= "1971-01-01")
+    #dayDF <- subset(dayDF, Date >= "1971-01-01")
     
     ### prepare index file
     indexDF <- data.frame(unique(dayDF$YearMonth), NA, NA)

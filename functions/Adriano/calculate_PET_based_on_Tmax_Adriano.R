@@ -49,27 +49,6 @@ calculate_PET_based_on_Tmax_Adriano <- function (sourceDir,
         out[,,i] <- monthly[,]
     }
     
-    ### grid information
-    lat.id <- c(1:691)
-    lat.lab <- paste0("lat", lat.id)
-    
-    lon.id <- c(1:886)
-    lon.lab <- paste0("lon", lon.id)
-    
-    lon <- seq(111.975, 111.975 + (0.05 * 885), by=0.05)
-    lat <- seq(-10.025, -10.025 + (-0.05 * 690), by=-0.05)
-    
-    ### create lon lat DF for future plotting
-    latlonDF <- data.frame(rep(lat.id, each = max(lon.id)),
-                           rep(lon.id, max(lat.id)), 
-                           rep(lat, each = max(lon.id)),
-                           rep(lon, max(lat.id)))
-    colnames(latlonDF) <- c("latID", "lonID", "lat", "lon")
-    
-    ### add group information to split the DF to make it smaller
-    latlonDF.sub <- latlonDF[latlonDF$lat<=user.lat.max & latlonDF$lat >= user.lat.min & 
-                                 latlonDF$lon <= user.lon.max & latlonDF$lon>=user.lon.min,]
-    
     
     ### prepare storageDF for PET
     pet <- array(NA, c(dim1*dim2, n.month))
@@ -80,7 +59,7 @@ calculate_PET_based_on_Tmax_Adriano <- function (sourceDir,
     dim(test) <- c(prod(dims[1:2]), dims[3])
     
     for (i in 1:dim4) {
-        lat <- latlonDF.sub$lat[i]
+        lat <- siteDF$Lat[i]
         Tave <- test[i,]
         pet[i,] <- thornthwaite(Tave, lat, na.rm=T)
     }
