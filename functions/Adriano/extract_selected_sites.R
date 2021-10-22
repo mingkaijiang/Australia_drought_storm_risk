@@ -10,15 +10,15 @@ extract_selected_sites <- function(sourceDir,
     }
     
     ### prepare year DFs
-    yr.list <- c(1950:2020)
+    yr.list <- c(1971:2020)
     n.yr <- length(yr.list)
     
     ### number of leap years
-    lp.year <- 18
+    lp.year <- 13
     n.days <- lp.year + n.yr * 365 - 31
     
     ### prepare all input file path
-    dayDF <- data.frame(seq.Date(as.Date("1950/01/01"), 
+    dayDF <- data.frame(seq.Date(as.Date("1971/01/01"), 
                                  as.Date("2020/11/30"), 
                                  by="day"),
                         NA, NA, NA)

@@ -29,23 +29,17 @@ source("prepare.R")
 siteDF <- read_in_sites_and_convert_to_AWAP()
 
 
-### 1.3. Vapor pressure at 3 pm - from 1971 to 2020 (march 31st)
-download_AWAP_vp3pm_data(destDir="/Volumes/TOSHIBAEXT/AWAP/vp3pm/")
-
-
-
 #### 2. Unzip all .z files
 ####    Only need to run this section of code once
 unzip_all_z_files_and_rename(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/rain/2020/")
 
 unzip_all_z_files_Adriano(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/tmax/2020/")
 
-#unzip_all_z_files(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/vp3pm/", s.yr = 1971, e.yr = 2020)
+unzip_all_z_files_Adriano(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/vp3pm/2020/")
 
 
 ###########################################################################################
 ### extract site
-
 extract_selected_sites(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/rain/", 
                        destDir = "input/Adriano",
                        varName = "rain",
@@ -58,11 +52,44 @@ extract_selected_sites(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/tmax/",
                        siteDF = siteDF,
                        user.region.name = "Adriano")
 
-extract_selected_sites(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/rain/", 
+extract_selected_sites(sourceDir = "/Volumes/TOSHIBAEXT/AWAP/vp3pm/", 
                        destDir = "input/Adriano",
-                       varName = "rain",
+                       varName = "vp3pm",
                        siteDF = siteDF,
                        user.region.name = "Adriano")
+
+
+### 6.1. Calculate saturated vapor pressure based on Tmax
+calculate_saturated_vapor_pressure_based_on_Tmax_Adriano(sourceDir = "input",
+                                                         destDir = "input",
+                                                         varName = "es",
+                                                         user.region.name = "Adriano")
+
+### 6.2. Calculate VPD based on ES and EA
+####     Note: check back - VPD range - 30 to + 6, possibly not right !!!!
+calculate_VPD_based_on_es_and_vp3pm_Adriano(sourceDir = "input",
+                                    destDir = "input",
+                                    varName = "vpd",
+                                    user.region.name = "Adriano")
+
+
+##### 7. Calculate PET minus P
+##### 7.1. Calculate PET based on Tmax
+#####      return monthly DF
+calculate_PET_based_on_Tmax_Adriano(sourceDir = "input",
+                                    destDir = "input",
+                                    varName = "pet",
+                                    siteDF=siteDF,
+                                    user.region.name = "Adriano")
+
+##### 7.2 Calculate PET minus P
+#####     return monthly DF 
+calculate_PD_based_on_PET_Adriano(sourceDir = "input",
+                                  destDir = "input",
+                                  varName = "pd",
+                                  siteDF=siteDF,
+                                  user.region.name = "Adriano")
+
 
 ### checking script
 plot_PET(sourceDir <- "input",
