@@ -2,11 +2,11 @@
 download_AWAP_temperature_data <- function(destDir) {
     
     ### remote url
-    url1 <- "http://www.bom.gov.au/web03/ncc/www/awap/temperature/maxave/daily/grid/0.05/history/nat/"
+    url1 <- "http://www.bom.gov.au/web03/ncc/www/awap/temperature/minave/daily/grid/0.05/history/nat/"
     
     ### file names
-    day.list <- seq.Date(as.Date("1911/01/01"), 
-                         as.Date("2017/12/31"), 
+    day.list <- seq.Date(as.Date("2020/01/01"), 
+                         as.Date("2020/12/31"), 
                          by="day")
     
     day.list <- gsub("-", "", day.list)
