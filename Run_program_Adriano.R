@@ -94,4 +94,12 @@ calculate_PD_based_on_PET_Adriano(sourceDir = "input/Adriano",
 ### to here. next:
 ### 1. calculate mean precipitation
 ### 2. calculate water deficit over the two year period
+### Mean annual rainfall; 
+### rainfall in the two years up to January 2020; 
+### rainfall Jan 2020 – Nov 2020
+### Mean annual water deficit; 
+### Water deficit in the two years up to Jan 2020
 
+
+### calculate mean rainfall for each location
+calculate_MAP_for_Adirano_locations()

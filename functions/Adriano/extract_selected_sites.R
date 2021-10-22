@@ -50,7 +50,7 @@ extract_selected_sites <- function(sourceDir,
     lon.id <- 1:lon.length
     
     ### create out storage matrix
-    out <- array(NA, c(lat.length, lon.length, n.days))
+    out <- array(NA, c(lat.length, n.days))
     
     ### read in data
     for (i in 1:n.days) {
@@ -60,12 +60,12 @@ extract_selected_sites <- function(sourceDir,
         myDF <- read.ascii.grid(inName)
         
         for (j in lat.id) {
-            for (k in lon.id) {
-                j2 <- lat.list[j]
-                k2 <- lon.list[k]
-                ### save data
-                out[j, k, i] <- myDF$data[j2,k2]
-            } # k loop
+            
+            j2 <- lat.list[j]
+            k2 <- lon.list[j]
+            ### save data
+            out[j, i] <- myDF$data[j2,k2]
+            
         } # j loop
     } # i loop
     
