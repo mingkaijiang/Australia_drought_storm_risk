@@ -1,8 +1,8 @@
 calculate_PD_based_on_PET_Adriano <- function (sourceDir,
-                                       destDir,
-                                       varName,
-                                       siteDF,
-                                       user.region.name) {
+                                               destDir,
+                                               varName,
+                                               siteDF,
+                                               user.region.name) {
     
     
     ### read in the PET monthly dataframe
@@ -13,7 +13,7 @@ calculate_PD_based_on_PET_Adriano <- function (sourceDir,
     
     ### convert rain daily data into monthly data
     ### prepare all input file path
-    dayDF <- data.frame(seq.Date(as.Date("1950/01/01"), 
+    dayDF <- data.frame(seq.Date(as.Date("1971/01/01"), 
                                  as.Date("2020/11/30"), 
                                  by="day"),
                         NA, NA, NA, NA)
@@ -23,8 +23,6 @@ calculate_PD_based_on_PET_Adriano <- function (sourceDir,
     dayDF$YearMonth <- substr(dayDF$Date, 1, 7)
     dayDF$loc <- c(1:nrow(dayDF))
     
-    ### ignore earlier dates
-    #dayDF <- subset(dayDF, Date >= "1971-01-01")
     
     ### prepare index file
     indexDF <- data.frame(unique(dayDF$YearMonth), NA, NA)
@@ -41,21 +39,19 @@ calculate_PD_based_on_PET_Adriano <- function (sourceDir,
     
     ### prepare a storage DF for monthly average Tmax
     n.month <- dim(indexDF)[1]
-    out <- array(NA, c(dim1, dim2, n.month))
+    out <- array(NA, c(dim1, n.month))
     
     ### Calculate monthly mean
     for (i in 1:n.month) {
         s <- indexDF$s[i]
         e <- indexDF$e[i]
-        sub <- rain[,,s:e]
-        monthly <- rowSums(sub, dims = 2, na.rm=T)
-        out[,,i] <- monthly[,]
+        sub <- rain[,s:e]
+        monthly <- rowSums(sub, na.rm=T)
+        out[,i] <- monthly
     }
     
     ### actual precip
     act <- out
-    dims <- dim(act)
-    dim(act) <- c(prod(dims[1:2]), dims[3])
     
     ### calculate actual - potential for each month
     diff <- act - pet

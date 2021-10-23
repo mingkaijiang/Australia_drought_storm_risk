@@ -68,9 +68,9 @@ calculate_saturated_vapor_pressure_based_on_Tmax_Adriano(sourceDir = "input/Adri
 ### 6.2. Calculate VPD based on ES and EA
 ####     Note: check back - VPD range - 30 to + 6, possibly not right !!!!
 calculate_VPD_based_on_es_and_vp3pm_Adriano(sourceDir = "input/Adriano",
-                                    destDir = "input/Adriano",
-                                    varName = "vpd",
-                                    user.region.name = "Adriano")
+                                            destDir = "input/Adriano",
+                                            varName = "vpd",
+                                            user.region.name = "Adriano")
 
 
 ##### 7. Calculate PET minus P
@@ -102,4 +102,11 @@ calculate_PD_based_on_PET_Adriano(sourceDir = "input/Adriano",
 
 
 ### calculate mean rainfall for each location
-calculate_MAP_for_Adirano_locations()
+siteDF <- calculate_MAP_for_Adirano_locations(siteDF=siteDF)
+
+siteDF <- calculate_MAP_in_2020_for_Adirano_locations(siteDF=siteDF)
+
+siteDF <- calculate_deficit_for_Adriano_locations(siteDF=siteDF)
+
+
+write.csv(siteDF, "output/Adriano/site_rainfall_Adrinao.csv", row.names=F)

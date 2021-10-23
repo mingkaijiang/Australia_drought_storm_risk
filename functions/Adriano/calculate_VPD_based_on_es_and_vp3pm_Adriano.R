@@ -10,14 +10,9 @@ calculate_VPD_based_on_es_and_vp3pm_Adriano <- function (sourceDir,
     
     ### dataset es has temporal coverage: 19110101 to 20200331
     ### dataset vp3pm has temporal coverage: 19710101 to 20200331
-    vp.length <- dim(vp3pm)[3]
-    es.length <- dim(es)[3]
-    
-    s.pos <- es.length - vp.length + 1
-    e.pos <- es.length
     
     ### subset
-    es.sub <- es[,,s.pos:e.pos]
+    es.sub <- es
     
     ### matrix deletion
     ### following Monteith and Unsworth (1990):

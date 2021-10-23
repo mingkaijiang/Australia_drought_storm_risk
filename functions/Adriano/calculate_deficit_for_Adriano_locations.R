@@ -1,14 +1,14 @@
-calculate_MAP_for_Adirano_locations <- function(siteDF) {
+calculate_deficit_for_Adriano_locations <- function(siteDF) {
     
     ### read input
-    myDF <- readRDS("input/Adriano/rain_Adriano_sites.rds")
+    myDF <- readRDS("input/Adriano/pd_Adriano_sites.rds")
     
     
     ### convert rain daily data into monthly data
     ### prepare all input file path
     dayDF <- data.frame(seq.Date(as.Date("1971/01/01"), 
                                  as.Date("2020/11/30"), 
-                                 by="day"),
+                                 by="month"),
                         NA, NA, NA, NA)
     colnames(dayDF) <- c("Date", "Year", "Month", "YearMonth", "loc")
     dayDF$Year <- year(dayDF$Date)
@@ -31,16 +31,16 @@ calculate_MAP_for_Adirano_locations <- function(siteDF) {
     }
     
     ### prepare a storage DF for monthly total
-    n.month <- dim(indexDF)[1]
-    out <- array(NA, c(15, n.month))
+    n.yr <- dim(indexDF)[1]
+    out <- array(NA, c(15, n.yr))
     
-    ### Calculate monthly mean
-    for (i in 1:n.month) {
+    ### Calculate annual total
+    for (i in 1:n.yr) {
         s <- indexDF$s[i]
         e <- indexDF$e[i]
         sub <- myDF[,s:e]
-        monthly <- rowSums(sub, na.rm=T)
-        out[,i] <- monthly
+        annual <- rowSums(sub, na.rm=T)
+        out[,i] <- annual
     }
     
     
@@ -59,11 +59,14 @@ calculate_MAP_for_Adirano_locations <- function(siteDF) {
     mapDF2 <- rowMeans(subDF, na.rm=T)
     
     ### assign
-    siteDF$MAP <- mapDF
+    siteDF$PD <- mapDF
     
-    siteDF$MAP_2yr_to_2020 <- mapDF2
+    siteDF$PD_2yr_to_2020 <- mapDF2
     
     return(siteDF)
     
 }
+
+
+
     

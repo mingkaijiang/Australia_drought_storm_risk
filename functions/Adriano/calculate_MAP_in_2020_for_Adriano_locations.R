@@ -1,17 +1,10 @@
-calculate_PET_based_on_Tmax_Adriano <- function (sourceDir,
-                                                 destDir,
-                                                 varName,
-                                                 siteDF,
-                                                 user.region.name) {
+calculate_MAP_in_2020_for_Adirano_locations <- function(siteDF) {
     
-    ### read in the R database
-    myData <- readRDS(paste0(sourceDir, "/tmax_", user.region.name, "_sites.rds"))
-    
-    dim1 <- dim(myData)[1]
-    dim2 <- dim(myData)[2]
-    dim3 <- dim(myData)[3]
+    ### read input
+    myDF <- readRDS("input/Adriano/rain_Adriano_sites.rds")
     
     
+    ### convert rain daily data into monthly data
     ### prepare all input file path
     dayDF <- data.frame(seq.Date(as.Date("1971/01/01"), 
                                  as.Date("2020/11/30"), 
@@ -22,6 +15,7 @@ calculate_PET_based_on_Tmax_Adriano <- function (sourceDir,
     dayDF$Month <- month(dayDF$Date)
     dayDF$YearMonth <- substr(dayDF$Date, 1, 7)
     dayDF$loc <- c(1:nrow(dayDF))
+    
     
     ### prepare index file
     indexDF <- data.frame(unique(dayDF$YearMonth), NA, NA)
@@ -38,32 +32,32 @@ calculate_PET_based_on_Tmax_Adriano <- function (sourceDir,
     
     ### prepare a storage DF for monthly average Tmax
     n.month <- dim(indexDF)[1]
-    out <- array(NA, c(dim1, 
-                       n.month))
+    out <- array(NA, c(15, n.month))
     
     ### Calculate monthly mean
     for (i in 1:n.month) {
         s <- indexDF$s[i]
         e <- indexDF$e[i]
-        sub <- myData[,s:e]
-        monthly <- rowMeans(sub, 
-                            na.rm=T)
+        sub <- myDF[,s:e]
+        monthly <- rowSums(sub, na.rm=T)
         out[,i] <- monthly
     }
     
     
-    ### prepare storageDF for PET
-    pet <- array(NA, c(dim1, n.month))
-
-    test <- out
+    ### subset the last 11 months
+    outDF <- out[,589:599]
     
-    for (i in 1:dim1) {
-        lat <- siteDF$Lat[i]
-        Tave <- test[i,]
-        pet[i,] <- thornthwaite(Tave, lat, na.rm=T)
-    }
     
-    ### save output
-    saveRDS(pet, file=paste0(destDir, "/", varName, "_", user.region.name, "_sites.rds"))
+    ### calculate MAP
+    mapDF <- rowSums(outDF, na.rm=T)
+    
+    ### assign
+    siteDF$MAP_in_2020 <- mapDF
+    
+    return(siteDF)
     
 }
+
+
+
+    

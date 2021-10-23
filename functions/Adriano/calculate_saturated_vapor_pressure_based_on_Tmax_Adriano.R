@@ -7,11 +7,6 @@ calculate_saturated_vapor_pressure_based_on_Tmax_Adriano <- function (sourceDir,
     ### read in the R database
     myData <- readRDS(paste0(sourceDir, "/tmax_", user.region.name, "_sites.rds"))
     
-    ### dimension information
-    dim1 <- dim(myData)[1]
-    dim2 <- dim(myData)[2]
-    dim3 <- dim(myData)[3]
-    
     ### equation for es:
     ### es = 0.6108 * exp(17.27 * (Tair/(Tair+237.3)))
     
