@@ -18,11 +18,11 @@ read_in_sites_and_convert_to_AWAP <- function() {
     
     ### round to the nearest 0.05
     siteDF$lat3 <- ifelse(siteDF$lat2>=-0.025, -0.025, 
-                          ifelse(siteDF$lat2<-0.075, -0.125, -0.075))
-    
+                          ifelse(siteDF$lat2<(-0.075), -0.125, -0.075))
     
     siteDF$lon3 <- ifelse(siteDF$lon2>=0.075, 0.075, 
                           ifelse(siteDF$lon2<0.075, -0.125, 0.025))
+    
     
     siteDF$lat4 <- as.numeric(siteDF$lat1)+siteDF$lat3
     siteDF$lon4 <- as.numeric(siteDF$lon1)+siteDF$lon3
