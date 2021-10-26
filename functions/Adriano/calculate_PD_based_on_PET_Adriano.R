@@ -39,7 +39,7 @@ calculate_PD_based_on_PET_Adriano <- function (sourceDir,
     
     ### prepare a storage DF for monthly average Tmax
     n.month <- dim(indexDF)[1]
-    out <- array(NA, c(dim1, n.month))
+    out <- array(NA, c(15, n.month))
     
     ### Calculate monthly mean
     for (i in 1:n.month) {

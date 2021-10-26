@@ -1,7 +1,7 @@
 read_in_sites_and_convert_to_AWAP <- function() {
     
     ### read in sites
-    siteDF <- read.csv("input/Adriano_Sites.csv", sep=";")
+    siteDF <- read.csv("input/Adriano_Sites.csv")
     colnames(siteDF) <- c("Region", "Site", "Site_Lat", "Site_Lon")
     
     ### split the lon and lat
